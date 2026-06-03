@@ -47,10 +47,11 @@ const edges = [
 ];
 
 function getEdgeIcon(iconId: string | null, fallback: string): string {
-  if (!iconId) return fallback;
+  if (!iconId) {
+    return `<span class="edge-icon-fallback" style="color:#00e676;">${fallback}</span>`;
+  }
   const path = getMmxAsset(iconId as any);
-  return `<img data-mmx-generated="${iconId}" src="${path}" alt="" loading="lazy" width="24" height="24" class="object-contain" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
-    <span class="icon-fallback hidden" style="display:flex;color:#00e676;">${fallback}</span>`;
+  return `<img data-mmx-generated="${iconId}" src="${path}" alt="" loading="lazy" width="24" height="24" class="edge-icon-img object-contain" onerror="this.classList.add('failed');"/><span class="edge-icon-fallback" style="color:#00e676;">${fallback}</span>`;
 }
 ---
 
@@ -132,6 +133,22 @@ function getEdgeIcon(iconId: string | null, fallback: string): string {
 
   .edge-check.is-popped {
     transform: scale(1);
+  }
+
+  /* Icon: img visible by default, fallback hidden until img fails */
+  .edge-icon-img {
+    display: block;
+  }
+  .edge-icon-fallback {
+    display: none;
+    align-items: center;
+    justify-content: center;
+  }
+  .edge-icon-img.failed {
+    display: none;
+  }
+  .edge-icon-img.failed + .edge-icon-fallback {
+    display: flex;
   }
 </style>
 

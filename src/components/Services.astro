@@ -105,10 +105,12 @@ const iconPaths = {
               loading="lazy"
               width="64"
               height="64"
-              class="w-10 h-10 object-contain"
-              onerror={`this.style.display='none';this.nextElementSibling.style.display='flex'`}
+              class="service-icon-img w-10 h-10 object-contain"
+              onerror="this.classList.add('failed');"
             />
-            <span class="icon-fallback hidden" style={`color: ${service.color}; display: flex;`}
+            <span
+              class="service-icon-fallback"
+              style={`color: ${service.color};`}
               set:html={service.iconFallback}
             />
           </div>
@@ -142,6 +144,22 @@ const iconPaths = {
 
   .service-card:hover .service-icon-wrap {
     box-shadow: 0 0 24px rgba(0, 102, 255, 0.4);
+  }
+
+  /* Icon: img visible by default, fallback hidden until img fails */
+  .service-icon-img {
+    display: block;
+  }
+  .service-icon-fallback {
+    display: none;
+  }
+  .service-icon-img.failed {
+    display: none;
+  }
+  .service-icon-img.failed + .service-icon-fallback {
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   /* Sticky pin container — wraps the grid during pin */
