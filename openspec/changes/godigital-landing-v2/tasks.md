@@ -531,7 +531,7 @@ Chain strategy: feature-branch-chain
 **Base**: `feat/v2-foundation` (PR1)
 
 ### T3.1 [code] Update src/components/Services.astro
-- **Files**: `src/components/Services.astro`
+- [x] **Files**: `src/components/Services.astro`
 - **LOC Δ**: +127
 - **Dependencies**: T1.19
 - **Risk**: Medium
@@ -542,7 +542,7 @@ Chain strategy: feature-branch-chain
   - Sticky-pin wrapper with `#services` id
 
 ### T3.2 [code] Implement services.ts: ScrollTrigger pin + multi-vector entrance
-- **Files**: `src/scripts/animations/services.ts`
+- [x] **Files**: `src/scripts/animations/services.ts`
 - **LOC Δ**: +55 (already created in T1.9, this is implementation completion)
 - **Dependencies**: T3.1 (DOM elements exist)
 - **Risk**: Medium
@@ -552,7 +552,7 @@ Chain strategy: feature-branch-chain
   - Pin disabled `<768px`
 
 ### T3.3 [code] Update src/components/BoutiqueEdge.astro
-- **Files**: `src/components/BoutiqueEdge.astro`
+- [x] **Files**: `src/components/BoutiqueEdge.astro`
 - **LOC Δ**: +109
 - **Dependencies**: T1.19
 - **Risk**: Medium
@@ -563,7 +563,7 @@ Chain strategy: feature-branch-chain
   - Curtain-wipe entry from left
 
 ### T3.4 [code] Update src/components/Process.astro
-- **Files**: `src/components/Process.astro`
+- [x] **Files**: `src/components/Process.astro`
 - **LOC Δ**: +167
 - **Dependencies**: T1.19
 - **Risk**: Medium
@@ -574,7 +574,7 @@ Chain strategy: feature-branch-chain
   - Word-by-word reveal via `.word` spans
 
 ### T3.5 [code] Implement process.ts: line + circles + typewriter
-- **Files**: `src/scripts/animations/process.ts`
+- [x] **Files**: `src/scripts/animations/process.ts`
 - **LOC Δ**: +50 (already created in T1.10, this is implementation completion)
 - **Dependencies**: T3.4 (DOM elements exist)
 - **Risk**: Medium
@@ -585,7 +585,7 @@ Chain strategy: feature-branch-chain
   - Mobile: IntersectionObserver instead of scroll scrub
 
 ### T3.6 [code] Wire curtain transition between Services → BoutiqueEdge
-- **Files**: `src/scripts/animations/scroll.ts`, `src/components/BoutiqueEdge.astro`
+- [x] **Files**: `src/scripts/animations/scroll.ts`, `src/components/BoutiqueEdge.astro`
 - **LOC Δ**: +20
 - **Dependencies**: T0.6 (curtain asset), T3.1, T3.3
 - **Risk**: Low
@@ -595,7 +595,7 @@ Chain strategy: feature-branch-chain
   - ENABLE_MMX_CURTAIN=true swaps in video element
 
 ### T3.7 [verify] Sticky-pin works desktop, disabled mobile
-- **Files**: `src/components/Services.astro`, `src/scripts/animations/services.ts`
+- [x] **Files**: `src/components/Services.astro`, `src/scripts/animations/services.ts`
 - **LOC Δ**: 0
 - **Dependencies**: T3.1, T3.2
 - **Risk**: Medium
@@ -603,9 +603,10 @@ Chain strategy: feature-branch-chain
   - Desktop: Services section pins for 600px scroll, cards animate
   - Mobile (Chrome DevTools 375px): no pin, cards fade-up with stagger
   - No JS errors on mobile
+  - Note: Desktop-only sticky-pin via `ctx.isDesktop` guard; mobile gets simple fade-up.
 
 ### T3.8 [chore] Commit PR3 branch: feat/v2-services-process
-- **Files**: `src/components/Services.astro`, `src/components/BoutiqueEdge.astro`, `src/components/Process.astro`, `src/scripts/animations/services.ts`, `src/scripts/animations/process.ts`
+- [x] **Files**: `src/components/Services.astro`, `src/components/BoutiqueEdge.astro`, `src/components/Process.astro`, `src/scripts/animations/services.ts`, `src/scripts/animations/process.ts`
 - **LOC Δ**: ~+400
 - **Dependencies**: T3.7
 - **Risk**: Low
