@@ -10,6 +10,7 @@ import { getMmxAsset } from '../lib/mmx-assets';
 const services = [
   {
     title: 'UX/UI Design',
+    subtitle: 'Diseño centrado en el usuario',
     desc: 'Diseñamos experiencias digitales intuitivas y atractivas. Investigación de usuarios, wireframes, prototipos interactivos y sistemas de diseño coherentes.',
     iconId: 'icon-ux-ui',
     iconFallback: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
@@ -22,6 +23,7 @@ const services = [
   },
   {
     title: 'Web Development',
+    subtitle: 'Stack moderno y escalable',
     desc: 'Construimos aplicaciones web robustas con tecnologías modernas. Rendimiento, accesibilidad y SEO desde el primer commit.',
     iconId: 'icon-web',
     iconFallback: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
@@ -33,6 +35,7 @@ const services = [
   },
   {
     title: 'Mobile Apps',
+    subtitle: 'Apps nativas e híbridas',
     desc: 'Desarrollamos apps nativas y cross-platform que tus usuarios amarán. Experiencias fluidas con el mejor rendimiento en cada dispositivo.',
     iconId: 'icon-mobile',
     iconFallback: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
@@ -44,6 +47,7 @@ const services = [
   },
   {
     title: 'SEO Técnico',
+    subtitle: 'Visibilidad en buscadores',
     desc: 'Optimizamos tu presencia digital con estrategias de SEO técnico. Velocidad, estructura, datos estructurados y visibilidad en buscadores.',
     iconId: 'icon-seo',
     iconFallback: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
@@ -110,7 +114,8 @@ const iconPaths = {
           </div>
 
           <!-- Text -->
-          <h3 class="text-xl md:text-2xl font-bold mb-3">{service.title}</h3>
+          <h3 class="text-xl md:text-2xl font-bold mb-1">{service.title}</h3>
+          <p class="service-subtitle text-primary text-sm md:text-base font-semibold mb-3 tracking-wide">{service.subtitle}</p>
           <p class="text-on-surface-variant text-sm md:text-base leading-relaxed">{service.desc}</p>
         </article>
       ))}
