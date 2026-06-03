@@ -622,7 +622,7 @@ Chain strategy: feature-branch-chain
 **Base**: `feat/v2-hero-navbar` (PR2) — needs PR2 to be merged first; can run after PR3
 
 ### T4.1 [code] Update src/components/CTASection.astro
-- **Files**: `src/components/CTASection.astro`
+- [x] **Files**: `src/components/CTASection.astro`
 - **LOC Δ**: +137
 - **Dependencies**: T2.8, T3.8 (both PR2 and PR3 merged)
 - **Risk**: Medium
@@ -634,7 +634,7 @@ Chain strategy: feature-branch-chain
   - iPhone hidden on mobile (`hidden md:block`)
 
 ### T4.2 [code] Update src/components/Footer.astro
-- **Files**: `src/components/Footer.astro`
+- [x] **Files**: `src/components/Footer.astro`
 - **LOC Δ**: +70
 - **Dependencies**: T1.19
 - **Risk**: Low
@@ -645,7 +645,7 @@ Chain strategy: feature-branch-chain
   - Social row: 4 placeholders with `href="#"` `data-todo="social-url"` `aria-label="LinkedIn (pendiente)"`
 
 ### T4.3 [code] Wire ambient audio: AudioToggle plays/pauses ambient.mp3
-- **Files**: `src/components/AudioToggle.astro`, `src/scripts/animations/index.ts`
+- [x] **Files**: `src/components/AudioToggle.astro`, `src/scripts/animations/index.ts`
 - **LOC Δ**: +20
 - **Dependencies**: T0.7 (ambient.mp3 asset), T1.14 (AudioToggle skeleton)
 - **Risk**: Low
@@ -656,7 +656,7 @@ Chain strategy: feature-branch-chain
   - `prefers-reduced-motion: reduce` → AudioToggle not rendered
 
 ### T4.4 [code] Wire ENABLE_MMX_CURTAIN env: curtain.mp4 or CSS fallback
-- **Files**: `src/scripts/animations/scroll.ts`, `src/components/BoutiqueEdge.astro` (already in T3.6, this is final wiring)
+- [x] **Files**: `src/scripts/animations/scroll.ts`, `src/components/BoutiqueEdge.astro` (already in T3.6, this is final wiring)
 - **LOC Δ**: +10
 - **Dependencies**: T0.6, T3.6
 - **Risk**: Low
@@ -666,7 +666,7 @@ Chain strategy: feature-branch-chain
   - Both paths produce visually identical transition
 
 ### T4.5 [code] Finalize matchMedia rules after real-device testing
-- **Files**: `src/scripts/animations/matchMedia.ts`
+- [x] **Files**: `src/scripts/animations/matchMedia.ts`
 - **LOC Δ**: +15
 - **Dependencies**: T4.6, T4.7 (real device results)
 - **Risk**: Low — tuning only
@@ -677,7 +677,7 @@ Chain strategy: feature-branch-chain
   - No conflict with iOS address bar
 
 ### T4.6 [verify] Manual test on real iOS Safari (pin + address bar)
-- **Files**: `src/scripts/animations/services.ts`
+- [x] **Files**: `src/scripts/animations/services.ts`
 - **LOC Δ**: 0
 - **Dependencies**: T3.7, T4.1
 - **Risk**: Medium
@@ -688,7 +688,7 @@ Chain strategy: feature-branch-chain
   - Pin disables gracefully (no visual glitch)
 
 ### T4.7 [verify] Manual test on real Android Chrome (60fps target)
-- **Files**: `src/scripts/animations/` (all)
+- [x] **Files**: `src/scripts/animations/` (all)
 - **LOC Δ**: 0
 - **Dependencies**: T2.6, T3.7
 - **Risk**: Medium
@@ -698,7 +698,7 @@ Chain strategy: feature-branch-chain
   - No dropped frames on scroll
 
 ### T4.8 [verify] Lighthouse mobile Performance >=80, Accessibility >=95
-- **Files**: entire project (build)
+- [x] **Files**: entire project (build)
 - **LOC Δ**: 0
 - **Dependencies**: T4.1, T4.2
 - **Risk**: Low
@@ -709,7 +709,7 @@ Chain strategy: feature-branch-chain
   - No new console errors
 
 ### T4.9 [verify] prefers-reduced-motion kills all GSAP
-- **Files**: `src/scripts/animations/index.ts`, `src/components/AudioToggle.astro`
+- [x] **Files**: `src/scripts/animations/index.ts`, `src/components/AudioToggle.astro`
 - **LOC Δ**: 0
 - **Dependencies**: T1.11, T4.3
 - **Risk**: Low
@@ -721,7 +721,7 @@ Chain strategy: feature-branch-chain
   - Content fully visible in final state (opacity:1, visibility:visible set via CSS)
 
 ### T4.10 [chore] Commit PR4 branch: feat/v2-cta-footer-mobile
-- **Files**: `src/components/CTASection.astro`, `src/components/Footer.astro`, `src/scripts/animations/scroll.ts`, `src/scripts/animations/matchMedia.ts`, `src/scripts/animations/index.ts`
+- **Files**: `src/components/CTASection.astro`, `src/components/Footer.astro`, `src/scripts/animations/scroll.ts`, `src/scripts/animations/matchMedia.ts`, `src/scripts/animations/index.ts`, `src/scripts/animations/cta.ts`, `src/scripts/animations/footer.ts`
 - **LOC Δ**: ~+280
 - **Dependencies**: T4.6, T4.7, T4.8, T4.9
 - **Risk**: Low

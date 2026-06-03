@@ -14,6 +14,8 @@ import { initMagnetic } from './magnetic';
 import { initHero } from './hero';
 import { initServices } from './services';
 import { initProcess } from './process';
+import { initCTA } from './cta';
+import { initFooter } from './footer';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -41,10 +43,12 @@ export function initAnimations(): void {
   initParticles({ count: ctx.particleCount, blur: ctx.orbBlur });
   initMagnetic();
 
-  // Section-specific (stubs in PR1, real impl in later PRs)
+  // Section-specific
   initHero();
   initServices();
   initProcess();
+  initCTA();
+  initFooter();
 
   // Refresh ScrollTrigger after all animations are registered
   if (typeof window !== 'undefined' && (window as any).ScrollTrigger) {

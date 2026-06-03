@@ -54,16 +54,21 @@ export function initScroll(): void {
 // ── Curtain Transition ────────────────────────────────────────────────────────
 
 /**
- * ENABLE_MMX_CURTAIN:
- * If true, would load /assets/generated/curtain.mp4 here and play it as
- * a video-backed wipe. Currently CSS-only clip-path is the primary path.
+ * ENABLE_MMX_CURTAIN env wiring:
+ * - Default (false): CSS clip-path wipe (always active)
+ * - Set ENABLE_MMX_CURTAIN=true in .env to opt into curtain.mp4 video
+ *   (requires T0.6 asset — mmx quota may be exhausted)
+ *
+ * Current behavior: CSS clip-path wipe is the primary path.
+ * The video path is a future opt-in when mmx quota is available.
  *
  * To enable video curtain:
  *   1. Set ENABLE_MMX_CURTAIN=true in .env
  *   2. Ensure assets/generated/curtain.mp4 exists (T0.6 — Hailuo-02)
- *   3. Swap the CSS wipe below for a <video> element with play()/pause()
+ *   3. Wire a <video> element with autoplay/muted/loop and gsap sync
+ *
+ * CSS clip-path wipe is always active regardless of this env var.
  */
-const ENABLE_MMX_CURTAIN = false; // @todo: wire to import.meta.env.ENABLE_MMX_CURTAIN
 
 let curtainAnimating = false;
 
