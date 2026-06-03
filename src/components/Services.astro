@@ -1,34 +1,67 @@
 ---
+/**
+ * Services.astro — v2 Services section with sticky-pin and multi-vector card entrance
+ *
+ * 4 service cards with mmx icons, hover glow, and sticky-pin on desktop.
+ * Cards enter from alternating x/y vectors (ScrollTrigger scrub).
+ */
+import { getMmxAsset } from '../lib/mmx-assets';
+
 const services = [
   {
-    title: 'UX / UI Design',
+    title: 'UX/UI Design',
     desc: 'Diseñamos experiencias digitales intuitivas y atractivas. Investigación de usuarios, wireframes, prototipos interactivos y sistemas de diseño coherentes.',
-    icon: 'layers',
+    iconId: 'icon-ux-ui',
+    iconFallback: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+      <path d="M2 17l10 5 10-5"/>
+      <path d="M2 12l10 5 10-5"/>
+    </svg>`,
     color: '#0066ff',
     bgColor: 'rgba(0, 102, 255, 0.12)',
   },
   {
-    title: 'Desarrollo Web',
+    title: 'Web Development',
     desc: 'Construimos aplicaciones web robustas con tecnologías modernas. Rendimiento, accesibilidad y SEO desde el primer commit.',
-    icon: 'code',
+    iconId: 'icon-web',
+    iconFallback: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="16 18 22 12 16 6"/>
+      <polyline points="8 6 2 12 8 18"/>
+    </svg>`,
     color: '#7c3aed',
     bgColor: 'rgba(124, 58, 237, 0.12)',
   },
   {
-    title: 'App Mobile',
+    title: 'Mobile Apps',
     desc: 'Desarrollamos apps nativas y cross-platform que tus usuarios amarán. Experiencias fluidas con el mejor rendimiento en cada dispositivo.',
-    icon: 'smartphone',
+    iconId: 'icon-mobile',
+    iconFallback: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="5" y="2" width="14" height="20" rx="2" ry="2"/>
+      <line x1="12" y1="18" x2="12.01" y2="18"/>
+    </svg>`,
     color: '#06b6d4',
     bgColor: 'rgba(6, 182, 212, 0.12)',
   },
   {
     title: 'SEO Técnico',
     desc: 'Optimizamos tu presencia digital con estrategias de SEO técnico. Velocidad, estructura, datos estructurados y visibilidad en buscadores.',
-    icon: 'globe',
+    iconId: 'icon-seo',
+    iconFallback: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="10"/>
+      <line x1="2" y1="12" x2="22" y2="12"/>
+      <path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/>
+    </svg>`,
     color: '#00e676',
     bgColor: 'rgba(0, 230, 118, 0.12)',
   },
 ];
+
+const iconPaths = {
+  'icon-ux-ui': getMmxAsset('icon-ux-ui'),
+  'icon-web': getMmxAsset('icon-web'),
+  'icon-mobile': getMmxAsset('icon-mobile'),
+  'icon-seo': getMmxAsset('icon-seo'),
+};
 ---
 
 <section
@@ -54,38 +87,26 @@ const services = [
           class="service-card glass-card p-8 md:p-10 flex flex-col"
           data-reveal="service-card"
           data-index={i}
+          data-depth={i + 1}
         >
           <!-- Icon container -->
           <div
-            class="w-14 h-14 rounded-[var(--radius-lg)] flex items-center justify-center mb-6"
+            class="service-icon-wrap w-16 h-16 rounded-[var(--radius-lg)] flex items-center justify-center mb-6 transition-all duration-300"
             style={`background: ${service.bgColor};`}
           >
-            {service.icon === 'layers' && (
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke={service.color} stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 2L2 7l10 5 10-5-10-5z" />
-                <path d="M2 17l10 5 10-5" />
-                <path d="M2 12l10 5 10-5" />
-              </svg>
-            )}
-            {service.icon === 'code' && (
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke={service.color} stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="16 18 22 12 16 6" />
-                <polyline points="8 6 2 12 8 18" />
-              </svg>
-            )}
-            {service.icon === 'smartphone' && (
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke={service.color} stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="5" y="2" width="14" height="20" rx="2" ry="2" />
-                <line x1="12" y1="18" x2="12.01" y2="18" />
-              </svg>
-            )}
-            {service.icon === 'globe' && (
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke={service.color} stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="10" />
-                <line x1="2" y1="12" x2="22" y2="12" />
-                <path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z" />
-              </svg>
-            )}
+            <img
+              data-mmx-generated={service.iconId}
+              src={iconPaths[service.iconId as keyof typeof iconPaths]}
+              alt={service.title}
+              loading="lazy"
+              width="64"
+              height="64"
+              class="w-10 h-10 object-contain"
+              onerror={`this.style.display='none';this.nextElementSibling.style.display='flex'`}
+            />
+            <span class="icon-fallback hidden" style={`color: ${service.color}; display: flex;`}
+              set:html={service.iconFallback}
+            />
           </div>
 
           <!-- Text -->
@@ -96,3 +117,30 @@ const services = [
     </div>
   </div>
 </section>
+
+<style>
+  .service-card {
+    transition:
+      transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+      box-shadow 0.35s ease,
+      border-color 0.35s ease;
+    will-change: transform;
+  }
+
+  .service-card:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow:
+      0 30px 80px rgba(0, 0, 0, 0.5),
+      inset 0 1px 1px rgba(255, 255, 255, 0.08),
+      0 0 0 1px var(--color-primary);
+  }
+
+  .service-card:hover .service-icon-wrap {
+    box-shadow: 0 0 24px rgba(0, 102, 255, 0.4);
+  }
+
+  /* Sticky pin container — wraps the grid during pin */
+  #services {
+    position: relative;
+  }
+</style>

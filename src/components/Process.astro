@@ -1,4 +1,12 @@
 ---
+/**
+ * Process.astro — v2 scroll-scrubbed timeline
+ *
+ * - Vertical line that scales 0→1 in Y as user scrolls
+ * - 3 numbered circles that rotate 0→360deg as line grows
+ * - SVG fluid bezier curves connecting steps
+ * - Step text: fade-up with subtle typewriter effect
+ */
 const steps = [
   {
     num: '01',
@@ -36,34 +44,60 @@ const steps = [
 
     <!-- Timeline -->
     <div class="relative flex flex-col items-center max-w-3xl mx-auto">
-      <!-- Connecting line -->
+
+      <!-- SVG fluid bezier connecting curves (behind the line) -->
+      <svg
+        class="process-curves absolute pointer-events-none"
+        style="top:0;left:50%;transform:translateX(-50%);height:100%;width:100%;max-width:3rem;"
+        viewBox="0 0 48 100"
+        preserveAspectRatio="none"
+        aria-hidden="true"
+      >
+        <!-- Bezier curves between steps -->
+        <defs>
+          <linearGradient id="lineGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#0066ff" stop-opacity="0.8"/>
+            <stop offset="100%" stop-color="#0066ff" stop-opacity="0.3"/>
+          </linearGradient>
+        </defs>
+        <!-- Connecting fluid curve -->
+        <path
+          d="M24 10 C 24 30, 20 45, 24 60 C 28 75, 24 80, 24 90"
+          fill="none"
+          stroke="url(#lineGrad)"
+          stroke-width="2"
+          stroke-linecap="round"
+        />
+      </svg>
+
+      <!-- Connecting line (scales 0→1 from top) -->
       <div
-        class="process-line absolute top-0 w-0.5 bg-primary/20"
-        style="height: calc(100% - 2rem);"
+        class="process-line absolute left-1/2 top-0 w-0.5 -translate-x-1/2 origin-top"
+        style="height: calc(100% - 2rem); background: linear-gradient(180deg, rgba(0,102,255,0.8) 0%, rgba(0,102,255,0.3) 100%);"
       ></div>
 
       <!-- Steps -->
-      <div class="flex flex-col gap-12 md:gap-16 w-full">
+      <div class="flex flex-col gap-12 md:gap-16 w-full relative z-10">
         {steps.map((step, i) => (
           <div
             class="process-step relative flex items-start gap-5 md:gap-8"
             data-reveal="process-step"
             data-index={i}
           >
-            <!-- Numbered circle -->
-            <div class="relative z-10 shrink-0">
+            <!-- Numbered circle (rotates 0→360 as line grows) -->
+            <div class="relative z-10 shrink-0 flex items-center justify-center">
               <div
-                class="w-12 h-12 md:w-16 md:h-16 rounded-full flex items-center justify-center border-2"
-                style="border-color: rgba(0, 102, 255, 0.3); background: var(--color-surface-dim); box-shadow: 0 0 24px rgba(0, 102, 255, 0.15);"
+                class="process-circle w-12 h-12 md:w-16 md:h-16 rounded-full flex items-center justify-center border-2"
+                style="border-color: rgba(0, 102, 255, 0.4); background: var(--color-surface-dim); box-shadow: 0 0 24px rgba(0, 102, 255, 0.15), inset 0 0 12px rgba(0, 102, 255, 0.1);"
               >
                 <span class="text-primary font-bold text-sm md:text-lg">{step.num}</span>
               </div>
             </div>
 
-            <!-- Content -->
+            <!-- Content with typewriter words -->
             <div class="flex-1 pt-2 md:pt-3">
-              <h3 class="text-xl md:text-2xl font-bold mb-2">{step.title}</h3>
-              <p class="text-on-surface-variant text-sm md:text-base leading-relaxed">{step.desc}</p>
+              <h3 class="process-step-title text-xl md:text-2xl font-bold mb-2">{step.title}</h3>
+              <p class="process-step-text text-on-surface-variant text-sm md:text-base leading-relaxed">{step.desc}</p>
             </div>
           </div>
         ))}
@@ -71,3 +105,10 @@ const steps = [
     </div>
   </div>
 </section>
+
+<style>
+  .process-circle {
+    will-change: transform;
+    transform: rotate(0deg);
+  }
+</style>
