@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>GoDigital — 3 Señales de que tu web ya no sirve</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" crossorigin="anonymous">
+  <style>
+    :root {
+      --bg-deep: #06080d;
+      --bg: #111417;
+      --primary: #0066ff;
+      --primary-glow: rgba(0, 102, 255, 0.55);
+      --text: #ffffff;
+      --text-dim: #e1e2e8;
+      --text-muted: rgba(255, 255, 255, 0.35);
+      --glass-bg: rgba(8, 10, 16, 0.55);
+      --glass-border: rgba(255, 255, 255, 0.08);
+      --danger: #ff2244;
+      --danger-glow: rgba(255, 34, 68, 0.6);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg-deep);
+      overflow: hidden;
+      color: var(--text);
+    }
+
+    [data-composition-id="3-senales-web"] {
+      width: 1080px;
+      height: 1920px;
+      position: relative;
+      background: radial-gradient(ellipse 80% 60% at 50% 45%, rgba(0, 70, 180, 0.12) 0%, transparent 70%),
+                  var(--bg-deep);
+    }
+
+    /* ═══ BACKGROUND AMBIENT ORBS ═══ */
+    .bg-ambient {
+      position: absolute; top: 0; left: 0;
+      width: 100%; height: 100%; z-index: 0;
+      pointer-events: none;
+    }
+    .bg-orb {
+      position: absolute;
+      width: 400px; height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0,102,255,0.08) 0%, transparent 70%);
+      filter: blur(80px);
+      will-change: transform;
+    }
+    .bg-orb.a { top: 5%; left: -15%; }
+    .bg-orb.b { top: 55%; right: -20%; }
+
+    /* ═══ PARTICLES ═══ */
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.7);
+      will-change: transform, opacity;
+      pointer-events: none;
+    }
+
+    /* ═══ TRANSITION FLASH OVERLAY ═══ */
+    .transition-flash {
+      position: absolute; top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(8, 30, 70, 0.55);
+      z-index: 50;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* ═══ SCENE COMMON ═══ */
+    .scene {
+      position: absolute; top: 0; left: 0;
+      width: 100%; height: 100%;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      padding: 120px 80px;
+      box-sizing: border-box;
+    }
+
+    /* ═══ SCENE 1 — GLITCH HOOK (0s–2s) ═══ */
+    .glitch-container {
+      position: relative;
+      font-size: 72px;
+      font-weight: 800;
+      text-align: center;
+      line-height: 1.2;
+      max-width: 900px;
+      will-change: transform;
+    }
+    .glitch-layer {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      text-align: center;
+      will-change: transform, clip-path, opacity;
+    }
+    .glitch-white {
+      color: #ffffff;
+      position: relative;
+      z-index: 3;
+    }
+    .glitch-cyan {
+      color: #00ffff;
+      z-index: 2;
+      opacity: 0.85;
+    }
+    .glitch-red {
+      color: #ff0040;
+      z-index: 1;
+      opacity: 0.85;
+    }
+    .scan-lines {
+      position: absolute;
+      top: -20%; left: -10%;
+      width: 120%; height: 140%;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0, 0, 0, 0.15) 2px,
+        rgba(0, 0, 0, 0.15) 4px
+      );
+      z-index: 4;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    @keyframes glitch-shift-cyan {
+      0%   { transform: translate(-2px, 0); clip-path: inset(0 0 0 0); }
+      8%   { transform: translate(3px, 0); clip-path: inset(15% 0 70% 0); }
+      16%  { transform: translate(-1px, 0); clip-path: inset(40% 0 35% 0); }
+      24%  { transform: translate(2px, 0); clip-path: inset(65% 0 10% 0); }
+      32%  { transform: translate(-3px, 0); clip-path: inset(25% 0 50% 0); }
+      40%  { transform: translate(1px, 0); clip-path: inset(55% 0 20% 0); }
+      48%  { transform: translate(-2px, 0); clip-path: inset(10% 0 75% 0); }
+      56%  { transform: translate(3px, 0); clip-path: inset(70% 0 5% 0); }
+      64%  { transform: translate(-1px, 0); clip-path: inset(30% 0 45% 0); }
+      72%  { transform: translate(2px, 0); clip-path: inset(50% 0 25% 0); }
+      80%  { transform: translate(-3px, 0); clip-path: inset(5% 0 80% 0); }
+      88%  { transform: translate(1px, 0); clip-path: inset(60% 0 15% 0); }
+      96%  { transform: translate(-2px, 0); clip-path: inset(35% 0 40% 0); }
+      100% { transform: translate(0, 0); clip-path: inset(0 0 0 0); }
+    }
+    @keyframes glitch-shift-red {
+      0%   { transform: translate(2px, 0); clip-path: inset(0 0 0 0); }
+      8%   { transform: translate(-3px, 0); clip-path: inset(60% 0 20% 0); }
+      16%  { transform: translate(1px, 0); clip-path: inset(10% 0 70% 0); }
+      24%  { transform: translate(-2px, 0); clip-path: inset(45% 0 30% 0); }
+      32%  { transform: translate(3px, 0); clip-path: inset(5% 0 80% 0); }
+      40%  { transform: translate(-1px, 0); clip-path: inset(70% 0 5% 0); }
+      48%  { transform: translate(2px, 0); clip-path: inset(25% 0 50% 0); }
+      56%  { transform: translate(-3px, 0); clip-path: inset(50% 0 25% 0); }
+      64%  { transform: translate(1px, 0); clip-path: inset(15% 0 65% 0); }
+      72%  { transform: translate(-2px, 0); clip-path: inset(55% 0 15% 0); }
+      80%  { transform: translate(3px, 0); clip-path: inset(35% 0 45% 0); }
+      88%  { transform: translate(-1px, 0); clip-path: inset(65% 0 10% 0); }
+      96%  { transform: translate(2px, 0); clip-path: inset(20% 0 55% 0); }
+      100% { transform: translate(0, 0); clip-path: inset(0 0 0 0); }
+    }
+    @keyframes glitch-skew-whole {
+      0%   { transform: skew(0deg) translateX(0); }
+      10%  { transform: skew(-4deg) translateX(-2px); }
+      20%  { transform: skew(3deg) translateX(3px); }
+      30%  { transform: skew(-2deg) translateX(-1px); }
+      40%  { transform: skew(1deg) translateX(2px); }
+      50%  { transform: skew(-3deg) translateX(-3px); }
+      60%  { transform: skew(2deg) translateX(1px); }
+      70%  { transform: skew(-1deg) translateX(-2px); }
+      80%  { transform: skew(0.5deg) translateX(1px); }
+      90%  { transform: skew(-2deg) translateX(-1px); }
+      100% { transform: skew(0deg) translateX(0); }
+    }
+    @keyframes scan-line-flicker {
+      0%   { opacity: 0; }
+      5%   { opacity: 0.6; }
+      10%  { opacity: 0; }
+      15%  { opacity: 0.4; }
+      20%  { opacity: 0; }
+      25%  { opacity: 0.7; }
+      30%  { opacity: 0; }
+      40%  { opacity: 0.5; }
+      50%  { opacity: 0; }
+      60%  { opacity: 0.8; }
+      70%  { opacity: 0; }
+      80%  { opacity: 0.4; }
+      90%  { opacity: 0; }
+      100% { opacity: 0; }
+    }
+    /* Apply only when glitch-active class is present */
+    .glitch-active .glitch-cyan {
+      animation: glitch-shift-cyan 0.35s linear infinite;
+    }
+    .glitch-active .glitch-red {
+      animation: glitch-shift-red 0.4s linear infinite;
+    }
+    .glitch-active {
+      animation: glitch-skew-whole 0.8s ease-in-out infinite;
+    }
+    .glitch-active .scan-lines {
+      animation: scan-line-flicker 0.5s linear infinite;
+    }
+
+    /* ═══ SCENE 2 — GLASS CARD COUNTER (2s–5s) ═══ */
+    .scene-signal-card {
+      width: 860px;
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: 24px;
+      padding: 64px 56px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      box-shadow: 0 40px 100px rgba(0,0,0,0.6), inset 0 1px 1px rgba(255,255,255,0.08);
+      will-change: transform, opacity;
+    }
+    .signal-label {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      margin-bottom: 16px;
+      will-change: transform, opacity;
+    }
+    .signal-icon {
+      width: 72px; height: 72px;
+      margin-bottom: 24px;
+      will-change: transform, opacity;
+    }
+    .signal-icon svg {
+      width: 100%; height: 100%;
+    }
+    .signal-counter {
+      font-size: 120px;
+      font-weight: 800;
+      color: #ffffff;
+      line-height: 1;
+      font-variant-numeric: tabular-nums;
+      will-change: transform, opacity;
+      margin-bottom: 20px;
+    }
+    .signal-counter.red {
+      color: var(--danger);
+      text-shadow: 0 0 60px var(--danger-glow);
+    }
+    .signal-title {
+      font-size: 36px;
+      font-weight: 700;
+      color: var(--text);
+      text-align: center;
+      line-height: 1.3;
+      will-change: transform, opacity;
+    }
+
+    /* ═══ SCENE 3 — PHONE CARD (5s–9s) ═══ */
+    .phone-container {
+      position: relative;
+      width: 280px;
+      margin-bottom: 28px;
+      will-change: transform, opacity;
+    }
+    .phone-frame {
+      width: 100%;
+      display: block;
+      position: relative;
+      z-index: 2;
+    }
+    .phone-screen {
+      position: absolute;
+      top: 8%;
+      left: 8%;
+      width: 84%;
+      height: 78%;
+      background: #1a1d21;
+      border-radius: 12px;
+      overflow: hidden;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 12px 10px;
+      box-sizing: border-box;
+    }
+    .ugly-line {
+      font-family: 'Courier New', monospace;
+      font-size: 8px;
+      color: rgba(255, 255, 255, 0.58);
+      line-height: 1.6;
+      white-space: nowrap;
+      overflow: hidden;
+      will-change: transform;
+    }
+.ugly-highlight {
+  color: #ff4466;
+      font-size: 11px;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    /* ═══ SCENE 4 — STAMP TEXT (9s–12s) ═══ */
+    .stamp-text {
+      font-size: 180px;
+      font-weight: 800;
+      color: var(--danger);
+      text-align: center;
+      line-height: 1.1;
+      text-transform: uppercase;
+      text-shadow: 0 0 80px var(--danger-glow), 0 0 160px rgba(255, 34, 68, 0.3);
+      max-width: 920px;
+      will-change: transform, opacity;
+    }
+
+    /* ═══ SCENE 5 — BRAND FINALE (12s–16s) ═══ */
+    .scene-cta {
+      position: absolute; top: 0; left: 0;
+      width: 100%; height: 100%;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 120px 80px;
+      box-sizing: border-box;
+      z-index: 5;
+      opacity: 0;
+      visibility: hidden;
+    }
+    .finale-logo {
+      width: 640px;
+      will-change: transform, opacity, filter;
+      filter: drop-shadow(0 0 40px rgba(0,102,255,0.3));
+    }
+    .finale-logo img {
+      width: 100%; height: 100%;
+      object-fit: contain;
+    }
+    .finale-tagline {
+      font-size: 38px;
+      font-weight: 600;
+      color: var(--text-dim);
+      margin-top: 48px;
+      letter-spacing: -0.5px;
+      text-align: center;
+      will-change: transform, opacity;
+    }
+
+    /* ═══ DATA LAYOUT ALLOW OVERFLOW FOR FLEX SCENES ═══ */
+    [data-layout-allow-overflow] {
+      overflow: visible;
+    }
+  </style>
+</head>
+<body>
+
+  <div data-composition-id="3-senales-web" data-width="1080" data-height="1920" data-start="0" data-duration="16">
+
+    <!-- ═══ BACKGROUND ═══ -->
+    <div class="bg-ambient">
+      <div class="bg-orb a" id="orb-a"></div>
+      <div class="bg-orb b" id="orb-b"></div>
+    </div>
+
+    <!-- ═══ PARTICLES CONTAINER ═══ -->
+    <div id="particles" class="bg-ambient"></div>
+
+    <!-- ═══ TRANSITION OVERLAY ═══ -->
+    <div class="transition-flash" id="flash-overlay"></div>
+
+    <!-- ════════════════════════════════════════
+         SCENE 1 — GLITCH HOOK (0s–2s)
+    ════════════════════════════════════════ -->
+    <div class="scene" id="scene1" style="z-index: 1;">
+      <div class="glitch-container glitch-active" id="glitch-container">
+        <div class="glitch-layer glitch-cyan">3 SEÑALES<br>de que tu web ya<br>NO sirve</div>
+        <div class="glitch-layer glitch-red">3 SEÑALES<br>de que tu web ya<br>NO sirve</div>
+        <div class="glitch-layer glitch-white">3 SEÑALES<br>de que tu web ya<br>NO sirve</div>
+        <div class="scan-lines"></div>
+      </div>
+    </div>
+
+    <!-- ════════════════════════════════════════
+         SCENE 2 — SEÑAL 1: CARGA (2s–5s)
+    ════════════════════════════════════════ -->
+    <div class="scene" id="scene2" style="z-index: 2;" data-layout-allow-overflow>
+      <div class="scene-signal-card" id="s2-card">
+        <div class="signal-label" id="s2-label">Señal #1</div>
+
+        <div class="signal-icon" id="s2-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#0066ff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10" stroke="currentColor"/>
+            <polyline points="12 6 12 12 16 14" stroke="currentColor"/>
+          </svg>
+        </div>
+
+        <div class="signal-counter" id="s2-counter">0.0s</div>
+
+        <div class="signal-title" id="s2-title">Carga en más de<br>3 segundos</div>
+      </div>
+    </div>
+
+    <!-- ════════════════════════════════════════
+         SCENE 3 — SEÑAL 2: MÓVIL (5s–9s)
+    ════════════════════════════════════════ -->
+    <div class="scene" id="scene3" style="z-index: 3;" data-layout-allow-overflow>
+      <div class="scene-signal-card" id="s3-card">
+        <div class="signal-label" id="s3-label">Señal #2</div>
+
+        <div class="phone-container" id="s3-phone">
+          <img src="assets/iphone-15-pro-marco.png" alt="iPhone" class="phone-frame" crossorigin="anonymous" />
+          <div class="phone-screen ugly-code">
+            <div class="ugly-line" id="ugly1">&lt;table width="800" border="1"&gt;</div>
+            <div class="ugly-line" id="ugly2">&lt;tr&gt;&lt;td&gt;&lt;font size="1"&gt;</div>
+            <div class="ugly-line ugly-highlight" id="ugly3">BIENVENIDOS</div>
+            <div class="ugly-line" id="ugly4">&lt;/font&gt;&lt;/td&gt;&lt;/tr&gt;</div>
+            <div class="ugly-line" id="ugly5">&lt;marquee&gt;Contacto&lt;/div>
+            <div class="ugly-line" id="ugly6">&lt;img src="x"&gt;&lt;/img&gt;</div>
+            <div class="ugly-line" id="ugly7">&lt;br&gt;&lt;br&gt;&lt;br&gt;</div>
+          </div>
+        </div>
+
+        <div class="signal-title" id="s3-title">No se ve bien<br>en móvil</div>
+      </div>
+    </div>
+
+    <!-- ════════════════════════════════════════
+         SCENE 4 — STAMP SLAM (9s–12s)
+    ════════════════════════════════════════ -->
+    <div class="scene" id="scene4" style="z-index: 4;" data-layout-allow-overflow>
+      <div class="stamp-text" id="s4-text">NO TE<br>ENCUENTRAN<br>EN GOOGLE</div>
+    </div>
+
+    <!-- ════════════════════════════════════════
+         SCENE 5 — BRAND FINALE (12s–16s)
+    ════════════════════════════════════════ -->
+    <div class="scene-cta" id="scene5">
+      <div class="finale-logo" id="s5-logo">
+        <img src="assets/logo-dark.svg" alt="GoDigital" crossorigin="anonymous" />
+      </div>
+      <p class="finale-tagline" id="s5-tagline">Transformamos tu visión en código vivo</p>
+    </div>
+
+    <!-- ════════════════════════════════════════
+         AUDIO TRACKS
+    ════════════════════════════════════════ -->
+    <audio id="bgm" src="assets/audio/beetpro-808-kick-boom-bass-snare-hit-hats-roll-140-bpm-3-trap-loop-15-12764.mp3" data-track-index="80" data-start="0" data-volume="0.25" crossorigin="anonymous"></audio>
+    <audio id="sfx-error" src="assets/audio/soundshelfstudio-ui-error-pop-515668.mp3" data-track-index="81" data-start="0.1" data-volume="0.6" crossorigin="anonymous"></audio>
+    <audio id="sfx-tick" src="assets/audio/freesound_community-clock-tick-101150.mp3" data-track-index="82" data-start="2.8" data-volume="0.45" crossorigin="anonymous"></audio>
+    <audio id="sfx-whoosh1" src="assets/audio/dragon-studio-swoosh-riser-reverb-390309.mp3" data-track-index="83" data-start="5.0" data-volume="0.5" crossorigin="anonymous"></audio>
+    <audio id="sfx-whoosh2" src="assets/audio/freesound_community-long-medium-swish-44324.mp3" data-track-index="84" data-start="8.9" data-volume="0.5" crossorigin="anonymous"></audio>
+    <audio id="sfx-bass" src="assets/audio/freesound_community-bass-dropmp3-14596.mp3" data-track-index="85" data-start="8.95" data-volume="0.7" crossorigin="anonymous"></audio>
+    <audio id="sfx-coin" src="assets/audio/izafi-gold-coin-sound-437271.mp3" data-track-index="86" data-start="12.3" data-volume="0.55" crossorigin="anonymous"></audio>
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+  <script>
+  /* ═══════════════════════════════════════════════════════════════
+     SEEDED PRNG — mulberry32 (NO Math.random())
+  ═══════════════════════════════════════════════════════════════ */
+  function mulberry32(a) {
+    return function() {
+      let t = a += 0x6D2B79F5;
+      t = Math.imul(t ^ t >>> 15, t | 1);
+      t ^= t + Math.imul(t ^ t >>> 7, t | 61);
+      return ((t ^ t >>> 14) >>> 0) / 4294967296;
+    };
+  }
+
+  window.__timelines = window.__timelines || {};
+  const tl = gsap.timeline({ paused: true });
+
+  /* ═══════════════════════════════════════════════════════════════
+     PARTICLES — 18 floating with mulberry32
+  ═══════════════════════════════════════════════════════════════ */
+  const pc = document.getElementById('particles');
+  const rng = mulberry32(42);
+  const particles = [];
+  for (let i = 0; i < 18; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    const size = 2 + rng() * 6;
+    p.style.width = size + 'px';
+    p.style.height = size + 'px';
+    p.style.left = (rng() * 94 + 3) + '%';
+    p.style.top = (rng() * 94 + 3) + '%';
+    p.style.opacity = 0.12 + rng() * 0.25;
+    pc.appendChild(p);
+    particles.push(p);
+  }
+
+  /* ═══════════════════════════════════════════════════════════════
+     BACKGROUND — ORBS (0s–16s)
+  ═══════════════════════════════════════════════════════════════ */
+  tl.to("#orb-a", { x: 40, y: -35, scale: 1.15, duration: 16, ease: "sine.inOut" }, 0);
+  tl.to("#orb-b", { x: -55, y: 45, scale: 0.85, duration: 16, ease: "sine.inOut" }, 0);
+
+  /* ── Particle Drift ── */
+  particles.forEach((p, i) => {
+    const driftY = -30 - (i % 5) * 12 + ((i * 7 + 13) % 24);
+    const driftX = (i % 3 === 0 ? 1 : -1) * (12 + (i % 7) * 5);
+    tl.to(p, {
+      y: driftY,
+      x: driftX,
+      opacity: 0.05 + (i % 4) * 0.045,
+      duration: 4 + (i % 3) * 1.5,
+      ease: "sine.inOut",
+      repeat: Math.ceil(16 / (4 + (i % 3) * 1.5)) - 1,
+      yoyo: true
+    }, i * 0.06);
+  });
+
+  /* ═══════════════════════════════════════════════════════════════
+     SCENE 1 — GLITCH HOOK (0s–2s)
+  ═══════════════════════════════════════════════════════════════ */
+  tl.set("#scene1", { opacity: 1, visibility: "visible" }, 0);
+
+  tl.fromTo("#glitch-container",
+    { scale: 0.85, opacity: 0 },
+    { scale: 1, opacity: 1, duration: 0.5, ease: "expo.out" },
+    0.15
+  );
+
+  tl.to("#glitch-container", {
+    scale: 1.03,
+    duration: 0.4,
+    ease: "sine.inOut",
+    yoyo: true,
+    repeat: 2
+  }, 0.85);
+
+  /* ═══════════════════════════════════════════════════════════════
+     TRANSITION 1→2 — FLASH (2.0s)
+  ═══════════════════════════════════════════════════════════════ */
+  tl.set("#scene1", { opacity: 0, visibility: "hidden" }, 2.0);
+  tl.set("#scene2", { opacity: 1, visibility: "visible" }, 2.0);
+
+  tl.fromTo("#flash-overlay",
+    { opacity: 0 },
+    { opacity: 0.55, duration: 0.12, ease: "power2.out", overwrite: "auto" },
+    1.95
+  );
+  tl.to("#flash-overlay",
+    { opacity: 0, duration: 0.15, ease: "power2.in", overwrite: "auto" },
+    2.07
+  );
+
+  /* ═══════════════════════════════════════════════════════════════
+     SCENE 2 — SEÑAL 1: CARGA (2s–5s)
+  ═══════════════════════════════════════════════════════════════ */
+
+  // "Señal #1" label
+  tl.from("#s2-label", { y: -20, opacity: 0, duration: 0.4, ease: "power2.out" }, 2.12);
+
+  // Clock icon
+  tl.from("#s2-icon", { scale: 0.3, opacity: 0, rotation: -90, duration: 0.5, ease: "back.out(1.6)" }, 2.2);
+
+  // Glass card slides up
+  tl.fromTo("#s2-card",
+    { y: 120, opacity: 0 },
+    { y: 0, opacity: 1, duration: 0.6, ease: "back.out(1.4)" },
+    2.15
+  );
+
+  // Counter value object — counts 0.0 → 3.0 over ~2.2s
+  var counterData = { value: 0.0 };
+  var counterEl = document.getElementById("s2-counter");
+
+  tl.to(counterData, {
+    value: 3.0,
+    duration: 2.2,
+    ease: "power2.out",
+    onUpdate: function() {
+      counterEl.textContent = counterData.value.toFixed(1) + "s";
+    }
+  }, 2.3);
+
+  // Subtle scale pulse on each integer tick
+  tl.to("#s2-counter", { scale: 1.08, duration: 0.08, ease: "power1.out", yoyo: true, repeat: 1 }, 2.8);
+  tl.to("#s2-counter", { scale: 1.08, duration: 0.08, ease: "power1.out", yoyo: true, repeat: 1 }, 3.3);
+  tl.to("#s2-counter", { scale: 1.08, duration: 0.08, ease: "power1.out", yoyo: true, repeat: 1 }, 3.8);
+  tl.to("#s2-counter", { scale: 1.08, duration: 0.08, ease: "power1.out", yoyo: true, repeat: 1 }, 4.3);
+
+  // Counter turns red + glow at 3.0s
+  tl.set("#s2-counter", {
+    color: "#ff2244",
+    textShadow: "0 0 60px rgba(255,34,68,0.6)"
+  }, 4.5);
+
+  // Counter shake when 3s hits
+  tl.to("#s2-counter", { x: 8, duration: 0.04, ease: "power1.inOut", yoyo: true, repeat: 4 }, 4.5);
+  tl.set("#s2-counter", { x: 0 }, 4.68);
+
+  // Title entrance
+  tl.from("#s2-title", { y: 20, opacity: 0, duration: 0.5, ease: "power2.out" }, 2.35);
+
+  // Error pop at 4.5s — this is the "3s" alarm
+  // (audio handles the pop, we add a visual pulse)
+  tl.to("#s2-card", {
+    borderColor: "rgba(255,34,68,0.35)",
+    boxShadow: "0 40px 100px rgba(0,0,0,0.6), 0 0 60px rgba(255,34,68,0.15)",
+    duration: 0.15,
+    ease: "power2.out",
+    yoyo: true,
+    repeat: 1
+  }, 4.5);
+
+  /* ═══════════════════════════════════════════════════════════════
+     TRANSITION 2→3 — FLASH (5.0s)
+  ═══════════════════════════════════════════════════════════════ */
+  tl.set("#scene2", { opacity: 0, visibility: "hidden" }, 5.0);
+  tl.set("#scene3", { opacity: 1, visibility: "visible" }, 5.0);
+
+  tl.fromTo("#flash-overlay",
+    { opacity: 0 },
+    { opacity: 0.55, duration: 0.12, ease: "power2.out", overwrite: "auto" },
+    4.95
+  );
+  tl.to("#flash-overlay",
+    { opacity: 0, duration: 0.15, ease: "power2.in", overwrite: "auto" },
+    5.07
+  );
+
+  /* ═══════════════════════════════════════════════════════════════
+     SCENE 3 — SEÑAL 2: MÓVIL (5s–9s)
+  ═══════════════════════════════════════════════════════════════ */
+
+  // "Señal #2" label
+  tl.from("#s3-label", { y: -20, opacity: 0, duration: 0.4, ease: "power2.out" }, 5.12);
+
+  // Glass card slides from LEFT
+  tl.fromTo("#s3-card",
+    { x: -120, opacity: 0 },
+    { x: 0, opacity: 1, duration: 0.6, ease: "expo.out" },
+    5.15
+  );
+
+  // Phone container entrance
+  tl.from("#s3-phone", { scale: 0.6, opacity: 0, rotation: -15, duration: 0.5, ease: "back.out(1.6)" }, 5.2);
+
+  // Ugly code lines stagger entrance
+  tl.from("#ugly1", { opacity: 0, x: -10, duration: 0.15 }, 5.3);
+  tl.from("#ugly2", { opacity: 0, x: -10, duration: 0.15 }, 5.45);
+  tl.from("#ugly3", { opacity: 0, x: -10, duration: 0.2 }, 5.6);
+  tl.from("#ugly4", { opacity: 0, x: -10, duration: 0.15 }, 5.75);
+  tl.from("#ugly5", { opacity: 0, x: -10, duration: 0.15 }, 5.9);
+  tl.from("#ugly6", { opacity: 0, x: -10, duration: 0.15 }, 6.0);
+  tl.from("#ugly7", { opacity: 0, x: -10, duration: 0.15 }, 6.1);
+
+  // Phone sway — first skew
+  tl.to("#s3-phone", { skewX: 5, duration: 0.65, ease: "sine.inOut", yoyo: true, repeat: 0 }, 5.4);
+
+  // Phone sway — second skew
+  tl.to("#s3-phone", { skewX: -3, duration: 0.4, ease: "sine.inOut", yoyo: true, repeat: 0 }, 6.7);
+
+  // Phone shake before transition
+  tl.to("#s3-phone", { x: 5, duration: 0.04, yoyo: true, repeat: 3 }, 8.0);
+  tl.set("#s3-phone", { x: 0 }, 8.15);
+
+  // Title entrance
+  tl.from("#s3-title", { y: 20, opacity: 0, duration: 0.5, ease: "power2.out" }, 5.35);
+
+  /* ═══════════════════════════════════════════════════════════════
+     TRANSITION 3→4 — STRONG FLASH (9.0s — CLIMAX)
+  ═══════════════════════════════════════════════════════════════ */
+  tl.set("#scene3", { opacity: 0, visibility: "hidden" }, 9.0);
+  tl.set("#scene4", { opacity: 1, visibility: "visible" }, 9.0);
+
+  tl.fromTo("#flash-overlay",
+    { opacity: 0 },
+    { opacity: 0.95, duration: 0.12, ease: "power2.out", overwrite: "auto" },
+    8.92
+  );
+  tl.to("#flash-overlay",
+    { opacity: 0, duration: 0.2, ease: "power2.in", overwrite: "auto" },
+    9.04
+  );
+
+  /* ═══════════════════════════════════════════════════════════════
+     SCENE 4 — STAMP SLAM (9s–12s)
+  ═══════════════════════════════════════════════════════════════ */
+
+  // Huge stamp entrance — smooth
+  tl.fromTo("#s4-text",
+    { scale: 2, opacity: 0, rotation: 8 },
+    { scale: 1, opacity: 1, rotation: -2, duration: 0.55, ease: "back.out(1.2)" },
+    9.05
+  );
+
+  // Single glow pulse (yoyo instead of two separate tweens)
+  tl.to("#s4-text", {
+    textShadow: "0 0 100px rgba(255,34,68,0.8), 0 0 180px rgba(255,34,68,0.3)",
+    duration: 0.5, ease: "power2.out", yoyo: true, repeat: 1
+  }, 9.9);
+
+  // Reduced vibration — shorter, fewer repeats
+  tl.to("#s4-text", { x: 4, duration: 0.05, yoyo: true, repeat: 3 }, 10.4);
+
+  /* ═══════════════════════════════════════════════════════════════
+     TRANSITION 4→5 — FLASH RESOLVING (12.0s)
+  ═══════════════════════════════════════════════════════════════ */
+  tl.set("#scene4", { opacity: 0, visibility: "hidden" }, 12.0);
+  tl.set("#scene5", { opacity: 1, visibility: "visible" }, 12.0);
+
+  tl.fromTo("#flash-overlay",
+    { opacity: 0 },
+    { opacity: 0.65, duration: 0.1, ease: "power2.out", overwrite: "auto" },
+    11.93
+  );
+  tl.to("#flash-overlay",
+    { opacity: 0, duration: 0.2, ease: "power2.in", overwrite: "auto" },
+    12.03
+  );
+
+  /* ═══════════════════════════════════════════════════════════════
+     SCENE 5 — BRAND FINALE (12s–16s)
+  ═══════════════════════════════════════════════════════════════ */
+
+  // Logo entrance: 0.7 → 1.05 → 1.0, back.out(1.6)
+  tl.fromTo("#s5-logo",
+    { scale: 0.7, opacity: 0, y: 30 },
+    { scale: 1.05, opacity: 1, y: 0, duration: 0.7, ease: "back.out(1.6)" },
+    12.1
+  );
+  tl.to("#s5-logo",
+    { scale: 1, duration: 0.5, ease: "power2.out" },
+    12.8
+  );
+
+  // Logo glow pulse (breathing)
+  tl.to("#s5-logo", {
+    filter: "drop-shadow(0 0 80px rgba(0,102,255,0.5))",
+    duration: 0.8,
+    ease: "sine.inOut",
+    repeat: 1,
+    yoyo: true
+  }, 13.5);
+
+  // Tagline entrance
+  tl.from("#s5-tagline", { y: 24, opacity: 0, duration: 0.5, ease: "power2.out" }, 13.2);
+
+  // FINAL FADE OUT (last scene only — allowed)
+  tl.to("#scene5", { opacity: 0, duration: 0.8, ease: "power2.in" }, 15.0);
+  tl.set("#scene5", { visibility: "hidden" }, 16.0);
+
+  /* ═══════════════════════════════════════════════════════════════
+     REGISTER TIMELINE
+  ═══════════════════════════════════════════════════════════════ */
+  window.__timelines["3-senales-web"] = tl;
+  </script>
+</body>
+</html>

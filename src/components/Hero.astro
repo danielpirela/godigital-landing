@@ -1,0 +1,62 @@
+---
+---
+
+<section
+  id="hero"
+  class="relative min-h-screen flex flex-col items-center justify-center overflow-hidden px-[var(--margin-mobile)] md:px-[var(--margin-desktop)] pt-24 pb-16"
+>
+  <!-- Ambient orbs -->
+  <div class="ambient-orb w-[500px] h-[500px] -top-[200px] -left-[150px] md:w-[700px] md:h-[700px] md:-top-[250px] md:-left-[200px]" data-orb="1"></div>
+  <div class="ambient-orb w-[400px] h-[400px] -bottom-[150px] -right-[100px] md:w-[600px] md:h-[600px] md:-bottom-[200px] md:-right-[150px]" data-orb="2"></div>
+  <div class="ambient-orb w-[300px] h-[300px] top-1/2 -translate-y-1/2 -left-[100px] md:w-[450px] md:h-[450px] md:-left-[150px]" data-orb="3"></div>
+
+  <!-- Particle container -->
+  <div class="hero-particles absolute inset-0 overflow-hidden pointer-events-none"></div>
+
+  <!-- Content -->
+  <div class="relative z-10 flex flex-col items-center text-center max-w-3xl mx-auto">
+    <!-- Logo -->
+    <div class="hero-logo mb-6 md:mb-8">
+      <img
+        src="/logo-dark.svg"
+        alt="GoDigital"
+        class="w-28 md:w-40 h-auto"
+      />
+    </div>
+
+    <!-- Tagline -->
+    <h1 class="hero-tagline text-4xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6">
+      Diseño y desarrollo
+      <span class="text-primary">premium</span>
+    </h1>
+
+    <!-- Subtitle -->
+    <p class="hero-subtitle text-lg md:text-xl text-on-surface-variant max-w-xl mx-auto mb-10 md:mb-12">
+      Tu visión, nuestro código. Creamos productos digitales que potencian tu negocio con diseño impecable y tecnología de vanguardia.
+    </p>
+
+    <!-- CTA Buttons -->
+    <div class="hero-cta flex flex-col sm:flex-row items-center gap-4 sm:gap-5">
+      <a
+        href="#cta"
+        class="inline-flex items-center justify-center px-8 py-3.5 rounded-[var(--radius-pill)] bg-primary text-white font-semibold text-sm md:text-base glow-primary hover:glow-primary-hover transition-all duration-300 hover:-translate-y-0.5"
+      >
+        Cotizar Proyecto
+      </a>
+      <a
+        href="#process"
+        class="inline-flex items-center justify-center px-8 py-3.5 rounded-[var(--radius-pill)] border border-[var(--color-glass-border)] text-on-surface font-semibold text-sm md:text-base bg-transparent hover:bg-[var(--color-glass-bg-hover)] transition-all duration-300 hover:-translate-y-0.5"
+      >
+        Ver Proceso
+      </a>
+    </div>
+  </div>
+
+  <!-- Scroll indicator -->
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-40">
+    <span class="text-xs font-medium text-on-surface-variant tracking-widest uppercase">Scroll</span>
+    <div class="w-5 h-8 rounded-full border border-on-surface-variant/40 flex justify-center pt-1.5">
+      <div class="scroll-dot w-1 h-1.5 rounded-full bg-on-surface-variant"></div>
+    </div>
+  </div>
+</section>

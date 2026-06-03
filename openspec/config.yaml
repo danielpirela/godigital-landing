@@ -1,0 +1,53 @@
+# OpenSpec Config — godigital-landing
+
+project: godigital-landing
+artifact_store_mode: both  # OpenSpec + Engram
+execution_mode: interactive
+delivery_strategy: auto-forecast
+review_budget_lines: 800
+
+context:
+  name: GoDigital Landing
+  type: boutique web consultancy landing page
+  stack: Astro 6.3 + Tailwind v4 + GSAP 3 + HyperFrames (devDep)
+  brand: GoDigital
+  brand_colors:
+    electric_blue: "#0066ff"
+    deep_obsidian: "#111417"
+  design_systems:
+    - Obsidian Mesh Dark
+    - Fluid Tech Light
+
+strict_tdd: false
+strict_tdd_reason: "No test runner detected (vitest/playwright/jest absent from package.json devDeps/scripts)"
+
+testing:
+  test_command: null
+  strict_tdd_possible: false
+  test_files_found: false
+  unit_available: false
+  integration_available: false
+  e2e_available: false
+  coverage_available: false
+  linter_available: false
+  type_checker: TypeScript (@astrojs/check)
+  type_checker_available: true
+  formatter_available: false
+
+phases:
+  propose:
+    output: openspec/specs
+  spec:
+    output: openspec/specs
+  design:
+    output: openspec/specs
+  tasks:
+    output: openspec/specs
+  apply:
+    output: source code
+  verify:
+    output: openspec/changes
+  archive:
+    output: openspec/changes/archive
+
+registry_path: .atl/skill-registry.md

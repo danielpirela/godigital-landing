@@ -1,0 +1,98 @@
+---
+const services = [
+  {
+    title: 'UX / UI Design',
+    desc: 'Diseñamos experiencias digitales intuitivas y atractivas. Investigación de usuarios, wireframes, prototipos interactivos y sistemas de diseño coherentes.',
+    icon: 'layers',
+    color: '#0066ff',
+    bgColor: 'rgba(0, 102, 255, 0.12)',
+  },
+  {
+    title: 'Desarrollo Web',
+    desc: 'Construimos aplicaciones web robustas con tecnologías modernas. Rendimiento, accesibilidad y SEO desde el primer commit.',
+    icon: 'code',
+    color: '#7c3aed',
+    bgColor: 'rgba(124, 58, 237, 0.12)',
+  },
+  {
+    title: 'App Mobile',
+    desc: 'Desarrollamos apps nativas y cross-platform que tus usuarios amarán. Experiencias fluidas con el mejor rendimiento en cada dispositivo.',
+    icon: 'smartphone',
+    color: '#06b6d4',
+    bgColor: 'rgba(6, 182, 212, 0.12)',
+  },
+  {
+    title: 'SEO Técnico',
+    desc: 'Optimizamos tu presencia digital con estrategias de SEO técnico. Velocidad, estructura, datos estructurados y visibilidad en buscadores.',
+    icon: 'globe',
+    color: '#00e676',
+    bgColor: 'rgba(0, 230, 118, 0.12)',
+  },
+];
+---
+
+<section
+  id="services"
+  class="relative px-[var(--margin-mobile)] md:px-[var(--margin-desktop)] pb-30"
+>
+  <div class="mx-auto" style="max-width: var(--container-max);">
+    <!-- Section header -->
+    <div class="text-center mb-16 md:mb-20" data-reveal="section-title">
+      <span class="inline-block text-xs font-semibold uppercase tracking-[0.2em] text-primary mb-4">
+        Servicios
+      </span>
+      <h2 class="text-3xl md:text-5xl font-bold">
+        Lo que <span class="text-primary">hacemos</span>
+      </h2>
+      <div class="gradient-line w-16 mx-auto mt-6"></div>
+    </div>
+
+    <!-- Service cards grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
+      {services.map((service, i) => (
+        <article
+          class="service-card glass-card p-8 md:p-10 flex flex-col"
+          data-reveal="service-card"
+          data-index={i}
+        >
+          <!-- Icon container -->
+          <div
+            class="w-14 h-14 rounded-[var(--radius-lg)] flex items-center justify-center mb-6"
+            style={`background: ${service.bgColor};`}
+          >
+            {service.icon === 'layers' && (
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke={service.color} stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2L2 7l10 5 10-5-10-5z" />
+                <path d="M2 17l10 5 10-5" />
+                <path d="M2 12l10 5 10-5" />
+              </svg>
+            )}
+            {service.icon === 'code' && (
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke={service.color} stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="16 18 22 12 16 6" />
+                <polyline points="8 6 2 12 8 18" />
+              </svg>
+            )}
+            {service.icon === 'smartphone' && (
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke={service.color} stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="5" y="2" width="14" height="20" rx="2" ry="2" />
+                <line x1="12" y1="18" x2="12.01" y2="18" />
+              </svg>
+            )}
+            {service.icon === 'globe' && (
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke={service.color} stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10" />
+                <line x1="2" y1="12" x2="22" y2="12" />
+                <path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z" />
+              </svg>
+            )}
+          </div>
+
+          <!-- Text -->
+          <h3 class="text-xl md:text-2xl font-bold mb-3">{service.title}</h3>
+          <p class="text-on-surface-variant text-sm md:text-base leading-relaxed">{service.desc}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>GoDigital — El costo de no planificar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-deep: #06080d;
+      --bg: #0a0d14;
+      --primary: #0066ff;
+      --primary-glow: rgba(0, 102, 255, 0.55);
+      --text: #ffffff;
+      --text-dim: rgba(255, 255, 255, 0.65);
+      --text-muted: rgba(255, 255, 255, 0.35);
+      --glass-bg: rgba(8, 10, 16, 0.55);
+      --glass-border: rgba(255, 255, 255, 0.08);
+      --danger: #ff2244;
+      --danger-glow: rgba(255, 34, 68, 0.6);
+      --success: #00e676;
+      --success-glow: rgba(0, 230, 118, 0.55);
+    }
+
+    body {
+      margin: 0; padding: 0;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg-deep);
+      overflow: hidden;
+      color: var(--text);
+    }
+
+    [data-composition-id] {
+      width: 1080px;
+      height: 1920px;
+      position: relative;
+      background: radial-gradient(ellipse 80% 60% at 50% 45%, rgba(0, 70, 180, 0.12) 0%, transparent 70%),
+                  var(--bg-deep);
+    }
+
+    /* ── Background ambient orbs ── */
+    .bg-ambient {
+      position: absolute; top: 0; left: 0;
+      width: 100%; height: 100%; z-index: 0;
+      pointer-events: none;
+    }
+    .bg-orb {
+      position: absolute;
+      width: 400px; height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0,102,255,0.08) 0%, transparent 70%);
+      filter: blur(80px);
+      will-change: transform;
+    }
+    .bg-orb.a { top: 5%; left: -15%; }
+    .bg-orb.b { top: 55%; right: -20%; }
+
+    /* ── Transition flash overlay ── */
+    .transition-flash {
+      position: absolute; top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(8, 30, 70, 0.55);
+      z-index: 50;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* ── SCENE 1: Glitch Question ── */
+    .scene-glitch {
+      position: absolute; top: 0; left: 0;
+      width: 100%; height: 100%;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      z-index: 1;
+      opacity: 0;
+    }
+    /* ── REAL GLITCH EFFECT ── */
+    .glitch-container {
+      position: relative;
+      font-size: 72px;
+      font-weight: 800;
+      text-align: center;
+      line-height: 1.2;
+      max-width: 900px;
+      will-change: transform;
+    }
+    .glitch-layer {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      text-align: center;
+      will-change: transform, clip-path, opacity;
+    }
+    .glitch-white {
+      color: var(--text);
+      position: relative;
+      z-index: 3;
+    }
+    .glitch-cyan {
+      color: #00ffff;
+      z-index: 2;
+      opacity: 0.85;
+    }
+    .glitch-red {
+      color: #ff0040;
+      z-index: 1;
+      opacity: 0.85;
+    }
+
+    /* Scan lines overlay */
+    .scan-lines {
+      position: absolute;
+      top: -20%; left: -10%;
+      width: 120%; height: 140%;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0, 0, 0, 0.15) 2px,
+        rgba(0, 0, 0, 0.15) 4px
+      );
+      z-index: 4;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    @keyframes glitch-shift-cyan {
+      0%   { transform: translate(-2px, 0); clip-path: inset(0 0 0 0); }
+      8%   { transform: translate(3px, 0); clip-path: inset(15% 0 70% 0); }
+      16%  { transform: translate(-1px, 0); clip-path: inset(40% 0 35% 0); }
+      24%  { transform: translate(2px, 0); clip-path: inset(65% 0 10% 0); }
+      32%  { transform: translate(-3px, 0); clip-path: inset(25% 0 50% 0); }
+      40%  { transform: translate(1px, 0); clip-path: inset(55% 0 20% 0); }
+      48%  { transform: translate(-2px, 0); clip-path: inset(10% 0 75% 0); }
+      56%  { transform: translate(3px, 0); clip-path: inset(70% 0 5% 0); }
+      64%  { transform: translate(-1px, 0); clip-path: inset(30% 0 45% 0); }
+      72%  { transform: translate(2px, 0); clip-path: inset(50% 0 25% 0); }
+      80%  { transform: translate(-3px, 0); clip-path: inset(5% 0 80% 0); }
+      88%  { transform: translate(1px, 0); clip-path: inset(60% 0 15% 0); }
+      96%  { transform: translate(-2px, 0); clip-path: inset(35% 0 40% 0); }
+      100% { transform: translate(0, 0); clip-path: inset(0 0 0 0); }
+    }
+    @keyframes glitch-shift-red {
+      0%   { transform: translate(2px, 0); clip-path: inset(0 0 0 0); }
+      8%   { transform: translate(-3px, 0); clip-path: inset(60% 0 20% 0); }
+      16%  { transform: translate(1px, 0); clip-path: inset(10% 0 70% 0); }
+      24%  { transform: translate(-2px, 0); clip-path: inset(45% 0 30% 0); }
+      32%  { transform: translate(3px, 0); clip-path: inset(5% 0 80% 0); }
+      40%  { transform: translate(-1px, 0); clip-path: inset(70% 0 5% 0); }
+      48%  { transform: translate(2px, 0); clip-path: inset(25% 0 50% 0); }
+      56%  { transform: translate(-3px, 0); clip-path: inset(50% 0 25% 0); }
+      64%  { transform: translate(1px, 0); clip-path: inset(15% 0 65% 0); }
+      72%  { transform: translate(-2px, 0); clip-path: inset(55% 0 15% 0); }
+      80%  { transform: translate(3px, 0); clip-path: inset(35% 0 45% 0); }
+      88%  { transform: translate(-1px, 0); clip-path: inset(65% 0 10% 0); }
+      96%  { transform: translate(2px, 0); clip-path: inset(20% 0 55% 0); }
+      100% { transform: translate(0, 0); clip-path: inset(0 0 0 0); }
+    }
+    @keyframes glitch-skew-whole {
+      0%   { transform: skew(0deg) translateX(0); }
+      10%  { transform: skew(-4deg) translateX(-2px); }
+      20%  { transform: skew(3deg) translateX(3px); }
+      30%  { transform: skew(-2deg) translateX(-1px); }
+      40%  { transform: skew(1deg) translateX(2px); }
+      50%  { transform: skew(-3deg) translateX(-3px); }
+      60%  { transform: skew(2deg) translateX(1px); }
+      70%  { transform: skew(-1deg) translateX(-2px); }
+      80%  { transform: skew(0.5deg) translateX(1px); }
+      90%  { transform: skew(-2deg) translateX(-1px); }
+      100% { transform: skew(0deg) translateX(0); }
+    }
+    @keyframes scan-line-flicker {
+      0%   { opacity: 0; }
+      5%   { opacity: 0.6; }
+      10%  { opacity: 0; }
+      15%  { opacity: 0.4; }
+      20%  { opacity: 0; }
+      25%  { opacity: 0.7; }
+      30%  { opacity: 0; }
+      40%  { opacity: 0.5; }
+      50%  { opacity: 0; }
+      60%  { opacity: 0.8; }
+      70%  { opacity: 0; }
+      80%  { opacity: 0.4; }
+      90%  { opacity: 0; }
+      100% { opacity: 0; }
+    }
+
+    .glitch-active .glitch-cyan {
+      animation: glitch-shift-cyan 0.35s linear infinite;
+    }
+    .glitch-active .glitch-red {
+      animation: glitch-shift-red 0.4s linear infinite;
+    }
+    .glitch-active {
+      animation: glitch-skew-whole 0.8s ease-in-out infinite;
+    }
+    .glitch-active .scan-lines {
+      animation: scan-line-flicker 0.5s linear infinite;
+    }
+
+    /* ── SCENE 2: Slot Machine Numbers ── */
+    .scene-slot {
+      position: absolute; top: 0; left: 0;
+      width: 100%; height: 100%;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      z-index: 2;
+      opacity: 0;
+    }
+    .slot-label {
+      font-size: 42px;
+      font-weight: 600;
+      color: var(--text-dim);
+      margin-bottom: 40px;
+      text-align: center;
+    }
+    .slot-number {
+      font-size: 200px;
+      font-weight: 800;
+      color: var(--text);
+      line-height: 1;
+      font-variant-numeric: tabular-nums;
+      text-shadow: 0 0 60px var(--primary-glow);
+      will-change: transform, opacity;
+    }
+    .slot-suffix {
+      font-size: 80px;
+      font-weight: 700;
+      color: var(--text-dim);
+      margin-left: 8px;
+    }
+    .slot-row {
+      display: flex;
+      align-items: baseline;
+    }
+
+    /* ── SCENE 3: Frozen Warning ── */
+    .scene-warning {
+      position: absolute; top: 0; left: 0;
+      width: 100%; height: 100%;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      z-index: 3;
+      opacity: 0;
+    }
+    .frozen-number {
+      font-size: 220px;
+      font-weight: 800;
+      color: var(--danger);
+      line-height: 1;
+      font-variant-numeric: tabular-nums;
+      text-shadow: 0 0 80px var(--danger-glow), 0 0 120px rgba(255, 34, 68, 0.3);
+      will-change: transform, opacity;
+    }
+    .warning-text {
+      font-size: 52px;
+      font-weight: 700;
+      color: var(--text);
+      text-align: center;
+      margin-top: 60px;
+      max-width: 900px;
+      line-height: 1.3;
+    }
+    .warning-text span {
+      color: var(--danger);
+      font-weight: 800;
+    }
+
+    /* ── SCENE 4: Brand Finale (like the-difference) ── */
+    .scene-brand {
+      position: absolute; top: 0; left: 0;
+      width: 100%; height: 100%;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      z-index: 4;
+      opacity: 0;
+    }
+    .finale-logo {
+      width: 700px;
+      opacity: 0;
+      will-change: transform, opacity, filter;
+      filter: drop-shadow(0 0 60px rgba(0,102,255,0.4));
+    }
+    .finale-logo img {
+      width: 100%; height: 100%;
+      object-fit: contain;
+    }
+    .finale-tagline {
+      font-size: 38px; font-weight: 600;
+      color: var(--text-dim);
+      margin-top: 48px;
+      letter-spacing: -0.5px;
+      text-align: center;
+      opacity: 0;
+      will-change: transform, opacity;
+    }
+  </style>
+</head>
+<body>
+
+  <div data-composition-id="costo-de-no-planificar" data-width="1080" data-height="1920" data-start="0" data-duration="12">
+
+    <!-- ═══ BACKGROUND ═══ -->
+    <div class="bg-ambient">
+      <div class="bg-orb a" id="orb-a"></div>
+      <div class="bg-orb b" id="orb-b"></div>
+    </div>
+
+    <!-- ═══ TRANSITION OVERLAY ═══ -->
+    <div class="transition-flash" id="flash-overlay"></div>
+
+    <!-- ═══ SCENE 1: GLITCH QUESTION (0s — 2s) ═══ -->
+    <div class="scene-glitch" id="scene1">
+      <div class="glitch-container glitch-active" id="glitch-container">
+        <div class="glitch-layer glitch-cyan" data-text="¿Cuánto cuesta una web?">¿Cuánto cuesta una web?</div>
+        <div class="glitch-layer glitch-red" data-text="¿Cuánto cuesta una web?">¿Cuánto cuesta una web?</div>
+        <div class="glitch-layer glitch-white" data-text="¿Cuánto cuesta una web?">¿Cuánto cuesta una web?</div>
+        <div class="scan-lines"></div>
+      </div>
+    </div>
+
+    <!-- ═══ SCENE 2: SLOT MACHINE (2s — 5s) ═══ -->
+    <div class="scene-slot" id="scene2">
+      <div class="slot-label" id="slot-label">Sin planificación...</div>
+      <div class="slot-row">
+        <span class="slot-number" id="slot-number">$1.000</span>
+      </div>
+    </div>
+
+    <!-- ═══ SCENE 3: FROZEN WARNING (5s — 8s) ═══ -->
+    <div class="scene-warning" id="scene3">
+      <div class="slot-row">
+        <span class="frozen-number" id="frozen-number">$15.000</span>
+      </div>
+      <div class="warning-text" id="warning-text">
+        ...<span>SIEMPRE</span> se va de presupuesto
+      </div>
+    </div>
+
+    <!-- ═══ SCENE 4: BRAND FINALE (8s — 12s) ═══ -->
+    <div class="scene-brand" id="scene4">
+      <div class="finale-logo" id="finale-logo">
+        <img src="assets/logo-dark.svg" alt="GoDigital" />
+      </div>
+      <p class="finale-tagline" id="finale-tagline">Nosotros presupuestamos<br/>TODO antes de empezar</p>
+    </div>
+
+    <!-- ═══ AUDIO ═══ -->
+    <!-- Error buzzer: Scene 1 -->
+    <audio id="sfx-error" src="assets/audio/soundshelfstudio-ui-error-pop-515668.mp3" data-track-index="80" data-start="0" data-volume="0.6"></audio>
+    <!-- Money counter mechanical: Scene 2 slot machine -->
+    <audio id="sfx-tick" src="assets/audio/money-counter-mechanical.mp3" data-track-index="81" data-start="2" data-volume="0.6"></audio>
+    <!-- Bell/record scratch: Scene 3 freeze -->
+    <audio id="sfx-bell" src="assets/audio/u_3ay6aijdt2-bell1-445873.mp3" data-track-index="82" data-start="5" data-volume="0.55"></audio>
+    <!-- Positive ding: Scene 4 brand -->
+    <audio id="sfx-ding" src="assets/audio/izafi-gold-coin-sound-437271.mp3" data-track-index="83" data-start="8" data-volume="0.55"></audio>
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+
+    /* ═══════════════════════════════════════════════════════════════
+       BACKGROUND: ORBS (0s — 12s)
+    ═══════════════════════════════════════════════════════════════ */
+    tl.to("#orb-a", { x: 40, y: -30, scale: 1.15, duration: 12, ease: "sine.inOut" }, 0);
+    tl.to("#orb-b", { x: -50, y: 40, scale: 0.9, duration: 12, ease: "sine.inOut" }, 0);
+
+    /* ═══════════════════════════════════════════════════════════════
+       SCENE 1: GLITCH QUESTION (0s — 2s)
+    ═══════════════════════════════════════════════════════════════ */
+    tl.set("#scene1", { opacity: 1, visibility: "visible" }, 0);
+
+    // Glitch container entrance: scale up + opacity
+    tl.fromTo("#glitch-container",
+      { scale: 0.85, opacity: 0 },
+      { scale: 1, opacity: 1, duration: 0.5, ease: "expo.out" },
+      0.15
+    );
+
+    // Subtle pulse while visible
+    tl.to("#glitch-container", {
+      scale: 1.03,
+      duration: 0.4,
+      ease: "sine.inOut",
+      yoyo: true,
+      repeat: 2
+    }, 0.8);
+
+    /* ═══════════════════════════════════════════════════════════════
+       TRANSITION 1→2: FLASH (2.0s)
+    ═══════════════════════════════════════════════════════════════ */
+    tl.set("#scene1", { opacity: 0, visibility: "hidden" }, 2.0);
+    tl.set("#scene2", { opacity: 1, zIndex: 3, visibility: "visible" }, 2.0);
+    tl.fromTo("#flash-overlay",
+      { opacity: 0 },
+      { opacity: 0.9, duration: 0.12, ease: "power2.out", overwrite: "auto" },
+      1.95
+    );
+    tl.to("#flash-overlay",
+      { opacity: 0, duration: 0.15, ease: "power2.in", overwrite: "auto" },
+      2.07
+    );
+
+    /* ═══════════════════════════════════════════════════════════════
+       SCENE 2: SLOT MACHINE (2s — 5s)
+    ═══════════════════════════════════════════════════════════════ */
+
+    // Slot label entrance
+    tl.from("#slot-label", { y: 30, opacity: 0, duration: 0.5, ease: "power2.out" }, 2.1);
+
+    // Slot number entrance
+    tl.from("#slot-number", { scale: 0.6, opacity: 0, duration: 0.5, ease: "back.out(1.6)" }, 2.15);
+
+    // Slot machine number cycling: chaotic sequence
+    const slotSteps = [
+      { val: "$1.000", time: 2.3 },
+      { val: "$2.000", time: 2.6 },
+      { val: "$3.000", time: 2.9 },
+      { val: "$8.000", time: 3.2 },
+      { val: "$3.000", time: 3.5 },
+      { val: "$15.000", time: 3.9 },
+    ];
+
+    slotSteps.forEach(step => {
+      tl.set("#slot-number", { textContent: step.val }, step.time);
+    });
+
+    // Quick scale pulse on each number change for slot-machine feel
+    slotSteps.forEach(step => {
+      tl.to("#slot-number", { scale: 1.12, duration: 0.1, ease: "power2.out", yoyo: true, repeat: 1 }, step.time);
+    });
+
+    // Final settle shake after last number lands
+    tl.to("#slot-number", { x: 6, duration: 0.04, ease: "power1.inOut", yoyo: true, repeat: 3 }, 4.2);
+    tl.set("#slot-number", { x: 0 }, 4.4);
+
+    /* ═══════════════════════════════════════════════════════════════
+       TRANSITION 2→3: FLASH (5.0s)
+    ═══════════════════════════════════════════════════════════════ */
+    tl.set("#scene2", { opacity: 0, visibility: "hidden" }, 5.0);
+    tl.set("#scene3", { opacity: 1, zIndex: 4, visibility: "visible" }, 5.0);
+    tl.fromTo("#flash-overlay",
+      { opacity: 0 },
+      { opacity: 0.95, duration: 0.1, ease: "power2.out", overwrite: "auto" },
+      4.92
+    );
+    tl.to("#flash-overlay",
+      { opacity: 0, duration: 0.2, ease: "power2.in", overwrite: "auto" },
+      5.02
+    );
+
+    /* ═══════════════════════════════════════════════════════════════
+       SCENE 3: FROZEN WARNING (5s — 8s)
+    ═══════════════════════════════════════════════════════════════ */
+
+    // Frozen number slams in with overshoot
+    tl.fromTo("#frozen-number",
+      { scale: 1.4, opacity: 0, y: -60 },
+      { scale: 1, opacity: 1, y: 0, duration: 0.5, ease: "back.out(2)" },
+      5.05
+    );
+
+    // Freeze pulse: red glow intensifies
+    tl.to("#frozen-number", {
+      textShadow: "0 0 120px rgba(255, 34, 68, 0.9), 0 0 200px rgba(255, 34, 68, 0.4)",
+      duration: 0.3,
+      ease: "power2.out"
+    }, 5.5);
+    tl.to("#frozen-number", {
+      textShadow: "0 0 80px rgba(255, 34, 68, 0.6), 0 0 120px rgba(255, 34, 68, 0.3)",
+      duration: 0.5,
+      ease: "sine.inOut"
+    }, 5.8);
+
+    // Subtle vibration while frozen
+    tl.to("#frozen-number", { x: 2, duration: 0.06, ease: "power1.inOut", yoyo: true, repeat: 5 }, 6.0);
+    tl.set("#frozen-number", { x: 0 }, 6.4);
+
+    // Warning text entrance
+    tl.from("#warning-text", { y: 40, opacity: 0, duration: 0.6, ease: "expo.out" }, 6.2);
+
+    // Warning text pulse
+    tl.to("#warning-text", { scale: 1.02, duration: 0.3, ease: "sine.inOut", yoyo: true, repeat: 3 }, 6.8);
+
+    /* ═══════════════════════════════════════════════════════════════
+       TRANSITION 3→4: FLASH / HARD CUT (8.0s)
+    ═══════════════════════════════════════════════════════════════ */
+    tl.set("#scene3", { opacity: 0, visibility: "hidden" }, 8.0);
+    tl.set("#scene4", { opacity: 1, zIndex: 5, visibility: "visible" }, 8.0);
+    tl.fromTo("#flash-overlay",
+      { opacity: 0 },
+      { opacity: 0.85, duration: 0.12, ease: "power2.out", overwrite: "auto" },
+      7.92
+    );
+    tl.to("#flash-overlay",
+      { opacity: 0, duration: 0.2, ease: "power2.in", overwrite: "auto" },
+      8.04
+    );
+
+/* ═══════════════════════════════════════════════════════════════
+       SCENE 4: BRAND FINALE (8s — 12s) — exactly like the-difference
+     ═══════════════════════════════════════════════════════════════ */
+
+    // Logo entrance: scale 0.7 → 1.05 → 1.0
+    tl.fromTo("#finale-logo",
+      { scale: 0.7, opacity: 0, y: 30 },
+      { scale: 1.05, opacity: 1, y: 0, duration: 0.7, ease: "back.out(1.6)" },
+      8.1
+    );
+    tl.to("#finale-logo",
+      { scale: 1, duration: 0.5, ease: "power2.out" },
+      8.8
+    );
+
+    // Logo glow pulse (exactly like the-difference)
+    tl.to("#finale-logo", {
+      filter: "drop-shadow(0 0 80px rgba(0,102,255,0.5))",
+      duration: 0.8,
+      ease: "sine.inOut",
+      repeat: 1,
+      yoyo: true
+    }, 10.0);
+
+    // Tagline entrance (like the-difference)
+    tl.from("#finale-tagline", { y: 30, opacity: 0, duration: 0.7, ease: "power2.out" }, 9.5);
+
+    // FINAL FADE OUT (last scene only — allowed)
+    tl.to("#scene4", { opacity: 0, duration: 0.8, ease: "power2.in" }, 11.2);
+    tl.set("#scene4", { visibility: "hidden" }, 12.0);
+
+    /* ═══════════════════════════════════════════════════════════════
+       REGISTER
+    ═══════════════════════════════════════════════════════════════ */
+    window.__timelines["costo-de-no-planificar"] = tl;
+  </script>
+</body>
+</html>

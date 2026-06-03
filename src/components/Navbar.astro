@@ -1,0 +1,103 @@
+---
+const links = [
+  { href: '#services', label: 'Servicios' },
+  { href: '#edge', label: 'Diferencia' },
+  { href: '#process', label: 'Proceso' },
+  { href: '#cta', label: 'Contacto' },
+];
+---
+
+<nav class="navbar fixed top-0 left-0 right-0 z-50 px-[var(--margin-mobile)] md:px-[var(--margin-desktop)] transition-all duration-300">
+  <div
+    class="mx-auto flex items-center justify-between py-3 md:py-4"
+    style="max-width: var(--container-max)"
+  >
+    <!-- Logo -->
+    <a href="#hero" class="flex items-center shrink-0">
+      <img
+        src="/logo-dark.svg"
+        alt="GoDigital"
+        class="h-8 md:h-10 w-auto"
+        style="view-transition-name: logo;"
+      />
+    </a>
+
+    <!-- Desktop nav links -->
+    <div class="hidden md:flex items-center gap-8">
+      {links.map((link) => (
+        <a
+          href={link.href}
+          class="text-sm font-medium text-on-surface-variant hover:text-on-surface transition-colors duration-200 relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2px] after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
+        >
+          {link.label}
+        </a>
+      ))}
+    </div>
+
+    <!-- Hamburger button (mobile) -->
+    <button
+      id="nav-toggle"
+      class="md:hidden flex flex-col gap-1.5 p-2 bg-transparent border-none cursor-pointer"
+      aria-label="Menú de navegación"
+    >
+      <span class="block w-6 h-[2px] bg-on-surface rounded-full transition-all duration-300 origin-center"></span>
+      <span class="block w-6 h-[2px] bg-on-surface rounded-full transition-all duration-300"></span>
+      <span class="block w-6 h-[2px] bg-on-surface rounded-full transition-all duration-300 origin-center"></span>
+    </button>
+  </div>
+
+  <!-- Mobile menu overlay -->
+  <div
+    id="mobile-menu"
+    class="md:hidden hidden absolute top-full left-0 right-0 mx-[var(--margin-mobile)] rounded-[var(--radius-lg)] overflow-hidden"
+    style="background: var(--color-glass-bg); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); border: 1px solid var(--color-glass-border);"
+  >
+    <div class="flex flex-col py-3">
+      {links.map((link) => (
+        <a
+          href={link.href}
+          class="mobile-nav-link px-6 py-3.5 text-sm font-medium text-on-surface-variant hover:text-on-surface hover:bg-[var(--color-glass-bg-hover)] transition-colors duration-200"
+        >
+          {link.label}
+        </a>
+      ))}
+    </div>
+  </div>
+</nav>
+
+<script>
+  (function () {
+    const toggle = document.getElementById('nav-toggle');
+    const menu = document.getElementById('mobile-menu');
+
+    function toggleMenu() {
+      if (!menu) return;
+      const isHidden = menu.classList.toggle('hidden');
+      toggle?.setAttribute('aria-expanded', String(!isHidden));
+    }
+
+    function closeMenu() {
+      menu?.classList.add('hidden');
+      toggle?.setAttribute('aria-expanded', 'false');
+    }
+
+    toggle?.addEventListener('click', toggleMenu);
+
+    // Close on link click
+    menu?.querySelectorAll('.mobile-nav-link').forEach((link) => {
+      link.addEventListener('click', closeMenu);
+    });
+
+    // Close on outside click
+    document.addEventListener('click', (e) => {
+      if (
+        menu &&
+        !menu.classList.contains('hidden') &&
+        !toggle?.contains(e.target as Node) &&
+        !menu.contains(e.target as Node)
+      ) {
+        closeMenu();
+      }
+    });
+  })();
+</script>

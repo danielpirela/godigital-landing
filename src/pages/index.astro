@@ -1,0 +1,32 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Hero from '../components/Hero.astro';
+import Services from '../components/Services.astro';
+import BoutiqueEdge from '../components/BoutiqueEdge.astro';
+import Process from '../components/Process.astro';
+import CTASection from '../components/CTASection.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout>
+  <Navbar />
+  <main>
+    <Hero />
+    <Services />
+    <BoutiqueEdge />
+    <Process />
+    <CTASection />
+  </main>
+  <Footer />
+</Layout>
+
+<script>
+  import { initAnimations } from '../scripts/animations';
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initAnimations);
+  } else {
+    initAnimations();
+  }
+</script>

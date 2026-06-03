@@ -1,0 +1,45 @@
+---
+const links = [
+  { href: '#services', label: 'Servicios' },
+  { href: '#edge', label: 'Diferencia' },
+  { href: '#process', label: 'Proceso' },
+  { href: '#cta', label: 'Contacto' },
+];
+
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="border-t border-[var(--color-glass-border)] bg-surface">
+  <div
+    class="mx-auto px-[var(--margin-mobile)] md:px-[var(--margin-desktop)] py-12 md:py-16"
+    style="max-width: var(--container-max);"
+  >
+    <div class="flex flex-col md:flex-row items-center md:items-start justify-between gap-8 md:gap-12">
+      <!-- Logo + copyright -->
+      <div class="flex flex-col items-center md:items-start gap-4">
+        <a href="#hero">
+          <img
+            src="/logo-dark.svg"
+            alt="GoDigital"
+            class="h-8 md:h-10 w-auto opacity-80 hover:opacity-100 transition-opacity"
+          />
+        </a>
+        <p class="text-sm text-on-surface-variant/60 text-center md:text-left">
+          &copy; {currentYear} GoDigital. Todos los derechos reservados.
+        </p>
+      </div>
+
+      <!-- Nav links -->
+      <div class="flex items-center gap-6 md:gap-8">
+        {links.map((link) => (
+          <a
+            href={link.href}
+            class="text-sm text-on-surface-variant/80 hover:text-on-surface transition-colors duration-200"
+          >
+            {link.label}
+          </a>
+        ))}
+      </div>
+    </div>
+  </div>
+</footer>

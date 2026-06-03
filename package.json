@@ -1,0 +1,23 @@
+{
+  "name": "godigital-landing",
+  "type": "module",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.9.9",
+    "@tailwindcss/postcss": "^4",
+    "astro": "^6.3.7",
+    "gsap": "^3",
+    "tailwindcss": "^4",
+    "vite": "^8.0.14"
+  },
+  "devDependencies": {
+    "hyperframes": "^0.6.6",
+    "typescript": "^6.0.3"
+  }
+}

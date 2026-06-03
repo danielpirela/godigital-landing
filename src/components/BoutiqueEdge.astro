@@ -1,0 +1,71 @@
+---
+const edges = [
+  {
+    title: 'Integridad',
+    desc: 'Transparencia total en cada proyecto. Sin letra chica, sin sobrecostos ocultos. Lo que pactamos es lo que entregamos, con la calidad que prometemos.',
+  },
+  {
+    title: 'Calidez',
+    desc: 'Te tratamos como persona, no como ticket. Comunicación directa, cercana y en tu idioma. Porque detrás de cada proyecto hay un ser humano.',
+  },
+  {
+    title: 'Planificación',
+    desc: 'Cada proyecto arranca con un roadmap claro. Fechas, entregables y objetivos definidos desde el día uno. Sin sorpresas de último minuto.',
+  },
+];
+---
+
+<section
+  id="edge"
+  class="relative px-[var(--margin-mobile)] md:px-[var(--margin-desktop)] pb-30"
+>
+  <div class="mx-auto" style="max-width: var(--container-max);">
+    <!-- Section header -->
+    <div class="text-center mb-16 md:mb-20" data-reveal="section-title">
+      <span class="inline-block text-xs font-semibold uppercase tracking-[0.2em] text-success mb-4">
+        Diferenciadores
+      </span>
+      <h2 class="text-3xl md:text-5xl font-bold">
+        Lo que nos <span class="text-success">diferencia</span>
+      </h2>
+      <div class="gradient-line w-16 mx-auto mt-6"></div>
+    </div>
+
+    <!-- Edge cards -->
+    <div class="flex flex-col gap-5 md:gap-6">
+      {edges.map((edge, i) => (
+        <div
+          class="edge-card glass-card p-6 md:p-8 flex items-start gap-5 md:gap-6"
+          data-reveal="edge-card"
+          data-index={i}
+        >
+          <!-- Green check circle -->
+          <div
+            class="shrink-0 w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center"
+            style="background: rgba(0, 230, 118, 0.12); box-shadow: 0 0 20px rgba(0, 230, 118, 0.2);"
+          >
+            <svg
+              width="22"
+              height="22"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#00e676"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="md:w-[26px] md:h-[26px]"
+            >
+              <polyline points="20 6 9 17 4 12" />
+            </svg>
+          </div>
+
+          <!-- Text -->
+          <div class="flex-1 min-w-0">
+            <h3 class="text-lg md:text-2xl font-bold mb-2">{edge.title}</h3>
+            <p class="text-on-surface-variant text-sm md:text-base leading-relaxed">{edge.desc}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

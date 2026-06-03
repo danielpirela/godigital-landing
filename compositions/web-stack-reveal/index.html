@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>GoDigital - Web Stack Reveal</title>
+  <style>
+    :root {
+      --bg: #05050A;
+      --blue-deep: #0a1628;
+      --primary: #0066ff;
+      --glass-bg: rgba(10, 10, 15, 0.6);
+      --glass-border: rgba(255, 255, 255, 0.1);
+      --text: #ffffff;
+      --text-muted: rgba(255, 255, 255, 0.7);
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      overflow: hidden;
+      color: var(--text);
+    }
+
+    [data-composition-id] {
+      width: 1080px;
+      height: 1920px;
+      position: relative;
+    }
+
+    /* Background Layer */
+    .bg-layer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
+
+    /* Main Content Scene */
+    .scene-main {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 1;
+      padding: 80px;
+      box-sizing: border-box;
+    }
+
+    /* Glassmorphism Circle Container */
+    .glass-circle {
+      width: 200px;
+      height: 200px;
+      background: var(--glass-bg);
+      border-radius: 50%;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--glass-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow:
+        0 0 0 1px rgba(255, 255, 255, 0.05),
+        0 30px 60px rgba(0, 0, 0, 0.5),
+        inset 0 1px 1px rgba(255, 255, 255, 0.1);
+      position: absolute;
+      will-change: transform, opacity, box-shadow;
+    }
+
+    .glass-circle svg, .glass-circle img {
+      width: 100px;
+      height: 100px;
+      object-fit: contain;
+    }
+
+    /* Impact Glow Effect */
+    .impact-glow {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      box-shadow:
+        0 0 30px rgba(255, 255, 255, 0.8),
+        0 0 60px rgba(255, 255, 255, 0.4),
+        inset 0 0 20px rgba(255, 255, 255, 0.3);
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* GoDigital Logo Scene */
+    .scene-logo {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+      opacity: 0;
+    }
+
+    .godigital-logo {
+      width: 600px;
+      opacity: 0;
+      filter: drop-shadow(0 0 40px rgba(0, 102, 255, 0.3));
+    }
+
+    /* Tagline */
+    .tagline {
+      font-size: 36px;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-top: 40px;
+      letter-spacing: -0.5px;
+      text-align: center;
+      opacity: 0;
+    }
+
+    /* Watermark */
+    .watermark {
+      position: absolute;
+      top: 60px;
+      right: 80px;
+      width: 200px;
+      opacity: 0.3;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Root Composition: 12 seconds -->
+  <div data-composition-id="web-stack-reveal" data-width="1080" data-height="1920" data-start="0" data-duration="12">
+
+    <!-- Track 0: Background (12s) -->
+    <img id="bg" class="bg-layer clip" data-track-index="0" data-start="0" data-duration="12" src="assets/bg-glass-dark.png" />
+
+    <!-- Track 1: Logo Containers (full 12s — circles exit at 10.0-10.5s) -->
+    <div class="scene-main clip" id="scene-main" data-track-index="1" data-start="0" data-duration="12">
+
+      <!-- Astro -->
+      <div class="glass-circle clip" id="circle-astro" style="left: 50%; top: 15%;">
+        <div class="impact-glow" id="glow-astro"></div>
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/astro/astro-original.svg" alt="Astro" class="tech-logo" crossorigin="anonymous" />
+      </div>
+
+      <!-- React -->
+      <div class="glass-circle clip" id="circle-react" style="left: 25%; top: 30%;">
+        <div class="impact-glow" id="glow-react"></div>
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg" alt="React" class="tech-logo" crossorigin="anonymous" />
+      </div>
+
+      <!-- Next.js -->
+      <div class="glass-circle clip" id="circle-next" style="right: 25%; top: 30%;">
+        <div class="impact-glow" id="glow-next"></div>
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nextjs/nextjs-original-wordmark.svg" alt="Next.js" class="tech-logo" crossorigin="anonymous" />
+      </div>
+
+      <!-- Tailwind CSS -->
+      <div class="glass-circle clip" id="circle-tailwind" style="left: 25%; bottom: 30%;">
+        <div class="impact-glow" id="glow-tailwind"></div>
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg" alt="Tailwind CSS" class="tech-logo" crossorigin="anonymous" />
+      </div>
+
+      <!-- TypeScript -->
+      <div class="glass-circle clip" id="circle-typescript" style="left: 50%; bottom: 15%;">
+        <div class="impact-glow" id="glow-typescript"></div>
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg" alt="TypeScript" class="tech-logo" crossorigin="anonymous" />
+      </div>
+
+      <!-- Watermark -->
+      <img src="assets/logo-dark.svg" class="watermark" alt="GoDigital" id="watermark" />
+    </div>
+
+    <!-- Track 2: Logo Reveal Scene (10.5s - 12s) -->
+    <div class="scene-logo clip" id="scene-logo" data-track-index="2" data-start="10.5" data-duration="1.5">
+      <img src="assets/logo-dark.svg" class="godigital-logo" id="godigital-logo" alt="GoDigital" />
+      <p class="tagline" id="tagline">Construyendo el futuro digital.</p>
+    </div>
+
+    <!-- Track 3: Audio SFX -->
+    <!-- WHOOSH: Caída digital -->
+    <audio id="sfx-whoosh" src="assets/audio/freesound_community-whoosh-blow-flutter-shortwav-14678.mp3" data-track-index="3" data-start="1.0" data-volume="0.5"></audio>
+
+    <!-- TINK/POP: Impacto para cada logo (staggered) -->
+    <audio id="sfx-tink-1" src="assets/audio/47313572-ui-pop-sound-316482.mp3" data-track-index="4" data-start="2.2" data-volume="0.6"></audio>
+    <audio id="sfx-tink-2" src="assets/audio/47313572-ui-pop-sound-316482.mp3" data-track-index="5" data-start="2.45" data-volume="0.6"></audio>
+    <audio id="sfx-tink-3" src="assets/audio/47313572-ui-pop-sound-316482.mp3" data-track-index="6" data-start="2.7" data-volume="0.6"></audio>
+    <audio id="sfx-tink-4" src="assets/audio/47313572-ui-pop-sound-316482.mp3" data-track-index="7" data-start="2.95" data-volume="0.6"></audio>
+    <audio id="sfx-tink-5" src="assets/audio/47313572-ui-pop-sound-316482.mp3" data-track-index="8" data-start="3.2" data-volume="0.6"></audio>
+
+    <!-- Bell: Logo reveal -->
+    <audio id="sfx-bell" src="assets/audio/u_3ay6aijdt2-bell1-445873.mp3" data-track-index="9" data-start="10.6" data-volume="0.9"></audio>
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+
+    /* ================================================================
+       TRACK 0: BACKGROUND (0s - 12s)
+       Escala lenta del 100% al 105% para profundidad
+    ================================================================ */
+    tl.fromTo("#bg",
+      { scale: 1 },
+      { scale: 1.05, duration: 12, ease: "power1.out" },
+      0
+    );
+
+    /* ================================================================
+       TRACK 1: LOGO CONTAINERS ENTRANCE (1.0s - 3.5s)
+       Caída secuencial con stagger de 0.25s y bounce.premium
+    ================================================================ */
+
+    // Posición inicial: fuera de pantalla arriba, centrado solo para los del centro
+    tl.set("#circle-astro", { y: -250, xPercent: -50 });
+    tl.set("#circle-react", { y: -250 });
+    tl.set("#circle-next", { y: -250 });
+    tl.set("#circle-tailwind", { y: -250 });
+    tl.set("#circle-typescript", { y: -250, xPercent: -50 });
+
+    // Caída de los 5 logos con bounce premium (stagger manual 0.25s)
+    tl.to("#circle-astro", {
+      y: 0,
+      xPercent: -50,
+      duration: 1.3,
+      ease: "bounce.out"
+    }, 1.0);
+
+    tl.to("#circle-react", {
+      y: 0,
+      xPercent: 0,
+      duration: 1.3,
+      ease: "bounce.out"
+    }, 1.25);
+
+    tl.to("#circle-next", {
+      y: 0,
+      xPercent: 0,
+      duration: 1.3,
+      ease: "bounce.out"
+    }, 1.5);
+
+    tl.to("#circle-tailwind", {
+      y: 0,
+      xPercent: 0,
+      duration: 1.3,
+      ease: "bounce.out"
+    }, 1.75);
+
+    tl.to("#circle-typescript", {
+      y: 0,
+      xPercent: -50,
+      duration: 1.3,
+      ease: "bounce.out"
+    }, 2.0);
+
+    /* ================================================================
+       EFECTO IMPACTO (2.2s - 3.5s)
+       Glow blanco brillante momentáneo que se desvanece
+    ================================================================ */
+    const impactGlows = ["#glow-astro", "#glow-react", "#glow-next", "#glow-tailwind", "#glow-typescript"];
+    const impactTimes = [2.2, 2.45, 2.7, 2.95, 3.2];
+
+    impactGlows.forEach((glow, i) => {
+      tl.to(glow, {
+        opacity: 1,
+        duration: 0.05
+      }, impactTimes[i]);
+      tl.to(glow, {
+        opacity: 0,
+        duration: 0.25
+      }, impactTimes[i] + 0.05);
+    });
+
+    /* ================================================================
+       WATermark (0.3s entrance)
+    ================================================================ */
+    tl.from("#watermark", {
+      opacity: 0,
+      y: -30,
+      duration: 0.8,
+      ease: "power2.out"
+    }, 0.3);
+
+    /* ================================================================
+       LEVITACIÓN POST-REBOTE (3.5s - 10.5s)
+       Flotado infinito suave - calculado para la duración
+    ================================================================ */
+    const levitationDuration = 7; // 10.5 - 3.5
+    const levitationCycles = 3;
+    const levitationY = -12;
+
+    tl.to("#circle-astro", {
+      y: levitationY,
+      duration: levitationDuration / levitationCycles,
+      ease: "sine.inOut",
+      repeat: levitationCycles - 1,
+      yoyo: true
+    }, 3.5);
+
+    tl.to("#circle-react", {
+      y: levitationY * 0.9,
+      duration: levitationDuration / levitationCycles * 1.05,
+      ease: "sine.inOut",
+      repeat: levitationCycles - 1,
+      yoyo: true
+    }, 3.5);
+
+    tl.to("#circle-next", {
+      y: levitationY * 0.95,
+      duration: levitationDuration / levitationCycles * 0.98,
+      ease: "sine.inOut",
+      repeat: levitationCycles - 1,
+      yoyo: true
+    }, 3.5);
+
+    tl.to("#circle-tailwind", {
+      y: levitationY * 0.85,
+      duration: levitationDuration / levitationCycles * 1.02,
+      ease: "sine.inOut",
+      repeat: levitationCycles - 1,
+      yoyo: true
+    }, 3.5);
+
+    tl.to("#circle-typescript", {
+      y: levitationY * 0.9,
+      duration: levitationDuration / levitationCycles * 1.03,
+      ease: "sine.inOut",
+      repeat: levitationCycles - 1,
+      yoyo: true
+    }, 3.5);
+
+    /* ================================================================
+       TRACK 2: LOGOS SE MUEVEN A BORDES (10.0s - 10.5s)
+       Transición suave hacia los bordes para dar paso al logo
+    ================================================================ */
+    tl.to("#circle-astro", {
+      y: -400,
+      x: -300,
+      opacity: 0,
+      duration: 0.5,
+      ease: "power2.in"
+    }, 10.0);
+    tl.set("#circle-astro", { opacity: 0 }, 10.5);
+
+    tl.to("#circle-react", {
+      y: -400,
+      x: -350,
+      opacity: 0,
+      duration: 0.5,
+      ease: "power2.in"
+    }, 10.1);
+    tl.set("#circle-react", { opacity: 0 }, 10.55);
+
+    tl.to("#circle-next", {
+      y: -400,
+      x: 350,
+      opacity: 0,
+      duration: 0.5,
+      ease: "power2.in"
+    }, 10.1);
+    tl.set("#circle-next", { opacity: 0 }, 10.55);
+
+    tl.to("#circle-tailwind", {
+      y: 400,
+      x: -350,
+      opacity: 0,
+      duration: 0.5,
+      ease: "power2.in"
+    }, 10.2);
+    tl.set("#circle-tailwind", { opacity: 0 }, 10.6);
+
+    tl.to("#circle-typescript", {
+      y: 400,
+      x: 350,
+      opacity: 0,
+      duration: 0.5,
+      ease: "power2.in"
+    }, 10.2);
+    tl.set("#circle-typescript", { opacity: 0 }, 10.6);
+
+    tl.to("#watermark", {
+      opacity: 0,
+      duration: 0.3,
+      ease: "power2.in"
+    }, 10.0);
+
+    /* ================================================================
+       LOGO GODIGITAL REVEAL (10.5s - 12s)
+       Scale 0.8 a 1.1 con fade in suave
+    ================================================================ */
+    tl.fromTo("#scene-logo",
+      { opacity: 0 },
+      { opacity: 1, duration: 0.3, ease: "power2.out" },
+      10.5
+    );
+
+    tl.fromTo("#godigital-logo",
+      { scale: 0.8, opacity: 0 },
+      { scale: 1.1, opacity: 1, duration: 1.0, ease: "back.out(1.2)" },
+      10.6
+    );
+
+    tl.fromTo("#tagline",
+      { y: 30, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.8, ease: "power2.out" },
+      10.9
+    );
+
+    /* ================================================================
+       REGISTER TIMELINE
+    ================================================================ */
+    window.__timelines["web-stack-reveal"] = tl;
+  </script>
+</body>
+</html>

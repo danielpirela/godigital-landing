@@ -1,0 +1,73 @@
+---
+const steps = [
+  {
+    num: '01',
+    title: 'Planificamos',
+    desc: 'Nos sentamos con vos a entender tu visión, tus objetivos y tu audiencia. Definimos alcance, timeline y entregables con total transparencia.',
+  },
+  {
+    num: '02',
+    title: 'Diseñamos',
+    desc: 'De la idea al prototipo. Diseñamos cada detalle pensando en la experiencia de usuario, iterando con feedback constante hasta que sea perfecto.',
+  },
+  {
+    num: '03',
+    title: 'Desplegamos',
+    desc: 'Codificamos, testeamos y lanzamos. Con estándares profesionales, optimización de rendimiento y soporte post-lanzamiento para garantizar el éxito.',
+  },
+];
+---
+
+<section
+  id="process"
+  class="relative px-[var(--margin-mobile)] md:px-[var(--margin-desktop)] pb-30"
+>
+  <div class="mx-auto" style="max-width: var(--container-max);">
+    <!-- Section header -->
+    <div class="text-center mb-16 md:mb-20" data-reveal="section-title">
+      <span class="inline-block text-xs font-semibold uppercase tracking-[0.2em] text-primary mb-4">
+        Metodología
+      </span>
+      <h2 class="text-3xl md:text-5xl font-bold">
+        Nuestro <span class="text-primary">proceso</span>
+      </h2>
+      <div class="gradient-line w-16 mx-auto mt-6"></div>
+    </div>
+
+    <!-- Timeline -->
+    <div class="relative flex flex-col items-center max-w-3xl mx-auto">
+      <!-- Connecting line -->
+      <div
+        class="process-line absolute top-0 w-0.5 bg-primary/20"
+        style="height: calc(100% - 2rem);"
+      ></div>
+
+      <!-- Steps -->
+      <div class="flex flex-col gap-12 md:gap-16 w-full">
+        {steps.map((step, i) => (
+          <div
+            class="process-step relative flex items-start gap-5 md:gap-8"
+            data-reveal="process-step"
+            data-index={i}
+          >
+            <!-- Numbered circle -->
+            <div class="relative z-10 shrink-0">
+              <div
+                class="w-12 h-12 md:w-16 md:h-16 rounded-full flex items-center justify-center border-2"
+                style="border-color: rgba(0, 102, 255, 0.3); background: var(--color-surface-dim); box-shadow: 0 0 24px rgba(0, 102, 255, 0.15);"
+              >
+                <span class="text-primary font-bold text-sm md:text-lg">{step.num}</span>
+              </div>
+            </div>
+
+            <!-- Content -->
+            <div class="flex-1 pt-2 md:pt-3">
+              <h3 class="text-xl md:text-2xl font-bold mb-2">{step.title}</h3>
+              <p class="text-on-surface-variant text-sm md:text-base leading-relaxed">{step.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
