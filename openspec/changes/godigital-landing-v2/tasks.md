@@ -217,7 +217,7 @@ Chain strategy: feature-branch-chain
 **Parallel work allowed** within PR1 after T1.1 (setup gates).
 
 ### T1.1 [setup] Add ENABLE_V2_ANIM safety flag to astro.config.mjs
-- **Files**: `astro.config.mjs`
+- [x] **Files**: `astro.config.mjs`
 - **LOC Δ**: +8
 - **Dependencies**: none
 - **Risk**: Low
@@ -227,7 +227,7 @@ Chain strategy: feature-branch-chain
   - Setting `ENABLE_V2_ANIM=false` disables all v2 animations (v1 script continues)
 
 ### T1.2 [code] Create src/lib/mmx-assets.ts with getMmxAsset / hasFallback / isReady
-- **Files**: `src/lib/mmx-assets.ts` (NEW)
+- [x] **Files**: `src/lib/mmx-assets.ts` (NEW)
 - **LOC Δ**: +70
 - **Dependencies**: T1.1 (needs env var), T0.9 (needs MANIFEST.json)
 - **Risk**: Low
@@ -239,7 +239,7 @@ Chain strategy: feature-branch-chain
   - All 14 asset IDs typed as `MmxAssetId` union
 
 ### T1.3 [code] Extend src/styles/global.css with v2 tokens
-- **Files**: `src/styles/global.css`
+- [x] **Files**: `src/styles/global.css`
 - **LOC Δ**: +211
 - **Dependencies**: none
 - **Risk**: Low
@@ -254,7 +254,7 @@ Chain strategy: feature-branch-chain
   - Utility classes: `.glass-card-depth-1/2/3`, `.curtain-wipe`, `.scroll-progress`, `.magnetic-btn`, `.reveal-clip`, `.mesh-gradient`, `.floating-device`, `.breathing`, `.mmx-video-bg`
 
 ### T1.4 [code] Create src/scripts/animations/matchMedia.ts
-- **Files**: `src/scripts/animations/matchMedia.ts` (NEW)
+- [x] **Files**: `src/scripts/animations/matchMedia.ts` (NEW)
 - **LOC Δ**: +55
 - **Dependencies**: none
 - **Risk**: Low
@@ -267,7 +267,7 @@ Chain strategy: feature-branch-chain
   - Uses `gsap.matchMedia()` with named contexts
 
 ### T1.5 [code] Create src/scripts/animations/particles.ts
-- **Files**: `src/scripts/animations/particles.ts` (NEW)
+- [x] **Files**: `src/scripts/animations/particles.ts` (NEW)
 - **LOC Δ**: +40
 - **Dependencies**: T1.4 (needs matchMedia CSS var injection)
 - **Risk**: Low
@@ -278,7 +278,7 @@ Chain strategy: feature-branch-chain
   - Clean up on ScrollTrigger leave
 
 ### T1.6 [code] Create src/scripts/animations/scroll.ts
-- **Files**: `src/scripts/animations/scroll.ts` (NEW)
+- [x] **Files**: `src/scripts/animations/scroll.ts` (NEW)
 - **LOC Δ**: +45
 - **Dependencies**: T1.4 (matchMedia)
 - **Risk**: Low
@@ -288,7 +288,7 @@ Chain strategy: feature-branch-chain
   - All ScrollTrigger instances killed gracefully on reduced-motion
 
 ### T1.7 [code] Create src/scripts/animations/magnetic.ts
-- **Files**: `src/scripts/animations/magnetic.ts` (NEW)
+- [x] **Files**: `src/scripts/animations/magnetic.ts` (NEW)
 - **LOC Δ**: +40
 - **Dependencies**: T1.4 (fine-pointer guard)
 - **Risk**: Low
@@ -299,7 +299,7 @@ Chain strategy: feature-branch-chain
   - Only activates on `(hover: hover) and (pointer: fine)`
 
 ### T1.8 [code] Create src/scripts/animations/hero.ts
-- **Files**: `src/scripts/animations/hero.ts` (NEW)
+- [x] **Files**: `src/scripts/animations/hero.ts` (NEW)
 - **LOC Δ**: +60
 - **Dependencies**: T1.4, T1.7
 - **Risk**: Medium — this is the visual showpiece
@@ -312,7 +312,7 @@ Chain strategy: feature-branch-chain
   - Page-load sequence: 0.8s delay → logo → tagline → subtitle → CTA → scroll bounce
 
 ### T1.9 [code] Create src/scripts/animations/services.ts
-- **Files**: `src/scripts/animations/services.ts` (NEW)
+- [x] **Files**: `src/scripts/animations/services.ts` (NEW)
 - **LOC Δ**: +55
 - **Dependencies**: T1.4
 - **Risk**: Medium
@@ -323,7 +323,7 @@ Chain strategy: feature-branch-chain
   - Pin disabled on mobile matchMedia
 
 ### T1.10 [code] Create src/scripts/animations/process.ts
-- **Files**: `src/scripts/animations/process.ts` (NEW)
+- [x] **Files**: `src/scripts/animations/process.ts` (NEW)
 - **LOC Δ**: +50
 - **Dependencies**: T1.4
 - **Risk**: Medium
@@ -334,7 +334,7 @@ Chain strategy: feature-branch-chain
   - Mobile: circle rotation disabled, word reveal uses Intersection Observer
 
 ### T1.11 [code] Create src/scripts/animations/index.ts orchestrator
-- **Files**: `src/scripts/animations/index.ts` (NEW — replaces monolithic `animations.ts`)
+- [x] **Files**: `src/scripts/animations/index.ts` (NEW — replaces monolithic `animations.ts`)
 - **LOC Δ**: +65
 - **Dependencies**: T1.4, T1.5, T1.6, T1.7, T1.8, T1.9, T1.10
 - **Risk**: Low — orchestrator, calls sub-modules
@@ -346,7 +346,7 @@ Chain strategy: feature-branch-chain
   - GSAP registered once at top level
 
 ### T1.12 [code] Refactor: remove old src/scripts/animations.ts (replaced by split)
-- **Files**: `src/scripts/animations.ts` (DELETE)
+- [x] **Files**: `src/scripts/animations.ts` (DELETE)
 - **LOC Δ**: −329
 - **Dependencies**: T1.11 (new orchestrator operational)
 - **Risk**: Low — deletion only after verifying new system works
@@ -356,7 +356,7 @@ Chain strategy: feature-branch-chain
   - `import.meta.env.ENABLE_V2_ANIM` check in index.ts guards all v2 code
 
 ### T1.13 [code] Create src/components/SectionProgress.astro
-- **Files**: `src/components/SectionProgress.astro` (NEW)
+- [x] **Files**: `src/components/SectionProgress.astro` (NEW)
 - **LOC Δ**: +55
 - **Dependencies**: T1.11 (scroll tracking)
 - **Risk**: Low
@@ -368,7 +368,7 @@ Chain strategy: feature-branch-chain
   - `aria-hidden="true"` (decorative)
 
 ### T1.14 [code] Create src/components/AudioToggle.astro (icon-only)
-- **Files**: `src/components/AudioToggle.astro` (NEW)
+- [x] **Files**: `src/components/AudioToggle.astro` (NEW)
 - **LOC Δ**: +35
 - **Dependencies**: T1.11, T1.3 (CSS tokens)
 - **Risk**: Low
@@ -380,7 +380,7 @@ Chain strategy: feature-branch-chain
   - `aria-label="Activar audio ambiental"` / `aria-label="Silenciar audio"`
 
 ### T1.15 [code] Update src/layouts/Layout.astro
-- **Files**: `src/layouts/Layout.astro`
+- [x] **Files**: `src/layouts/Layout.astro`
 - **LOC Δ**: +32
 - **Dependencies**: T1.1, T1.2, T1.13
 - **Risk**: Low
@@ -391,7 +391,7 @@ Chain strategy: feature-branch-chain
   - New components: `<SectionProgress />` (top), `<AudioToggle />` (in nav area)
 
 ### T1.16 [code] Update src/pages/index.astro
-- **Files**: `src/pages/index.astro`
+- [x] **Files**: `src/pages/index.astro`
 - **LOC Δ**: +26
 - **Dependencies**: T1.13, T1.14, T1.15
 - **Risk**: Low
@@ -401,7 +401,7 @@ Chain strategy: feature-branch-chain
   - All existing sections preserved (no reimplementation yet)
 
 ### T1.17 [verify] pnpm astro check passes
-- **Files**: entire project
+- [x] **Files**: entire project
 - **LOC Δ**: 0
 - **Dependencies**: T1.1 through T1.16
 - **Risk**: Low
@@ -411,7 +411,7 @@ Chain strategy: feature-branch-chain
   - @astrojs/check passes
 
 ### T1.18 [verify] pnpm build succeeds with ENABLE_V2_ANIM=true and =false
-- **Files**: entire project
+- [x] **Files**: entire project
 - **LOC Δ**: 0
 - **Dependencies**: T1.17
 - **Risk**: Low
@@ -421,7 +421,7 @@ Chain strategy: feature-branch-chain
   - Output `dist/` contains valid static site in both modes
 
 ### T1.19 [chore] Commit PR1 branch: feat/v2-foundation
-- **Files**: `src/lib/mmx-assets.ts`, `src/styles/global.css`, `src/scripts/animations/` (8 new files), `src/components/SectionProgress.astro`, `src/components/AudioToggle.astro`, `src/layouts/Layout.astro`, `src/pages/index.astro`, `src/scripts/animations.ts` (deleted)
+- [x] **Files**: `src/lib/mmx-assets.ts`, `src/styles/global.css`, `src/scripts/animations/` (8 new files), `src/components/SectionProgress.astro`, `src/components/AudioToggle.astro`, `src/layouts/Layout.astro`, `src/pages/index.astro`, `src/scripts/animations.ts` (deleted)
 - **LOC Δ**: ~+697 / −329
 - **Dependencies**: T1.17, T1.18
 - **Risk**: Low
@@ -438,7 +438,7 @@ Chain strategy: feature-branch-chain
 **Base**: `feat/v2-foundation` (PR1)
 
 ### T2.1 [code] Update src/components/Hero.astro
-- **Files**: `src/components/Hero.astro`
+- [x] **Files**: `src/components/Hero.astro`
 - **LOC Δ**: +153
 - **Dependencies**: T1.19 (PR1 merged)
 - **Risk**: Medium — primary visual component
@@ -452,7 +452,7 @@ Chain strategy: feature-branch-chain
   - Mobile: video shows poster only (no `<source>` media=desktop)
 
 ### T2.2 [code] Implement hero.ts parallax + stat counter
-- **Files**: `src/scripts/animations/hero.ts`
+- [x] **Files**: `src/scripts/animations/hero.ts`
 - **LOC Δ**: +60 (already created in T1.8, this is implementation completion)
 - **Dependencies**: T2.1 (DOM elements exist)
 - **Risk**: Medium
@@ -462,7 +462,7 @@ Chain strategy: feature-branch-chain
   - Orbs have `will-change: transform` set
 
 ### T2.3 [code] Implement scroll-scrubbed counter in hero
-- **Files**: `src/scripts/animations/hero.ts`
+- [x] **Files**: `src/scripts/animations/hero.ts`
 - **LOC Δ**: +20
 - **Dependencies**: T2.2
 - **Risk**: Low
@@ -471,7 +471,7 @@ Chain strategy: feature-branch-chain
   - Uses `ScrollTrigger` with `scrub: true`
 
 ### T2.4 [code] Update src/components/Navbar.astro
-- **Files**: `src/components/Navbar.astro`
+- [x] **Files**: `src/components/Navbar.astro`
 - **LOC Δ**: +92
 - **Dependencies**: T1.19
 - **Risk**: Medium
@@ -483,7 +483,7 @@ Chain strategy: feature-branch-chain
   - `aria-expanded` toggles on hamburger, keyboard focus trap on mobile menu
 
 ### T2.5 [code] Wire ENABLE_MMX_CURTAIN check (CSS-only default, video opt-in)
-- **Files**: `src/scripts/animations/scroll.ts` (curtain logic)
+- [x] **Files**: `src/scripts/animations/scroll.ts` (curtain logic)
 - **LOC Δ**: +15
 - **Dependencies**: T1.11, T0.6 (curtain.mp4 asset)
 - **Risk**: Low
@@ -494,7 +494,7 @@ Chain strategy: feature-branch-chain
   - Curtain video `preload="none"`, `pointer-events: none`, `aria-hidden="true"`
 
 ### T2.6 [verify] pnpm dev: hero video plays, no console errors, LCP <2.5s
-- **Files**: `src/components/Hero.astro`
+- [x] **Files**: `src/components/Hero.astro`
 - **LOC Δ**: 0
 - **Dependencies**: T2.1, T2.2, T2.4
 - **Risk**: Medium — visual verification
@@ -505,7 +505,7 @@ Chain strategy: feature-branch-chain
   - Poster visible immediately while video buffers
 
 ### T2.7 [verify] Lighthouse desktop Performance >=90 on / (local)
-- **Files**: entire project (build)
+- [x] **Files**: entire project (build)
 - **LOC Δ**: 0
 - **Dependencies**: T2.6
 - **Risk**: Low
@@ -515,7 +515,7 @@ Chain strategy: feature-branch-chain
   - FCP < 1.0s, LCP < 1.5s desktop
 
 ### T2.8 [chore] Commit PR2 branch: feat/v2-hero-navbar
-- **Files**: `src/components/Hero.astro`, `src/components/Navbar.astro`, `src/scripts/animations/hero.ts`, `src/scripts/animations/scroll.ts`
+- [ ] **Files**: `src/components/Hero.astro`, `src/components/Navbar.astro`, `src/scripts/animations/hero.ts`, `src/scripts/animations/scroll.ts`
 - **LOC Δ**: ~+245
 - **Dependencies**: T2.6, T2.7
 - **Risk**: Low

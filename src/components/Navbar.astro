@@ -7,17 +7,23 @@ const links = [
 ];
 ---
 
-<nav class="navbar fixed top-0 left-0 right-0 z-50 px-[var(--margin-mobile)] md:px-[var(--margin-desktop)] transition-all duration-300">
+<nav
+  id="navbar"
+  class="navbar fixed top-0 left-0 right-0 z-50 px-[var(--margin-mobile)] md:px-[var(--margin-desktop)] transition-all duration-300"
+>
+  <!-- Progress bar at very top of navbar -->
+  <div class="navbar-progress absolute top-0 left-0 h-[2px] bg-electric-blue shadow-[0_0_8px_rgba(var(--color-electric-blue-rgb),0.8)] origin-left" style="width: 0%;"></div>
+
   <div
     class="mx-auto flex items-center justify-between py-3 md:py-4"
     style="max-width: var(--container-max)"
   >
     <!-- Logo -->
-    <a href="#hero" class="flex items-center shrink-0">
+    <a href="#hero" class="navbar-logo flex items-center shrink-0">
       <img
         src="/logo-dark.svg"
         alt="GoDigital"
-        class="h-8 md:h-10 w-auto"
+        class="h-8 md:h-10 w-auto transition-all duration-300"
         style="view-transition-name: logo;"
       />
     </a>
@@ -27,22 +33,23 @@ const links = [
       {links.map((link) => (
         <a
           href={link.href}
-          class="text-sm font-medium text-on-surface-variant hover:text-on-surface transition-colors duration-200 relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2px] after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
+          class="navbar-link text-sm font-medium text-on-surface-variant hover:text-on-surface transition-colors duration-200 relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2px] after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
         >
           {link.label}
         </a>
       ))}
     </div>
 
-    <!-- Hamburger button (mobile) -->
+    <!-- Hamburger button (mobile) — GSAP-animated to X -->
     <button
       id="nav-toggle"
       class="md:hidden flex flex-col gap-1.5 p-2 bg-transparent border-none cursor-pointer"
-      aria-label="Menú de navegación"
+      aria-label="Abrir menú de navegación"
+      aria-expanded="false"
     >
-      <span class="block w-6 h-[2px] bg-on-surface rounded-full transition-all duration-300 origin-center"></span>
-      <span class="block w-6 h-[2px] bg-on-surface rounded-full transition-all duration-300"></span>
-      <span class="block w-6 h-[2px] bg-on-surface rounded-full transition-all duration-300 origin-center"></span>
+      <span class="hamburger-line block w-6 h-[2px] bg-on-surface rounded-full origin-center transition-none"></span>
+      <span class="hamburger-line block w-6 h-[2px] bg-on-surface rounded-full transition-none"></span>
+      <span class="hamburger-line block w-6 h-[2px] bg-on-surface rounded-full origin-center transition-none"></span>
     </button>
   </div>
 
@@ -65,27 +72,112 @@ const links = [
   </div>
 </nav>
 
+<style>
+  /* Navbar state classes driven by GSAP scrollTrigger */
+  .navbar {
+    background: transparent;
+    border-bottom: 0px solid transparent;
+  }
+
+  .navbar.scrolled {
+    background: rgba(8, 10, 16, 0.75);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .navbar.compact {
+    background: rgba(0, 102, 255, 0.15);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border-bottom: 1px solid rgba(0, 102, 255, 0.3);
+  }
+
+  .navbar.compact .navbar-logo img {
+    height: 32px !important; /* 40→32px on compact */
+    filter: drop-shadow(0 0 8px rgba(0, 102, 255, 0.6));
+  }
+</style>
+
 <script>
-  (function () {
+  import gsap from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  (function initNavbar() {
+    const navbar = document.getElementById('navbar');
     const toggle = document.getElementById('nav-toggle');
     const menu = document.getElementById('mobile-menu');
+    const progressBar = navbar?.querySelector('.navbar-progress') as HTMLElement | null;
+    const hamburgerLines = document.querySelectorAll('#nav-toggle .hamburger-line');
+
+    if (!navbar) return;
+
+    // ── 3-state morph via ScrollTrigger ────────────────────────────────────
+    // State 1 (top): transparent — no class needed
+    // State 2 (scroll > 100px): glassy — .scrolled applied
+    // State 3 (scroll > 400px): compact-pill — .compact applied
+
+    ScrollTrigger.create({
+      trigger: '#hero',
+      start: 'top top',
+      end: 'bottom top',
+      onUpdate(self) {
+        const progress = self.progress; // 0 at top, 1 at bottom
+
+        navbar.classList.remove('scrolled', 'compact');
+
+        if (progress > 0.7) {
+          navbar.classList.add('compact');
+        } else if (progress > 0.15) {
+          navbar.classList.add('scrolled');
+        }
+        // else: transparent (default)
+      },
+    });
+
+    // ── Hamburger → X rotation (fine-pointer only) ─────────────────────────
+    // Only activate on devices that support hover (no magnetic on touch)
+    const mm = window.matchMedia('(hover: hover) and (pointer: fine)');
+    let isOpen = false;
 
     function toggleMenu() {
-      if (!menu) return;
-      const isHidden = menu.classList.toggle('hidden');
-      toggle?.setAttribute('aria-expanded', String(!isHidden));
-    }
+      if (!menu || !toggle) return;
+      isOpen = !isOpen;
+      toggle.setAttribute('aria-expanded', String(isOpen));
+      toggle.setAttribute('aria-label', isOpen ? 'Cerrar menú de navegación' : 'Abrir menú de navegación');
 
-    function closeMenu() {
-      menu?.classList.add('hidden');
-      toggle?.setAttribute('aria-expanded', 'false');
+      if (isOpen) {
+        menu.classList.remove('hidden');
+        // Animate hamburger → X using GSAP
+        if (hamburgerLines.length === 3 && mm.matches) {
+          const [top, mid, bot] = hamburgerLines;
+          gsap.to(top, { y: 9, rotation: 45, duration: 0.25, ease: 'power2.out' });
+          gsap.to(mid, { scaleX: 0, duration: 0.15, ease: 'power2.in' });
+          gsap.to(bot, { y: -9, rotation: -45, duration: 0.25, ease: 'power2.out' });
+        } else {
+          // CSS fallback for non-GSAP cases
+          menu.style.display = 'block';
+        }
+      } else {
+        menu.classList.add('hidden');
+        if (hamburgerLines.length === 3 && mm.matches) {
+          const [top, mid, bot] = hamburgerLines;
+          gsap.to(top, { y: 0, rotation: 0, duration: 0.2, ease: 'power2.out' });
+          gsap.to(mid, { scaleX: 1, duration: 0.2, ease: 'power2.out' });
+          gsap.to(bot, { y: 0, rotation: 0, duration: 0.2, ease: 'power2.out' });
+        }
+      }
     }
 
     toggle?.addEventListener('click', toggleMenu);
 
     // Close on link click
     menu?.querySelectorAll('.mobile-nav-link').forEach((link) => {
-      link.addEventListener('click', closeMenu);
+      link.addEventListener('click', () => {
+        if (isOpen) toggleMenu();
+      });
     });
 
     // Close on outside click
@@ -96,7 +188,27 @@ const links = [
         !toggle?.contains(e.target as Node) &&
         !menu.contains(e.target as Node)
       ) {
-        closeMenu();
+        if (isOpen) toggleMenu();
+      }
+    });
+
+    // ── Progress bar sync via godigital:scroll event ────────────────────────
+    const updateProgress = (e: Event) => {
+      if (!progressBar) return;
+      const detail = (e as CustomEvent).detail;
+      progressBar.style.width = `${detail.percent}%`;
+    };
+    document.addEventListener('godigital:scroll', updateProgress);
+
+    // ── Navbar scroll-trigger morph — compact state on deep scroll ─────────
+    // The class-based approach (above) handles state. The progress bar
+    // is updated continuously via the godigital:scroll event listener.
+
+    // Keyboard focus trap for mobile menu
+    menu?.addEventListener('keydown', (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && isOpen) {
+        toggleMenu();
+        toggle?.focus();
       }
     });
   })();
