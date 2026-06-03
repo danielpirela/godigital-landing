@@ -7,10 +7,14 @@ import BoutiqueEdge from '../components/BoutiqueEdge.astro';
 import Process from '../components/Process.astro';
 import CTASection from '../components/CTASection.astro';
 import Footer from '../components/Footer.astro';
+import SectionProgress from '../components/SectionProgress.astro';
+import AudioToggle from '../components/AudioToggle.astro';
 ---
 
 <Layout>
   <Navbar />
+  <SectionProgress />
+  <AudioToggle />
   <main>
     <Hero />
     <Services />
@@ -22,7 +26,7 @@ import Footer from '../components/Footer.astro';
 </Layout>
 
 <script>
-  import { initAnimations } from '../scripts/animations';
+  import { initAnimations } from '../scripts/animations/index';
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initAnimations);

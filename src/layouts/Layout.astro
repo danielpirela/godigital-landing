@@ -1,5 +1,7 @@
 ---
 import '../styles/global.css';
+import SectionProgress from '../components/SectionProgress.astro';
+import AudioToggle from '../components/AudioToggle.astro';
 
 export interface Props {
   title?: string;
@@ -35,9 +37,20 @@ const { title = 'GoDigital — Diseño y desarrollo premium', description = 'Tra
       rel="stylesheet"
     />
 
-    <!-- Global styles (imported via Astro) -->
+    <!-- v2: Hero poster preload for fast LCP -->
+    <link rel="preload" as="image" href="/assets/generated/bg/obsidian-mesh.png" />
+
+    <!-- v2: ENABLE_V2_ANIM type declaration + runtime bridge -->
+    <script is:inline>
+      // Vite define replacement — will be 'true' or 'false' string at build time
+      window.__ENABLE_V2_ANIM__ = typeof __ENABLE_V2_ANIM__ !== 'undefined'
+        ? __ENABLE_V2_ANIM__ === 'true'
+        : true;
+    </script>
   </head>
   <body class="bg-surface-dim text-on-surface antialiased overflow-x-hidden">
+    <SectionProgress />
+    <AudioToggle />
     <slot />
   </body>
 </html>
