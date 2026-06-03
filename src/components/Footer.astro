@@ -6,40 +6,167 @@ const links = [
   { href: '#cta', label: 'Contacto' },
 ];
 
+const socials = [
+  { href: '#', label: 'LinkedIn (pendiente)', dataTodo: 'social-url' },
+  { href: '#', label: 'Twitter/X (pendiente)', dataTodo: 'social-url' },
+  { href: '#', label: 'Instagram (pendiente)', dataTodo: 'social-url' },
+  { href: '#', label: 'GitHub (pendiente)', dataTodo: 'social-url' },
+];
+
 const currentYear = new Date().getFullYear();
 ---
 
-<footer class="border-t border-[var(--color-glass-border)] bg-surface">
+<footer class="border-t border-[var(--color-glass-border)] bg-surface relative overflow-hidden">
+  <!-- Gradient line that draws itself on scroll-into-view -->
+  <div class="footer-gradient-line absolute top-0 left-0 right-0 h-[1px] overflow-hidden" aria-hidden="true">
+    <div
+      class="footer-gradient-fill h-full"
+      style="background: linear-gradient(90deg, transparent 0%, var(--color-primary) 50%, transparent 100%);"
+    ></div>
+  </div>
+
   <div
     class="mx-auto px-[var(--margin-mobile)] md:px-[var(--margin-desktop)] py-12 md:py-16"
     style="max-width: var(--container-max);"
   >
+    <!-- Main footer grid -->
     <div class="flex flex-col md:flex-row items-center md:items-start justify-between gap-8 md:gap-12">
+
       <!-- Logo + copyright -->
-      <div class="flex flex-col items-center md:items-start gap-4">
-        <a href="#hero">
+      <div class="flex flex-col items-center md:items-start gap-4 footer-brand">
+        <!-- Logo with draw-in animation (desktop only) -->
+        <a href="#hero" class="footer-logo-link" aria-label="GoDigital — ir al inicio">
           <img
             src="/logo-dark.svg"
             alt="GoDigital"
-            class="h-8 md:h-10 w-auto opacity-80 hover:opacity-100 transition-opacity"
+            class="h-8 md:h-10 w-auto footer-logo opacity-90 hover:opacity-100 transition-opacity duration-300"
+            style="view-transition-name: logo;"
           />
         </a>
         <p class="text-sm text-on-surface-variant/60 text-center md:text-left">
-          &copy; {currentYear} GoDigital. Todos los derechos reservados.
+          &copy; {currentYear} GoDigital.<br class="sm:hidden" /> Todos los derechos reservados.
         </p>
       </div>
 
-      <!-- Nav links -->
-      <div class="flex items-center gap-6 md:gap-8">
-        {links.map((link) => (
+      <!-- Nav links with glow underline on hover -->
+      <nav class="footer-nav" aria-label="Navegación del pie">
+        <div class="flex flex-col md:flex-row items-center gap-4 md:gap-8">
+          {links.map((link) => (
+            <a
+              href={link.href}
+              class="footer-link text-sm text-on-surface-variant/80 hover:text-on-surface transition-colors duration-200 relative"
+              data-glow="true"
+            >
+              {link.label}
+            </a>
+          ))}
+        </div>
+      </nav>
+
+      <!-- Social row with placeholders -->
+      <div class="footer-socials flex items-center gap-4 md:gap-3">
+        {socials.map((social) => (
           <a
-            href={link.href}
-            class="text-sm text-on-surface-variant/80 hover:text-on-surface transition-colors duration-200"
+            href={social.href}
+            class="footer-social-link w-9 h-9 rounded-full flex items-center justify-center transition-all duration-200"
+            style="border: 1px solid var(--color-glass-border); background: var(--color-glass-bg);"
+            data-todo={social.dataTodo}
+            aria-label={social.label}
+            rel="noopener noreferrer"
+            target="_blank"
           >
-            {link.label}
+            <!-- Placeholder icon based on social -->
+            {social.label.includes('LinkedIn') && (
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+                <rect x="2" y="9" width="4" height="12"/>
+                <circle cx="4" cy="4" r="2"/>
+              </svg>
+            )}
+            {social.label.includes('Twitter') && (
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M4 4l11.733 16h4.267l-11.733 -16z"/>
+                <path d="M4 20l6.768 -6.768m2.46 -2.46l6.767 -6.768"/>
+              </svg>
+            )}
+            {social.label.includes('Instagram') && (
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+              </svg>
+            )}
+            {social.label.includes('GitHub') && (
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+              </svg>
+            )}
           </a>
         ))}
       </div>
     </div>
+
+    <!-- Bottom note -->
+    <div class="mt-8 pt-6 text-center" style="border-top: 1px solid var(--color-glass-border);">
+      <p class="text-xs text-on-surface-variant/50">
+        Construido con dedicación en Buenos Aires, Argentina
+      </p>
+    </div>
   </div>
 </footer>
+
+<style>
+  /* Gradient line draw animation (desktop) */
+  @media (min-width: 769px) {
+    .footer-gradient-fill {
+      transform: scaleX(0);
+      transform-origin: left;
+      animation: draw-line 1s ease-out forwards;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .footer-gradient-fill {
+      opacity: 0;
+      animation: fade-in 0.6s ease-out forwards;
+    }
+  }
+
+  @keyframes draw-line {
+    to { transform: scaleX(1); }
+  }
+
+  @keyframes fade-in {
+    to { opacity: 1; }
+  }
+
+  /* Logo fade-in on load */
+  .footer-logo {
+    opacity: 0;
+    animation: logo-fade-in 0.8s ease-out 0.2s forwards;
+  }
+
+  @keyframes logo-fade-in {
+    to { opacity: 0.9; }
+  }
+
+  /* Nav link glow underline — GSAP targets these */
+  .footer-link {
+    padding-bottom: 2px;
+  }
+
+  .footer-social-link:hover {
+    background: var(--color-primary-dim);
+    border-color: var(--color-primary);
+    transform: translateY(-2px);
+  }
+
+  .footer-social-link svg {
+    color: var(--color-on-surface-variant);
+    transition: color 0.2s ease;
+  }
+
+  .footer-social-link:hover svg {
+    color: var(--color-primary);
+  }
+</style>

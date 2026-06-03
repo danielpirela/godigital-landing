@@ -3,41 +3,167 @@
 
 <section
   id="cta"
-  class="relative px-[var(--margin-mobile)] md:px-[var(--margin-desktop)] pb-30"
+  class="relative px-[var(--margin-mobile)] md:px-[var(--margin-desktop)] py-20 md:py-32 overflow-hidden"
   data-reveal="cta"
 >
+  <!-- Parallax depth background -->
+  <div class="cta-bg absolute inset-0 pointer-events-none" aria-hidden="true">
+    <!-- Breathing orbs -->
+    <div class="cta-orb cta-orb-1 absolute -top-[120px] left-[10%] w-[400px] h-[400px] rounded-full opacity-40"
+         style="background: radial-gradient(circle, rgba(0, 102, 255, 0.15) 0%, transparent 70%); filter: blur(var(--orb-blur, 80px));"></div>
+    <div class="cta-orb cta-orb-2 absolute top-[20%] -right-[100px] w-[500px] h-[500px] rounded-full opacity-30"
+         style="background: radial-gradient(circle, rgba(0, 102, 255, 0.1) 0%, transparent 70%); filter: blur(var(--orb-blur, 80px));"></div>
+    <div class="cta-orb cta-orb-3 absolute -bottom-[80px] left-[30%] w-[350px] h-[350px] rounded-full opacity-20"
+         style="background: radial-gradient(circle, rgba(0, 102, 255, 0.08) 0%, transparent 70%); filter: blur(var(--orb-blur, 80px));"></div>
+
+    <!-- Mesh gradient overlay -->
+    <div class="absolute inset-0 mesh-gradient opacity-60"></div>
+  </div>
+
   <div class="mx-auto" style="max-width: var(--container-max);">
     <div
-      class="glass-card p-10 md:p-16 lg:p-20 text-center relative overflow-hidden"
+      class="glass-card-depth-2 p-10 md:p-16 lg:p-20 text-center relative overflow-hidden"
     >
-      <!-- Background glow orb -->
+      <!-- Inner glow -->
       <div
-        class="absolute -top-[200px] left-1/2 -translate-x-1/2 w-[500px] h-[500px] rounded-full pointer-events-none"
-        style="background: radial-gradient(circle, rgba(0, 102, 255, 0.08) 0%, transparent 70%); filter: blur(80px);"
+        class="absolute -top-[150px] left-1/2 -translate-x-1/2 w-[500px] h-[500px] rounded-full pointer-events-none"
+        style="background: radial-gradient(circle, rgba(0, 102, 255, 0.12) 0%, transparent 70%); filter: blur(60px);"
+        aria-hidden="true"
       ></div>
 
       <div class="relative z-10">
-        <h2 class="text-3xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
+        <!-- Scroll-scrubbed counter badge -->
+        <div
+          class="inline-flex items-center gap-3 px-5 py-2.5 rounded-full mb-8 md:mb-10"
+          style="background: var(--color-glass-bg); border: 1px solid var(--color-glass-border); backdrop-filter: blur(12px);"
+        >
+          <!-- Animated orb dot -->
+          <span class="cta-counter-dot w-2.5 h-2.5 rounded-full bg-primary inline-block"
+                style="box-shadow: 0 0 8px rgba(0, 102, 255, 0.8);"></span>
+          <span
+            class="text-sm md:text-base font-medium text-on-surface-variant"
+            aria-live="polite"
+          >
+            <span
+              class="cta-counter font-semibold text-primary"
+              data-counter-target="10"
+              data-counter-suffix="+ proyectos completados"
+            >0+ proyectos completados</span>
+          </span>
+        </div>
+
+        <h2 class="text-3xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6 md:mb-8">
           ¿Listo para digitalizar<br class="hidden sm:inline" /> tu <span class="text-primary">visión</span>?
         </h2>
         <p class="text-on-surface-variant text-base md:text-lg max-w-lg mx-auto mb-10 md:mb-12">
           Damos vida a tus ideas con diseño y desarrollo de primer nivel. Hablemos de tu próximo proyecto.
         </p>
+
+        <!-- Magnetic CTA button -->
         <div class="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-5">
           <a
-            href="#cta"
-            class="cta-btn inline-flex items-center justify-center px-10 py-4 rounded-[var(--radius-pill)] bg-primary text-white font-semibold text-base glow-primary hover:glow-primary-hover transition-all duration-300 hover:-translate-y-0.5"
+            href="#contact"
+            class="magnetic-btn cta-primary-btn inline-flex items-center justify-center px-10 py-4 rounded-[var(--radius-pill)] font-semibold text-base text-white transition-all duration-300"
+            data-magnetic-strength="0.4"
+            style="background: var(--color-primary); box-shadow: 0 0 40px rgba(0, 102, 255, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.15);"
           >
             Cotizar Proyecto
           </a>
           <a
             href="#process"
-            class="cta-btn inline-flex items-center justify-center px-10 py-4 rounded-[var(--radius-pill)] border border-[var(--color-glass-border)] text-on-surface font-semibold text-base bg-transparent hover:bg-[var(--color-glass-bg-hover)] transition-all duration-300 hover:-translate-y-0.5"
+            class="magnetic-btn cta-secondary-btn inline-flex items-center justify-center px-10 py-4 rounded-[var(--radius-pill)] font-semibold text-base transition-all duration-300"
+            style="border: 1px solid var(--color-glass-border); color: var(--color-on-surface); background: transparent;"
           >
             Ver Proceso
           </a>
+        </div>
+
+        <!-- Secondary stats row -->
+        <div
+          class="mt-12 md:mt-16 pt-8 md:pt-10 grid grid-cols-3 gap-6 md:gap-8 max-w-xl mx-auto"
+          style="border-top: 1px solid var(--color-glass-border);"
+        >
+          <div class="text-center">
+            <div
+              class="text-2xl md:text-3xl font-bold text-primary"
+              aria-live="polite"
+            >
+              <span class="cta-counter-2" data-counter-target="8" data-counter-suffix="+">0+</span>
+            </div>
+            <div class="text-xs md:text-sm text-on-surface-variant mt-1">Años de experiencia</div>
+          </div>
+          <div class="text-center" style="border-left: 1px solid var(--color-glass-border); border-right: 1px solid var(--color-glass-border);">
+            <div
+              class="text-2xl md:text-3xl font-bold text-primary"
+              aria-live="polite"
+            >
+              <span class="cta-counter-3" data-counter-target="50" data-counter-suffix="+">0+</span>
+            </div>
+            <div class="text-xs md:text-sm text-on-surface-variant mt-1">Proyectos entregados</div>
+          </div>
+          <div class="text-center">
+            <div
+              class="text-2xl md:text-3xl font-bold text-primary"
+              aria-live="polite"
+            >
+              <span class="cta-counter-4" data-counter-target="100" data-counter-suffix="%">0%</span>
+            </div>
+            <div class="text-xs md:text-sm text-on-surface-variant mt-1">Satisfacción del cliente</div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </section>
+
+<style>
+  /* Breathing animation for orbs */
+  .cta-orb {
+    will-change: transform;
+  }
+
+  .cta-orb-1 {
+    animation: breathing 4s ease-in-out infinite;
+  }
+
+  .cta-orb-2 {
+    animation: breathing 5s ease-in-out infinite;
+    animation-delay: -1s;
+  }
+
+  .cta-orb-3 {
+    animation: breathing 4.5s ease-in-out infinite;
+    animation-delay: -2s;
+  }
+
+  @keyframes breathing {
+    0%, 100% { transform: scale(0.9); }
+    50% { transform: scale(1.1); }
+  }
+
+  /* Counter dot pulse */
+  .cta-counter-dot {
+    animation: dot-pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes dot-pulse {
+    0%, 100% { opacity: 1; box-shadow: 0 0 8px rgba(0, 102, 255, 0.8); }
+    50% { opacity: 0.6; box-shadow: 0 0 16px rgba(0, 102, 255, 1); }
+  }
+
+  /* CTA button hover states */
+  .cta-primary-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 60px rgba(0, 102, 255, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  }
+
+  .cta-secondary-btn:hover {
+    transform: translateY(-2px);
+    background: var(--color-glass-bg-hover);
+  }
+
+  /* Counter badge inner glow */
+  .cta-counter-dot {
+    flex-shrink: 0;
+  }
+</style>
