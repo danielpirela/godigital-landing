@@ -1,0 +1,25 @@
+---
+// SectionProgress — thin fixed top bar, scroll 0→100%
+// Width driven by godigital:scroll custom event
+---
+
+<div
+  class="scroll-progress"
+  id="section-progress"
+  role="progressbar"
+  aria-hidden="true"
+  aria-valuemin="0"
+  aria-valuemax="100"
+  style="width: 0%;"
+></div>
+
+<script>
+  const bar = document.getElementById('section-progress');
+  if (bar) {
+    const update = (e: Event) => {
+      const detail = (e as CustomEvent).detail;
+      bar.style.width = `${detail.percent}%`;
+    };
+    document.addEventListener('godigital:scroll', update as EventListener);
+  }
+</script>
