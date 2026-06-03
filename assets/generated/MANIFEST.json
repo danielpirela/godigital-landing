@@ -1,0 +1,178 @@
+{
+  "generated_at": "2026-06-03T18:11:00Z",
+  "mmx_cli_version": "1.0.16",
+  "change": "godigital-landing-v2",
+  "pr": "PR0",
+  "model_versions": {
+    "image": "image-01",
+    "video_t2v": "Hailuo-2.3",
+    "video_sef": "Hailuo-02",
+    "music": "music-gen (not used — skipped per user SEO decision)",
+    "speech": "es-ES-TTS (not used — skipped per user SEO decision)"
+  },
+  "decisions": {
+    "audio_skipped": "User decision 2026-06-03: no ambient music, no voiceover. SEO penalty with autoplay audio, and design works without it. AudioToggle component will be added in PR1 but with empty/no-op state.",
+    "iphone_screen_skipped": "User decision 2026-06-03: skip iphone-screen.mp4 generation (mmx weekly video quota exhausted, resets 2026-06-08). Hero iPhone mockup will use static screenshot + CSS animation instead. Re-evaluate in follow-up PR if needed.",
+    "hero_video_source": "User-supplied existing asset: assets/bg-animation (online-video-cutter.com).mp4 (1.2MB, 1280x720, 8s, h264). Copied to assets/generated/hero-loop.mp4. Asset predates mmx generation workflow."
+  },
+  "assets": [
+    {
+      "id": "bg-obsidian-mesh",
+      "type": "image",
+      "path": "assets/generated/bg/obsidian-mesh.png",
+      "model": "image-01",
+      "seed": 1001,
+      "prompt": "abstract obsidian dark mesh gradient with subtle electric blue volumetric light, premium tech aesthetic, deep charcoal #111417 base with #0066ff accent glows, smooth cinematic depth, no text, no logos, no people",
+      "width": 1920,
+      "height": 1080,
+      "size_bytes": 284277,
+      "qa_status": "pass",
+      "used_in": "Hero poster, fallback for hero-loop.mp4"
+    },
+    {
+      "id": "bg-electric-glow",
+      "type": "image",
+      "path": "assets/generated/bg/electric-glow.png",
+      "model": "image-01",
+      "seed": 1002,
+      "prompt": "deep blue radial glow on obsidian #111417 background, soft volumetric haze, cinematic, premium tech, electric blue #0066ff light source from center, no text",
+      "width": 1920,
+      "height": 1080,
+      "size_bytes": 251368,
+      "qa_status": "pass",
+      "used_in": "Services section backdrop"
+    },
+    {
+      "id": "bg-boutique-texture",
+      "type": "image",
+      "path": "assets/generated/bg/boutique-texture.png",
+      "model": "image-01",
+      "seed": 1003,
+      "prompt": "dark obsidian surface with subtle blue grain texture, premium minimal, deep charcoal #111417 with fine electric blue #0066ff specks, abstract, no logos, no text",
+      "width": 1920,
+      "height": 1080,
+      "size_bytes": 1024760,
+      "qa_status": "pass",
+      "used_in": "BoutiqueEdge section backdrop"
+    },
+    {
+      "id": "icon-ux-ui",
+      "type": "image",
+      "path": "assets/generated/icons/ux-ui.png",
+      "model": "image-01",
+      "seed": 2001,
+      "prompt": "minimalist icon UX/UI design, electric blue #0066ff glow on dark obsidian background, single abstract design tool icon, vector style, no text",
+      "aspect_ratio": "1:1",
+      "size_bytes": 113132,
+      "qa_status": "pass",
+      "used_in": "Services card 1 (UX/UI)"
+    },
+    {
+      "id": "icon-web",
+      "type": "image",
+      "path": "assets/generated/icons/web.png",
+      "model": "image-01",
+      "seed": 2002,
+      "prompt": "minimalist icon web development, code brackets symbol, electric blue #0066ff on dark obsidian background, single icon, vector style, no text",
+      "aspect_ratio": "1:1",
+      "size_bytes": 73487,
+      "qa_status": "pass",
+      "used_in": "Services card 2 (Web Dev)"
+    },
+    {
+      "id": "icon-mobile",
+      "type": "image",
+      "path": "assets/generated/icons/mobile.png",
+      "model": "image-01",
+      "seed": 2003,
+      "prompt": "minimalist icon mobile app, smartphone outline, electric blue #0066ff on dark obsidian background, single icon, vector style, no text",
+      "aspect_ratio": "1:1",
+      "size_bytes": 72588,
+      "qa_status": "pass",
+      "used_in": "Services card 3 (Mobile)"
+    },
+    {
+      "id": "icon-seo",
+      "type": "image",
+      "path": "assets/generated/icons/seo.png",
+      "model": "image-01",
+      "seed": 2004,
+      "prompt": "minimalist icon SEO search magnifier glass, electric blue #0066ff on dark obsidian background, single icon, vector style, no text",
+      "aspect_ratio": "1:1",
+      "size_bytes": 106760,
+      "qa_status": "pass",
+      "used_in": "Services card 4 (SEO)"
+    },
+    {
+      "id": "icon-integridad",
+      "type": "image",
+      "path": "assets/generated/icons/integridad.png",
+      "model": "image-01",
+      "seed": 2005,
+      "prompt": "minimalist shield icon with checkmark, integrity, electric blue #0066ff on dark obsidian background, single icon, vector style, no text",
+      "aspect_ratio": "1:1",
+      "size_bytes": 63590,
+      "qa_status": "pass",
+      "used_in": "BoutiqueEdge pillar 1"
+    },
+    {
+      "id": "icon-soporte",
+      "type": "image",
+      "path": "assets/generated/icons/soporte.png",
+      "model": "image-01",
+      "seed": 2006,
+      "prompt": "minimalist headset support icon, electric blue #0066ff on dark obsidian background, single icon, vector style, no text",
+      "aspect_ratio": "1:1",
+      "size_bytes": 70006,
+      "qa_status": "pass",
+      "used_in": "BoutiqueEdge pillar 4 (Soporte post-lanzamiento, NEW)"
+    },
+    {
+      "id": "hero-loop",
+      "type": "video",
+      "path": "assets/generated/hero-loop.mp4",
+      "model": "user-supplied (pre-mmx)",
+      "source": "assets/bg-animation (online-video-cutter.com).mp4",
+      "prompt": null,
+      "codec": "h264",
+      "width": 1280,
+      "height": 720,
+      "duration_seconds": 8.0,
+      "size_bytes": 1233780,
+      "qa_status": "user-approved",
+      "used_in": "Hero background video (autoplay, muted, loop, playsinline)"
+    }
+  ],
+  "not_generated": [
+    {
+      "id": "iphone-screen",
+      "type": "video",
+      "model_intended": "Hailuo-2.3 (I2V)",
+      "reason": "mmx weekly video quota exhausted (0/0 used, resets 2026-06-08). User opted to skip — Hero iPhone will use static screenshot from existing iphone-15-pro-marco.png + CSS animation."
+    },
+    {
+      "id": "ambient",
+      "type": "audio",
+      "model_intended": "music-gen",
+      "reason": "User decision 2026-06-03: skip audio entirely for SEO. Landing is silent."
+    },
+    {
+      "id": "hero-vo",
+      "type": "audio",
+      "model_intended": "es-ES-TTS (corrected: voice 'Spanish_ConfidentWoman')",
+      "reason": "User decision 2026-06-03: skip voiceover for SEO."
+    }
+  ],
+  "summary": {
+    "total_assets": 10,
+    "by_type": {"image": 9, "video": 1, "audio": 0},
+    "estimated_size_mb": 3.3,
+    "mmx_credits_used": 9,
+    "wall_time_minutes": 8
+  },
+  "fallback_chain": {
+    "hero-loop.mp4": "If 404, use bg/obsidian-mesh.png as static poster with CSS mesh gradient animation",
+    "icons/*.png": "If 404, use Lucide icon fallback (ux-ui=figma, web=code, mobile=smartphone, seo=search, integridad=shield-check, soporte=headphones)",
+    "bg/*.png": "If 404, use CSS conic + radial gradient stack with the same color tokens"
+  }
+}
