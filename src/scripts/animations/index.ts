@@ -11,9 +11,11 @@ import { getMotionContext, applyCSSVars } from './matchMedia';
 import { initParticles } from './particles';
 import { initScroll } from './scroll';
 import { initMagnetic } from './magnetic';
+import { initGlass } from './glass';
 import { initHero } from './hero';
 import { initServices } from './services';
 import { initProcess } from './process';
+import { initQuality } from './quality';
 import { initCTA } from './cta';
 import { initFooter } from './footer';
 
@@ -42,11 +44,13 @@ export function initAnimations(): void {
   initScroll();
   initParticles({ count: ctx.particleCount, blur: ctx.orbBlur });
   initMagnetic();
+  initGlass();
 
   // Section-specific
   initHero();
   initServices();
   initProcess();
+  initQuality();
   initCTA();
   initFooter();
 

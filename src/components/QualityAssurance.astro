@@ -1,0 +1,76 @@
+---
+/**
+ * QualityAssurance.astro — NEW v3 section
+ *
+ * 4 quality pillars with lucide-style icons, liquid-glass cards,
+ * staggered scroll entrance.
+ */
+import GlassCard from './GlassCard.astro';
+
+const pillars = [
+  {
+    title: 'Revisión por pares',
+    desc: 'Cada entregable pasa por dos ojos antes de salir del taller.',
+    iconPath: 'M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2 M9 7a4 4 0 1 0 0-8 4 4 0 0 0 0 8 M22 21v-2a4 4 0 0 0-3-3.87 M16 3.13a4 4 0 0 1 0 7.75',
+  },
+  {
+    title: 'Tests automatizados',
+    desc: 'Cobertura >80% en lógica crítica. CI/CD en cada push.',
+    iconPath: 'M21 7 6.82 21.18a2.83 2.83 0 1 1-4-4L17 3 M21 7l-3.5-3.5 M18 10l3 3 M9 4.5 7 7 M5 8l3 3 M3 12l3 3 M4.5 14 7 16 M3 18l3 3',
+  },
+  {
+    title: 'Auditoría de performance',
+    desc: 'Lighthouse 90+ en cada deploy. Core Web Vitals vigilados.',
+    iconPath: 'm12 14 4-4 M3.34 19a10 10 0 1 1 17.32 0',
+  },
+  {
+    title: 'Documentación viva',
+    desc: 'Tu equipo entiende lo que recibe. Runbooks actualizados.',
+    iconPath: 'M12 7v14 M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z',
+  },
+];
+---
+
+<section
+  id="quality-assurance"
+  style="background: radial-gradient(circle at 50% 0%, rgba(0, 102, 255, 0.06) 0%, transparent 60%);"
+  class="relative px-[var(--margin-mobile)] md:px-[var(--margin-desktop)] py-30"
+>
+  <div class="mx-auto" style="max-width: 1200px;">
+    <!-- Section header -->
+    <div class="text-center mb-16" data-reveal="section-title">
+      <h2 class="font-extrabold mb-6" style="font-family: var(--font-heading); font-size: clamp(2.5rem, 6vw, 4.5rem);">
+        <span class="shiny-text">Calidad sin atajos</span>
+      </h2>
+      <p class="text-lg mb-16" style="opacity: 0.6; color: var(--color-on-surface-variant);">
+        Cuatro pilares que sostienen cada entrega
+      </p>
+    </div>
+
+    <!-- Pillar cards — 2×2 grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-[900px] mx-auto">
+      {pillars.map((pillar, i) => (
+        <GlassCard variant="default" padding="lg" interactive class="qa-pillar" data-reveal="qa-pillar" data-index={i}>
+          <!-- Icon -->
+          <div class="qa-icon-wrap w-12 h-12 rounded-full flex items-center justify-center mb-4" style="background: rgba(0, 102, 255, 0.12);">
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="var(--color-primary)"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d={pillar.iconPath} />
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold mb-2" style="font-family: var(--font-heading);">{pillar.title}</h3>
+          <p class="text-sm leading-relaxed" style="opacity: 0.7; color: var(--color-on-surface-variant);">{pillar.desc}</p>
+        </GlassCard>
+      ))}
+    </div>
+  </div>
+</section>

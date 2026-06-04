@@ -1,11 +1,11 @@
 ---
 /**
- * Services.astro — v2 Services section with sticky-pin and multi-vector card entrance
+ * Services.astro — v3 liquid-glass service cards
  *
- * 4 service cards with mmx icons, hover glow, and sticky-pin on desktop.
- * Cards enter from alternating x/y vectors (ScrollTrigger scrub).
+ * 4 service cards wrapped in GlassCard with depth variants,
+ * subtitle rendering restored (v2 bug fix).
  */
-import { getMmxAsset } from '../lib/mmx-assets';
+import GlassCard from './GlassCard.astro';
 
 const services = [
   {
@@ -20,6 +20,7 @@ const services = [
     </svg>`,
     color: '#0066ff',
     bgColor: 'rgba(0, 102, 255, 0.12)',
+    variant: 'default',
   },
   {
     title: 'Web Development',
@@ -32,6 +33,7 @@ const services = [
     </svg>`,
     color: '#7c3aed',
     bgColor: 'rgba(124, 58, 237, 0.12)',
+    variant: 'soft',
   },
   {
     title: 'Mobile Apps',
@@ -44,6 +46,7 @@ const services = [
     </svg>`,
     color: '#06b6d4',
     bgColor: 'rgba(6, 182, 212, 0.12)',
+    variant: 'strong',
   },
   {
     title: 'SEO Técnico',
@@ -57,14 +60,15 @@ const services = [
     </svg>`,
     color: '#00e676',
     bgColor: 'rgba(0, 230, 118, 0.12)',
+    variant: 'accent',
   },
 ];
 
 const iconPaths = {
-  'icon-ux-ui': getMmxAsset('icon-ux-ui'),
-  'icon-web': getMmxAsset('icon-web'),
-  'icon-mobile': getMmxAsset('icon-mobile'),
-  'icon-seo': getMmxAsset('icon-seo'),
+  'icon-ux-ui': '/assets/generated/icons/ux-ui.png',
+  'icon-web': '/assets/generated/icons/web.png',
+  'icon-mobile': '/assets/generated/icons/mobile.png',
+  'icon-seo': '/assets/generated/icons/seo.png',
 };
 ---
 
@@ -87,12 +91,7 @@ const iconPaths = {
     <!-- Service cards grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
       {services.map((service, i) => (
-        <article
-          class="service-card glass-card p-8 md:p-10 flex flex-col"
-          data-reveal="service-card"
-          data-index={i}
-          data-depth={i + 1}
-        >
+        <GlassCard variant={service.variant as any} padding="lg" interactive as="article" class="service-card" data-reveal="service-card" data-index={i}>
           <!-- Icon container -->
           <div
             class="service-icon-wrap w-16 h-16 rounded-[var(--radius-lg)] flex items-center justify-center mb-6 transition-all duration-300"
@@ -117,35 +116,15 @@ const iconPaths = {
 
           <!-- Text -->
           <h3 class="text-xl md:text-2xl font-bold mb-1">{service.title}</h3>
-          <p class="service-subtitle text-primary text-sm md:text-base font-semibold mb-3 tracking-wide">{service.subtitle}</p>
-          <p class="text-on-surface-variant text-sm md:text-base leading-relaxed">{service.desc}</p>
-        </article>
+          <p class="service-subtitle" style="font-size: 14px; opacity: 0.6; color: var(--color-on-surface-variant);">{service.subtitle}</p>
+          <p class="text-on-surface-variant text-sm md:text-base leading-relaxed mt-3">{service.desc}</p>
+        </GlassCard>
       ))}
     </div>
   </div>
 </section>
 
 <style>
-  .service-card {
-    transition:
-      transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-      box-shadow 0.35s ease,
-      border-color 0.35s ease;
-    will-change: transform;
-  }
-
-  .service-card:hover {
-    transform: translateY(-4px) scale(1.02);
-    box-shadow:
-      0 30px 80px rgba(0, 0, 0, 0.5),
-      inset 0 1px 1px rgba(255, 255, 255, 0.08),
-      0 0 0 1px var(--color-primary);
-  }
-
-  .service-card:hover .service-icon-wrap {
-    box-shadow: 0 0 24px rgba(0, 102, 255, 0.4);
-  }
-
   /* Icon: img visible by default, fallback hidden until img fails */
   .service-icon-img {
     display: block;
@@ -160,10 +139,5 @@ const iconPaths = {
     display: flex;
     align-items: center;
     justify-content: center;
-  }
-
-  /* Sticky pin container — wraps the grid during pin */
-  #services {
-    position: relative;
   }
 </style>

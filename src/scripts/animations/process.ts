@@ -1,9 +1,9 @@
 /**
- * process.ts — Process scroll-scrubbed timeline
+ * process.ts — Process scroll-scrubbed timeline with word-by-word reveal
  *
  * - Line scales 0→1 in Y (transformOrigin: center top)
  * - Circles rotate 0→360deg (scrubbed)
- * - Step text typewriter fade-up
+ * - Step text word-by-word reveal tied to global line progress
  * - Mobile: IntersectionObserver fallback
  */
 
@@ -21,9 +21,11 @@ export function initProcess(): void {
 
   const line = document.querySelector('.process-line') as HTMLElement | null;
   const circles = gsap.utils.toArray<HTMLElement>('.process-circle');
+  const steps = gsap.utils.toArray<HTMLElement>('.process-step');
 
   if (ctx.isDesktop) {
     // ── Desktop: Scroll-scrubbed timeline ─────────────────────────────────────
+
     // Line: scaleY 0 → 1
     if (line) {
       gsap.fromTo(
@@ -62,20 +64,28 @@ export function initProcess(): void {
       });
     }
 
-    // Step text: fade-up with stagger
-    gsap.from('.process-step-text', {
-      scrollTrigger: {
-        trigger: '#process',
-        start: 'top 65%',
-      },
-      opacity: 0,
-      y: 30,
-      stagger: 0.2,
-      duration: 0.7,
-      ease: 'power3.out',
+    // Per-step word-by-word reveal
+    steps.forEach((step) => {
+      const words = step.querySelectorAll<HTMLElement>('[data-step-word]');
+      const total = words.length;
+      if (!total) return;
+
+      ScrollTrigger.create({
+        trigger: step,
+        start: 'top 75%',
+        end: 'bottom 25%',
+        scrub: 0.5,
+        onUpdate(self) {
+          const p = self.progress;
+          words.forEach((w, i) => {
+            const wp = Math.max(0, Math.min(1, p * total - i));
+            w.style.setProperty('--word-progress', String(wp));
+          });
+        },
+      });
     });
 
-    // Step titles too
+    // Step titles fade-up with stagger
     gsap.from('.process-step-title', {
       scrollTrigger: {
         trigger: '#process',
@@ -87,9 +97,9 @@ export function initProcess(): void {
       duration: 0.6,
       ease: 'power3.out',
     });
+
   } else {
     // ── Mobile: Simple fade-up via IntersectionObserver ──────────────────────
-    const steps = gsap.utils.toArray<HTMLElement>('.process-step');
     steps.forEach((step) => {
       gsap.set(step, { opacity: 0, y: 40 });
       const observer = new IntersectionObserver(

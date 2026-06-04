@@ -1,37 +1,36 @@
 ---
 /**
- * Process.astro — v2 scroll-scrubbed timeline
+ * Process.astro — v3 scroll-scrubbed timeline, 5 steps, word-by-word reveal
  *
- * - Vertical line that scales 0→1 in Y as user scrolls
- * - 3 numbered circles that rotate 0→360deg as line grows
- * - SVG fluid bezier curves connecting steps
- * - Step text: fade-up with subtle typewriter effect
+ * - 5-step data array (explicit, not template slice — v2 bug fix)
+ * - Word-by-word opacity tied to global line progress
+ * - Circle rotation + line scale scrubbed by ScrollTrigger
  */
 const steps = [
   {
     num: '01',
-    title: 'Diagnosticamos',
-    desc: 'Investigamos tu mercado, audiencia y competencia. Recolectamos datos para tomar decisiones informadas y definir el rumbo del proyecto.',
+    title: 'Descubrimiento',
+    desc: 'Entendemos tu negocio, audiencia y objetivos. Workshops, entrevistas, auditoría técnica.',
   },
   {
     num: '02',
-    title: 'Diseñamos',
-    desc: 'Convertimos hallazgos en wireframes, prototipos y sistemas de diseño. Iteramos contigo hasta que cada pixel comunique lo que tu marca necesita.',
+    title: 'Estrategia',
+    desc: 'Definimos el alcance, el roadmap y los criterios de éxito. Todo por escrito.',
   },
   {
     num: '03',
-    title: 'Construimos',
-    desc: 'Codificamos con estándares profesionales: tipado estricto, accesibilidad WCAG, performance Lighthouse 95+ desde el primer commit.',
+    title: 'Diseño',
+    desc: 'Wireframes, prototipos visuales, design system. Iteramos con tu feedback.',
   },
   {
     num: '04',
-    title: 'Lanzamos',
-    desc: 'Desplegamos en infraestructura escalable, configuramos analytics y datos estructurados. Tu producto entra al mundo listo para escalar.',
+    title: 'Desarrollo',
+    desc: 'Código limpio, tipado, testeado. Deploys semanales para que veas progreso.',
   },
   {
     num: '05',
     title: 'Iteramos',
-    desc: 'Monitoreamos métricas, recogemos feedback y aplicamos mejoras continuas. No desaparecemos después del lanzamiento: somos tu partner a largo plazo.',
+    desc: 'Lanzamos, medimos, mejoramos. El producto vive y crece con tu negocio.',
   },
 ];
 ---
@@ -63,14 +62,12 @@ const steps = [
         preserveAspectRatio="none"
         aria-hidden="true"
       >
-        <!-- Bezier curves between steps -->
         <defs>
           <linearGradient id="lineGrad" x1="0%" y1="0%" x2="0%" y2="100%">
             <stop offset="0%" stop-color="#0066ff" stop-opacity="0.8"/>
             <stop offset="100%" stop-color="#0066ff" stop-opacity="0.3"/>
           </linearGradient>
         </defs>
-        <!-- Connecting fluid curve -->
         <path
           d="M24 10 C 24 30, 20 45, 24 60 C 28 75, 24 80, 24 90"
           fill="none"
@@ -93,6 +90,7 @@ const steps = [
             class="process-step relative flex items-start gap-5 md:gap-8"
             data-reveal="process-step"
             data-index={i}
+            style="--word-progress: 0;"
           >
             <!-- Numbered circle (rotates 0→360 as line grows) -->
             <div class="relative z-10 shrink-0 flex items-center justify-center">
@@ -104,10 +102,14 @@ const steps = [
               </div>
             </div>
 
-            <!-- Content with typewriter words -->
+            <!-- Content with word-by-word reveal -->
             <div class="flex-1 pt-2 md:pt-3">
               <h3 class="process-step-title text-xl md:text-2xl font-bold mb-2">{step.title}</h3>
-              <p class="process-step-text text-on-surface-variant text-sm md:text-base leading-relaxed">{step.desc}</p>
+              <p class="process-step-text text-on-surface-variant text-sm md:text-base leading-relaxed">
+                {step.desc.split(' ').map((word, wi) => (
+                  <span class="process-word" data-step-word={wi} style="opacity: calc(0.2 + 0.8 * var(--word-progress, 0));">{word} </span>
+                ))}
+              </p>
             </div>
           </div>
         ))}

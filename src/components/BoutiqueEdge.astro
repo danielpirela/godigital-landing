@@ -1,154 +1,92 @@
 ---
 /**
- * BoutiqueEdge.astro — v2 Differentiators with 4 pillars
+ * BoutiqueEdge.astro — v3 liquid-glass 4-pillar section
  *
- * 4 pillars: Integridad, Calidez, Planificación estratégica, Soporte post-lanzamiento
- * - mmx icons for integrity and support pillars
- * - Pop-in check circles with overshoot on scroll-into-view
- * - Clip-path reveal from left, staggered 0.2s
+ * 4 pillars with Sparkles icons, boutique Spanish copy,
+ * liquid-glass soft cards, 4-col grid layout.
  */
-import { getMmxAsset } from '../lib/mmx-assets';
+import GlassCard from './GlassCard.astro';
 
-const edges = [
+const pillars = [
   {
-    title: 'Integridad',
-    desc: 'Transparencia total en cada proyecto. Sin letra chica, sin sobrecostos ocultos. Lo que pactamos es lo que entregamos, con la calidad que prometemos.',
-    iconId: 'icon-integridad',
-    iconFallback: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-    </svg>`,
+    title: 'Lo que prometemos, lo cumplimos',
+    desc: 'Plazos y presupuestos cerrados por escrito. Sin sorpresas.',
+    iconPath: 'M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z M20 3v4 M22 5h-4 M4 17v2 M5 18H3',
   },
   {
-    title: 'Calidez',
-    desc: 'Te tratamos como persona, no como ticket. Comunicación directa, cercana y en tu idioma. Porque detrás de cada proyecto hay un ser humano.',
-    iconId: null,
-    iconFallback: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
-    </svg>`,
+    title: 'Equipo senior en cada proyecto',
+    desc: 'Diseñadores y developers con 5+ años de experiencia, no juniors aprendiendo con tu producto.',
+    iconPath: 'M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z M20 3v4 M22 5h-4 M4 17v2 M5 18H3',
   },
   {
-    title: 'Planificación estratégica',
-    desc: 'Cada proyecto arranca con un roadmap claro. Fechas, entregables y objetivos definidos desde el día uno. Sin sorpresas de último minuto.',
-    iconId: null,
-    iconFallback: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-      <line x1="12" y1="20" x2="12" y2="10"/>
-      <line x1="18" y1="20" x2="18" y2="4"/>
-      <line x1="6" y1="20" x2="6" y2="16"/>
-    </svg>`,
+    title: 'Roadmap claro desde el día uno',
+    desc: 'Sabés qué se entrega, cuándo, y por qué. Reuniones semanales de avance.',
+    iconPath: 'M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z M20 3v4 M22 5h-4 M4 17v2 M5 18H3',
   },
   {
-    title: 'Soporte post-lanzamiento',
-    desc: 'No desaparece la producción. Monitoreo, correcciones y mejoras continuas para que tu plataforma seguir funcionando al más alto nivel.',
-    iconId: 'icon-soporte',
-    iconFallback: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-    </svg>`,
+    title: 'Una persona real responde',
+    desc: 'Canal directo con el equipo. Sin tickets, sin chatbot, sin esperas.',
+    iconPath: 'M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z M20 3v4 M22 5h-4 M4 17v2 M5 18H3',
   },
 ];
-
-function getEdgeIcon(iconId: string | null, fallback: string): string {
-  if (!iconId) {
-    return `<span class="edge-icon-fallback" style="color:#00e676;">${fallback}</span>`;
-  }
-  const path = getMmxAsset(iconId as any);
-  return `<img data-mmx-generated="${iconId}" src="${path}" alt="" loading="lazy" width="24" height="24" class="edge-icon-img object-contain" onerror="this.classList.add('failed');"/><span class="edge-icon-fallback" style="color:#00e676;">${fallback}</span>`;
-}
 ---
 
 <section
-  id="edge"
+  id="boutique-edge"
   class="relative px-[var(--margin-mobile)] md:px-[var(--margin-desktop)] pb-30"
 >
   <div class="mx-auto" style="max-width: var(--container-max);">
     <!-- Section header -->
     <div class="text-center mb-16 md:mb-20" data-reveal="section-title">
-      <span class="inline-block text-xs font-semibold uppercase tracking-[0.2em] text-success mb-4">
+      <span class="inline-block text-xs font-semibold uppercase tracking-[0.2em] text-primary mb-4">
         Diferenciadores
       </span>
       <h2 class="text-3xl md:text-5xl font-bold">
-        Lo que nos <span class="text-success">diferencia</span>
+        Lo que nos <span class="text-primary">diferencia</span>
       </h2>
       <div class="gradient-line w-16 mx-auto mt-6"></div>
     </div>
 
-    <!-- Edge cards — clip-path reveal from left, staggered -->
-    <div class="edge-list flex flex-col gap-5 md:gap-6">
-      {edges.map((edge, i) => (
-        <div
-          class="edge-card glass-card p-6 md:p-8 flex items-start gap-5 md:gap-6"
-          data-reveal="edge-card"
-          data-index={i}
-        >
-          <!-- Green check circle with pop-in animation -->
-          <div
-            class="edge-check shrink-0 w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center"
-            style="background: rgba(0, 230, 118, 0.12); box-shadow: 0 0 20px rgba(0, 230, 118, 0.2);"
-          >
-            <!-- Check icon (SVG) -->
+    <!-- Pillar cards — 4-col grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6">
+      {pillars.map((pillar, i) => (
+        <GlassCard variant="soft" padding="md" class="boutique-pillar" data-reveal="edge-card" data-index={i}>
+          <!-- Sparkles icon -->
+          <div class="pillar-icon-wrap w-10 h-10 rounded-full flex items-center justify-center mb-4" style="background: rgba(0, 102, 255, 0.12);">
             <svg
-              width="22"
-              height="22"
+              width="20"
+              height="20"
               viewBox="0 0 24 24"
               fill="none"
-              stroke="#00e676"
-              stroke-width="2.5"
+              stroke="var(--color-primary)"
+              stroke-width="2"
               stroke-linecap="round"
               stroke-linejoin="round"
-              class="md:w-[26px] md:h-[26px]"
+              aria-hidden="true"
             >
-              <polyline points="20 6 9 17 4 12" />
+              <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/>
+              <path d="M20 3v4"/>
+              <path d="M22 5h-4"/>
+              <path d="M4 17v2"/>
+              <path d="M5 18H3"/>
             </svg>
           </div>
-
-          <!-- Text + icon column -->
-          <div class="flex-1 min-w-0">
-            <div class="flex items-center gap-3 mb-2">
-              <!-- Pillar icon (mmx or fallback) -->
-              <div class="edge-icon text-success" set:html={getEdgeIcon(edge.iconId, edge.iconFallback)} />
-              <h3 class="text-lg md:text-2xl font-bold">{edge.title}</h3>
-            </div>
-            <p class="text-on-surface-variant text-sm md:text-base leading-relaxed">{edge.desc}</p>
-          </div>
-        </div>
+          <h3 class="text-lg font-semibold mb-2" style="font-family: var(--font-heading);">{pillar.title}</h3>
+          <p class="text-sm leading-relaxed" style="opacity: 0.7; color: var(--color-on-surface-variant);">{pillar.desc}</p>
+        </GlassCard>
       ))}
     </div>
   </div>
 </section>
 
 <style>
-  .edge-card {
+  .boutique-pillar {
     clip-path: inset(0 100% 0 0);
     transition: clip-path 0.7s cubic-bezier(0.76, 0, 0.24, 1);
   }
 
-  .edge-card.is-revealed {
+  .boutique-pillar.is-revealed {
     clip-path: inset(0 0% 0 0);
-  }
-
-  /* Pop-in check circle */
-  .edge-check {
-    transform: scale(0);
-    transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-  }
-
-  .edge-check.is-popped {
-    transform: scale(1);
-  }
-
-  /* Icon: img visible by default, fallback hidden until img fails */
-  .edge-icon-img {
-    display: block;
-  }
-  .edge-icon-fallback {
-    display: none;
-    align-items: center;
-    justify-content: center;
-  }
-  .edge-icon-img.failed {
-    display: none;
-  }
-  .edge-icon-img.failed + .edge-icon-fallback {
-    display: flex;
   }
 </style>
 
@@ -161,7 +99,7 @@ function getEdgeIcon(iconId: string | null, fallback: string): string {
 
   function initBoutiqueEdge(): void {
     // Clip-path reveal from left, staggered
-    const cards = gsap.utils.toArray<HTMLElement>('.edge-card');
+    const cards = gsap.utils.toArray<HTMLElement>('.boutique-pillar');
     cards.forEach((card, i) => {
       ScrollTrigger.create({
         trigger: card,
@@ -173,15 +111,20 @@ function getEdgeIcon(iconId: string | null, fallback: string): string {
             ease: 'power3.out',
             delay: i * 0.2,
           });
-          // Pop-in check circle with overshoot
-          const check = card.querySelector('.edge-check') as HTMLElement | null;
-          if (check) {
-            gsap.to(check, {
-              scale: 1,
-              duration: 0.6,
-              ease: 'elastic.out(1, 0.5)',
-              delay: i * 0.2 + 0.1,
-            });
+          // Sparkles icon pop-in with overshoot
+          const icon = card.querySelector('.pillar-icon-wrap') as HTMLElement | null;
+          if (icon) {
+            gsap.fromTo(
+              icon,
+              { scale: 0, opacity: 0 },
+              {
+                scale: 1,
+                opacity: 1,
+                duration: 0.6,
+                ease: 'elastic.out(1, 0.5)',
+                delay: i * 0.2 + 0.1,
+              }
+            );
           }
         },
         once: true,
@@ -189,6 +132,5 @@ function getEdgeIcon(iconId: string | null, fallback: string): string {
     });
   }
 
-  // Initialize when DOM is ready
   document.addEventListener('DOMContentLoaded', initBoutiqueEdge);
 </script>
