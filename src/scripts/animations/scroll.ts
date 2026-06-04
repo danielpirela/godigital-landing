@@ -1,16 +1,19 @@
 /**
- * scroll.ts — Global scroll progress tracking + curtain transition
+ * scroll.ts — Global scroll progress + curtain transitions
  *
  * Emits scroll percentage via custom event `godigital:scroll` for
  * SectionProgress to consume.
- * Also manages CSS curtain wipe between Services → BoutiqueEdge.
  *
- * Curtain: CSS clip-path wipe (primary). ENABLE_MMX_CURTAIN=true
- * would load /assets/generated/curtain.mp4 here.
+ * Curtain: singleton .curtain-radial overlay that fires between
+ * ALL adjacent section pairs using ScrollTrigger.
+ *
+ * v3: 5 section transitions (hero→services, services→boutique-edge,
+ * boutique-edge→process, process→quality-assurance, quality-assurance→cta).
  */
 
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { getMotionContext } from './matchMedia';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -32,7 +35,7 @@ export function initScroll(): void {
     document.dispatchEvent(event);
   };
 
-  // Throttle to rAF for smooth updates without flooding
+  // Throttle to rAF for smooth updates
   let ticking = false;
   window.addEventListener('scroll', () => {
     if (!ticking) {
@@ -47,76 +50,61 @@ export function initScroll(): void {
   // Fire once on init
   handleScroll();
 
-  // ── Curtain Transition: Services → BoutiqueEdge ─────────────────────────
+  // ── Curtain Transitions ──────────────────────────────────────────────────
   initCurtain();
 }
 
 // ── Curtain Transition ────────────────────────────────────────────────────────
 
 /**
- * ENABLE_MMX_CURTAIN env wiring:
- * - Default (false): CSS clip-path wipe (always active)
- * - Set ENABLE_MMX_CURTAIN=true in .env to opt into curtain.mp4 video
- *   (requires T0.6 asset — mmx quota may be exhausted)
- *
- * Current behavior: CSS clip-path wipe is the primary path.
- * The video path is a future opt-in when mmx quota is available.
- *
- * To enable video curtain:
- *   1. Set ENABLE_MMX_CURTAIN=true in .env
- *   2. Ensure assets/generated/curtain.mp4 exists (T0.6 — Hailuo-02)
- *   3. Wire a <video> element with autoplay/muted/loop and gsap sync
- *
- * CSS clip-path wipe is always active regardless of this env var.
+ * Singleton curtain element using .curtain-radial CSS class.
+ * Created once, reused for all section transitions.
  */
+let curtainEl: HTMLElement | null = null;
 
-let curtainAnimating = false;
+function ensureCurtain(): HTMLElement {
+  if (curtainEl && document.body.contains(curtainEl)) return curtainEl;
+  curtainEl = document.createElement('div');
+  curtainEl.className = 'curtain-radial';
+  curtainEl.setAttribute('aria-hidden', 'true');
+  document.body.appendChild(curtainEl);
+  return curtainEl;
+}
 
+/**
+ * 5 section-pair curtain triggers.
+ * Each fires when leaving one section and entering the next.
+ */
 function initCurtain(): void {
   if (typeof window === 'undefined') return;
 
-  // Create curtain overlay (fixed, above all content)
-  let curtain = document.querySelector('.curtain-wipe') as HTMLElement | null;
-  if (!curtain) {
-    curtain = document.createElement('div');
-    curtain.className = 'curtain-wipe';
-    curtain.setAttribute('aria-hidden', 'true');
-    curtain.style.cssText = `
-      position: fixed;
-      inset: 0;
-      background: var(--color-curtain, rgba(0, 102, 255, 0.95));
-      z-index: 100;
-      pointer-events: none;
-      clip-path: inset(0 100% 0 0);
-    `;
-    document.body.appendChild(curtain);
-  }
+  const motion = getMotionContext();
+  if (!motion) return;
 
-  // Services → BoutiqueEdge wipe
-  ScrollTrigger.create({
-    trigger: '#edge',
-    start: 'top 85%',
-    onEnter: () => {
-      if (curtainAnimating) return;
-      curtainAnimating = true;
-      gsap.to(curtain, {
-        clipPath: 'inset(0 0% 0 0)',
-        duration: 0.6,
-        ease: 'expo.out',
-        onComplete: () => {
-          // Immediately start reversing
-          gsap.to(curtain, {
-            clipPath: 'inset(0 100% 0 0)',
-            duration: 0.6,
-            ease: 'expo.out',
-            delay: 0.1,
-            onComplete: () => {
-              curtainAnimating = false;
-            },
-          });
-        },
-      });
-    },
-    once: true,
+  // Mobile: skip curtain entirely
+  if (!window.matchMedia('(min-width: 769px)').matches) return;
+
+  const sectionPairs = [
+    { from: '#hero', to: '#services' },
+    { from: '#services', to: '#boutique-edge' },
+    { from: '#boutique-edge', to: '#process' },
+    { from: '#process', to: '#quality-assurance' },
+    { from: '#quality-assurance', to: '#cta' },
+  ];
+
+  sectionPairs.forEach(({ from, to }) => {
+    const fromEl = document.querySelector(from);
+    const toEl = document.querySelector(to);
+    if (!fromEl || !toEl) return;
+
+    ScrollTrigger.create({
+      trigger: fromEl,
+      start: 'bottom 60%',
+      endTrigger: toEl,
+      end: 'top 40%',
+      onEnter: () => ensureCurtain().classList.add('is-active'),
+      onLeaveBack: () => ensureCurtain().classList.remove('is-active'),
+      once: false,
+    });
   });
 }

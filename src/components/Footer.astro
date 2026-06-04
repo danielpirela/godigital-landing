@@ -1,172 +1,181 @@
 ---
-const links = [
+import GlassCard from './GlassCard.astro';
+
+const currentYear = new Date().getFullYear();
+
+const navLinks = [
   { href: '#services', label: 'Servicios' },
   { href: '#edge', label: 'Diferencia' },
   { href: '#process', label: 'Proceso' },
+  { href: '#quality-assurance', label: 'Calidad' },
   { href: '#cta', label: 'Contacto' },
 ];
 
 const socials = [
-  { href: '#', label: 'LinkedIn (pendiente)', dataTodo: 'social-url' },
-  { href: '#', label: 'Twitter/X (pendiente)', dataTodo: 'social-url' },
-  { href: '#', label: 'Instagram (pendiente)', dataTodo: 'social-url' },
-  { href: '#', label: 'GitHub (pendiente)', dataTodo: 'social-url' },
+  {
+    label: 'GitHub',
+    href: 'https://github.com/godigital',
+    icon: `<path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.04-2.13-.82-4.19-2.36-5.7A4.85 4.85 0 0 0 17.5 1.5S16.05 1.18 15 2.5c-1.05-1.32-2.5-1-2.5-1a4.85 4.85 0 0 0-.14 3.8A5.86 5.86 0 0 0 10 12.5c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/>`,
+  },
+  {
+    label: 'LinkedIn',
+    href: 'https://linkedin.com/company/godigital',
+    icon: `<path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/>`,
+  },
+  {
+    label: 'Email',
+    href: 'mailto:hola@godigital.com.ar',
+    icon: `<rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>`,
+  },
 ];
 
-const currentYear = new Date().getFullYear();
+const legalLinks = [
+  { href: '#', label: 'Privacidad' },
+  { href: '#', label: 'Términos' },
+  { href: '#', label: 'Cookies' },
+];
 ---
 
-<footer class="border-t border-[var(--color-glass-border)] bg-surface relative overflow-hidden">
-  <!-- Gradient line that draws itself on scroll-into-view -->
-  <div class="footer-gradient-line absolute top-0 left-0 right-0 h-[1px] overflow-hidden" aria-hidden="true">
-    <div
-      class="footer-gradient-fill h-full"
-      style="background: linear-gradient(90deg, transparent 0%, var(--color-primary) 50%, transparent 100%);"
-    ></div>
-  </div>
+<footer class="relative overflow-hidden" style="background: var(--color-surface-dim);">
+  <!-- Top gradient line -->
+  <div class="gradient-line" aria-hidden="true"></div>
 
   <div
     class="mx-auto px-[var(--margin-mobile)] md:px-[var(--margin-desktop)] py-12 md:py-16"
     style="max-width: var(--container-max);"
   >
-    <!-- Main footer grid -->
-    <div class="flex flex-col md:flex-row items-center md:items-start justify-between gap-8 md:gap-12">
+    <!-- 4-column grid: lg:4col, md:2col, mobile:1col -->
+    <div class="footer-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 mb-12">
 
-      <!-- Logo + copyright -->
-      <div class="flex flex-col items-center md:items-start gap-4 footer-brand">
-        <!-- Logo with draw-in animation (desktop only) -->
-        <a href="#hero" class="footer-logo-link" aria-label="GoDigital — ir al inicio">
-          <img
-            src="/logo-dark.svg"
-            alt="GoDigital"
-            class="h-8 md:h-10 w-auto footer-logo opacity-90 hover:opacity-100 transition-opacity duration-300"
-            style="view-transition-name: logo;"
-          />
-        </a>
-        <p class="text-sm text-on-surface-variant/60 text-center md:text-left">
-          &copy; {currentYear} GoDigital.<br class="sm:hidden" /> Todos los derechos reservados.
-        </p>
-      </div>
+      <!-- Column 1: Logo + tagline -->
+      <GlassCard variant="soft" padding="md" as="div" class="footer-col">
+        <div class="flex flex-col gap-4">
+          <!-- Logo -->
+          <a href="#hero" aria-label="GoDigital — ir al inicio">
+            <img
+              src="/logo-light.svg"
+              alt="GoDigital"
+              class="h-8 w-auto opacity-90 hover:opacity-100 transition-opacity duration-300"
+            />
+          </a>
+          <p class="text-sm text-on-surface-variant/60" style="opacity: 0.6; font-family: 'Inter', system-ui, sans-serif;">
+            Consultora boutique de diseño y desarrollo web.
+          </p>
+        </div>
+      </GlassCard>
 
-      <!-- Nav links with glow underline on hover -->
-      <nav class="footer-nav" aria-label="Navegación del pie">
-        <div class="flex flex-col md:flex-row items-center gap-4 md:gap-8">
-          {links.map((link) => (
+      <!-- Column 2: Navegación -->
+      <GlassCard variant="soft" padding="md" as="div" class="footer-col">
+        <h3 class="text-xs font-semibold uppercase tracking-widest text-on-surface-variant/50 mb-4" style="font-family: 'Inter', system-ui, sans-serif;">
+          Navegación
+        </h3>
+        <nav aria-label="Navegación del pie">
+          <ul class="flex flex-col gap-3">
+            {navLinks.map((link) => (
+              <li>
+                <a
+                  href={link.href}
+                  class="text-sm text-on-surface-variant/70 hover:text-on-surface transition-colors duration-200 footer-nav-link"
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </GlassCard>
+
+      <!-- Column 3: Conectá -->
+      <GlassCard variant="soft" padding="md" as="div" class="footer-col">
+        <h3 class="text-xs font-semibold uppercase tracking-widest text-on-surface-variant/50 mb-4" style="font-family: 'Inter', system-ui, sans-serif;">
+          Conectá
+        </h3>
+        <div class="flex items-center gap-3">
+          {socials.map((social) => (
             <a
-              href={link.href}
-              class="footer-link text-sm text-on-surface-variant/80 hover:text-on-surface transition-colors duration-200 relative"
-              data-glow="true"
+              href={social.href}
+              class="footer-social-btn w-10 h-10 rounded-full flex items-center justify-center transition-all duration-200"
+              aria-label={social.label}
+              rel="noopener noreferrer"
+              target={social.href.startsWith('mailto') ? undefined : '_blank'}
             >
-              {link.label}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <Fragment set:html={social.icon} />
+              </svg>
             </a>
           ))}
         </div>
-      </nav>
+      </GlassCard>
 
-      <!-- Social row with placeholders -->
-      <div class="footer-socials flex items-center gap-4 md:gap-3">
-        {socials.map((social) => (
-          <a
-            href={social.href}
-            class="footer-social-link w-9 h-9 rounded-full flex items-center justify-center transition-all duration-200"
-            style="border: 1px solid var(--color-glass-border); background: var(--color-glass-bg);"
-            data-todo={social.dataTodo}
-            aria-label={social.label}
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <!-- Placeholder icon based on social -->
-            {social.label.includes('LinkedIn') && (
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
-                <rect x="2" y="9" width="4" height="12"/>
-                <circle cx="4" cy="4" r="2"/>
-              </svg>
-            )}
-            {social.label.includes('Twitter') && (
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M4 4l11.733 16h4.267l-11.733 -16z"/>
-                <path d="M4 20l6.768 -6.768m2.46 -2.46l6.767 -6.768"/>
-              </svg>
-            )}
-            {social.label.includes('Instagram') && (
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
-                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
-              </svg>
-            )}
-            {social.label.includes('GitHub') && (
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
-              </svg>
-            )}
-          </a>
-        ))}
-      </div>
+      <!-- Column 4: Legal -->
+      <GlassCard variant="soft" padding="md" as="div" class="footer-col">
+        <h3 class="text-xs font-semibold uppercase tracking-widest text-on-surface-variant/50 mb-4" style="font-family: 'Inter', system-ui, sans-serif;">
+          Legal
+        </h3>
+        <ul class="flex flex-col gap-3">
+          {legalLinks.map((link) => (
+            <li>
+              <a
+                href={link.href}
+                class="text-sm text-on-surface-variant/70 hover:text-on-surface transition-colors duration-200 footer-nav-link"
+              >
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </GlassCard>
+
     </div>
 
-    <!-- Bottom note -->
-    <div class="mt-8 pt-6 text-center" style="border-top: 1px solid var(--color-glass-border);">
-      <p class="text-xs text-on-surface-variant/50">
-        Construido con dedicación en Buenos Aires, Argentina
+    <!-- Bottom row: copyright -->
+    <div class="text-center pt-6" style="border-top: 1px solid var(--color-glass-border);">
+      <p class="text-xs text-on-surface-variant/50" style="font-family: 'Inter', system-ui, sans-serif;">
+        © {currentYear} GoDigital · Buenos Aires, Argentina · Hecho con criterio
       </p>
     </div>
   </div>
 </footer>
 
 <style>
-  /* Gradient line draw animation (desktop) */
-  @media (min-width: 769px) {
-    .footer-gradient-fill {
-      transform: scaleX(0);
-      transform-origin: left;
-      animation: draw-line 1s ease-out forwards;
-    }
-  }
-
-  @media (max-width: 768px) {
-    .footer-gradient-fill {
-      opacity: 0;
-      animation: fade-in 0.6s ease-out forwards;
-    }
-  }
-
-  @keyframes draw-line {
-    to { transform: scaleX(1); }
-  }
-
-  @keyframes fade-in {
-    to { opacity: 1; }
-  }
-
-  /* Logo fade-in on load */
-  .footer-logo {
-    opacity: 0;
-    animation: logo-fade-in 0.8s ease-out 0.2s forwards;
-  }
-
-  @keyframes logo-fade-in {
-    to { opacity: 0.9; }
-  }
-
-  /* Nav link glow underline — GSAP targets these */
-  .footer-link {
-    padding-bottom: 2px;
-  }
-
-  .footer-social-link:hover {
-    background: var(--color-primary-dim);
-    border-color: var(--color-primary);
-    transform: translateY(-2px);
-  }
-
-  .footer-social-link svg {
+  /* Social icon hover */
+  .footer-social-btn {
+    background: var(--color-glass-bg);
+    border: 1px solid var(--color-glass-border);
     color: var(--color-on-surface-variant);
-    transition: color 0.2s ease;
+    cursor: pointer;
   }
 
-  .footer-social-link:hover svg {
+  .footer-social-btn:hover {
+    background: var(--color-glass-bg-hover);
+    border-color: var(--color-primary);
     color: var(--color-primary);
+    transform: scale(1.05);
+  }
+
+  /* Nav link */
+  .footer-nav-link {
+    display: inline-block;
+    padding-bottom: 1px;
+  }
+
+  .footer-nav-link:hover {
+    color: var(--color-on-surface);
+  }
+
+  /* Footer col spacing */
+  .footer-col {
+    height: 100%;
   }
 </style>

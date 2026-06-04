@@ -1,4 +1,13 @@
 ---
+import GlassCard from './GlassCard.astro';
+
+/**
+ * CTASection.astro — v3 watermark + glass pricing card
+ *
+ * Watermark "Diseñamos. / Construimos." behind a strong GlassCard.
+ * 3-tier pricing structure: Consulta inicial (free),
+ * Proyecto típico (placeholder), A medida (Hablemos CTA).
+ */
 ---
 
 <section
@@ -20,18 +29,20 @@
     <div class="absolute inset-0 mesh-gradient opacity-60"></div>
   </div>
 
-  <div class="mx-auto" style="max-width: var(--container-max);">
-    <div
-      class="glass-card-depth-2 p-10 md:p-16 lg:p-20 text-center relative overflow-hidden"
-    >
-      <!-- Inner glow -->
-      <div
-        class="absolute -top-[150px] left-1/2 -translate-x-1/2 w-[500px] h-[500px] rounded-full pointer-events-none"
-        style="background: radial-gradient(circle, rgba(0, 102, 255, 0.12) 0%, transparent 70%); filter: blur(60px);"
-        aria-hidden="true"
-      ></div>
+  <!-- Watermark: behind the card, z-index 2 -->
+  <div class="c3-watermark-container" aria-hidden="true">
+    <div class="c3-watermark-main">
+      <span class="c3-watermark-line-1">Diseñamos.</span>
+      <span class="c3-watermark-line-2">Construimos.</span>
+    </div>
+  </div>
 
+  <div class="mx-auto relative z-10" style="max-width: var(--container-max);">
+
+    <!-- 3-tier pricing card wrapped in strong GlassCard -->
+    <GlassCard variant="strong" padding="lg" as="section" id="cta" class="cta-glass-card">
       <div class="relative z-10">
+
         <!-- Scroll-scrubbed counter badge -->
         <div
           class="inline-flex items-center gap-3 px-5 py-2.5 rounded-full mb-8 md:mb-10"
@@ -59,23 +70,63 @@
           Damos vida a tus ideas con diseño y desarrollo de primer nivel. Hablemos de tu próximo proyecto.
         </p>
 
-        <!-- Magnetic CTA button -->
-        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-5">
-          <a
-            href="#contact"
-            class="magnetic-btn cta-primary-btn inline-flex items-center justify-center px-10 py-4 rounded-[var(--radius-pill)] font-semibold text-base text-white transition-all duration-300"
-            data-magnetic-strength="0.4"
-            style="background: var(--color-primary); box-shadow: 0 0 40px rgba(0, 102, 255, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.15);"
-          >
-            Cotizar Proyecto
-          </a>
-          <a
-            href="#process"
-            class="magnetic-btn cta-secondary-btn inline-flex items-center justify-center px-10 py-4 rounded-[var(--radius-pill)] font-semibold text-base transition-all duration-300"
-            style="border: 1px solid var(--color-glass-border); color: var(--color-on-surface); background: transparent;"
-          >
-            Ver Proceso
-          </a>
+        <!-- 3-tier pricing grid -->
+        <div class="cta-tiers-grid mb-10 md:mb-12">
+
+          <!-- Tier 1: Consulta inicial (free) -->
+          <div class="cta-tier cta-tier--free">
+            <div class="cta-tier-header">
+              <span class="cta-tier-heading">Consulta inicial</span>
+              <span class="cta-tier-price">Gratis</span>
+            </div>
+            <p class="cta-tier-sub">30 minutos sin compromiso</p>
+            <ul class="cta-tier-bullets">
+              <li>Conocemos tu proyecto</li>
+              <li>Te decimos si podemos ayudar</li>
+              <li>Sin presión comercial</li>
+              <li>Quedás con un roadmap inicial</li>
+            </ul>
+          </div>
+
+          <!-- Tier 2: Proyecto típico -->
+          <div class="cta-tier cta-tier--standard">
+            <div class="cta-tier-header">
+              <span class="cta-tier-heading">Proyecto típico</span>
+              <span class="cta-tier-price">A medida</span>
+            </div>
+            <p class="cta-tier-sub">Sitio web institucional o landing</p>
+            <ul class="cta-tier-bullets">
+              <li>4-6 semanas de desarrollo</li>
+              <li>Diseño a medida</li>
+              <li>Deploy + analytics</li>
+              <li>30 días de soporte incluidos</li>
+            </ul>
+          </div>
+
+          <!-- Tier 3: A medida (highlighted) -->
+          <div class="cta-tier cta-tier--pro">
+            <div class="cta-tier-badge">Recomendado</div>
+            <div class="cta-tier-header">
+              <span class="cta-tier-heading">A medida</span>
+              <span class="cta-tier-price">Hablemos</span>
+            </div>
+            <p class="cta-tier-sub">E-commerce, SaaS, plataformas</p>
+            <ul class="cta-tier-bullets">
+              <li>Roadmap a tu medida</li>
+              <li>Equipo dedicado</li>
+              <li>Iteración continua</li>
+              <li>Soporte prioritario</li>
+            </ul>
+            <a
+              href="mailto:hola@godigital.com.ar"
+              class="cta-tier-cta liquid-glass liquid-glass--accent mt-6 inline-flex items-center justify-center px-8 py-3 rounded-[var(--radius-pill)] font-semibold text-base text-white transition-all duration-300"
+              data-magnetic-strength="0.4"
+            >
+              Hablemos
+              <span aria-hidden="true" class="ml-2">→</span>
+            </a>
+          </div>
+
         </div>
 
         <!-- Secondary stats row -->
@@ -112,11 +163,17 @@
           </div>
         </div>
       </div>
-    </div>
+    </GlassCard>
   </div>
 </section>
 
 <style>
+  /* CTA GlassCard sits above the watermark */
+  .cta-glass-card {
+    position: relative;
+    z-index: 10;
+  }
+
   /* Breathing animation for orbs */
   .cta-orb {
     will-change: transform;
@@ -151,6 +208,137 @@
     50% { opacity: 0.6; box-shadow: 0 0 16px rgba(0, 102, 255, 1); }
   }
 
+  /* 3-tier grid */
+  .cta-tiers-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .cta-tiers-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+  }
+
+  /* Individual tier card */
+  .cta-tier {
+    position: relative;
+    padding: 1.5rem;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .cta-tier--pro {
+    background: rgba(0, 102, 255, 0.06);
+    border: 1px solid rgba(0, 102, 255, 0.25);
+    border-top: 2px solid var(--color-primary);
+  }
+
+  /* Pro badge */
+  .cta-tier-badge {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--color-primary);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 12px;
+    border-radius: 20px;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  /* Tier header row */
+  .cta-tier-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .cta-tier-heading {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  .cta-tier-price {
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: var(--color-on-surface);
+  }
+
+  .cta-tier--pro .cta-tier-price {
+    color: var(--color-primary);
+  }
+
+  /* Sub text */
+  .cta-tier-sub {
+    font-size: 13px;
+    color: var(--color-on-surface-variant);
+    opacity: 0.7;
+    margin-bottom: 0.5rem;
+  }
+
+  /* Bullets */
+  .cta-tier-bullets {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .cta-tier-bullets li {
+    font-size: 13px;
+    color: var(--color-on-surface-variant);
+    padding-left: 1rem;
+    position: relative;
+    opacity: 0.8;
+  }
+
+  .cta-tier-bullets li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--color-primary);
+    font-size: 11px;
+    top: 2px;
+  }
+
+  /* Hablemos button */
+  .cta-tier-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--radius-pill);
+    font-weight: 600;
+    font-size: 14px;
+    text-decoration: none;
+    margin-top: auto;
+    transition: transform 0.3s var(--ease-cinematic), box-shadow 0.3s var(--ease-cinematic);
+  }
+
+  .cta-tier-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(0, 102, 255, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  }
+
   /* CTA button hover states */
   .cta-primary-btn:hover {
     transform: translateY(-2px);
@@ -162,7 +350,7 @@
     background: var(--color-glass-bg-hover);
   }
 
-  /* Counter badge inner glow */
+  /* Counter dot flex */
   .cta-counter-dot {
     flex-shrink: 0;
   }
