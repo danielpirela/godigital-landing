@@ -84,6 +84,44 @@
   /* ── v2: mmx Asset References ── */
   --mmx-asset-hero-loop: url('/assets/generated/hero-loop.mp4');
   --mmx-poster-blur: 8px;
+
+  /* ── v3: Liquid Glass tints ── */
+  --color-glass-accent-bg: rgba(0, 102, 255, 0.04);
+  --color-glass-accent-border: rgba(0, 102, 255, 0.18);
+  --color-glass-soft-bg: rgba(255, 255, 255, 0.015);
+  --color-glass-soft-border: rgba(255, 255, 255, 0.06);
+  --color-glass-strong-bg: rgba(8, 10, 16, 0.7);
+
+  /* ── v3: Shiny gradient stops ── */
+  --gradient-shiny: linear-gradient(
+    to right,
+    #091020 0%,
+    #0066ff 25%,
+    #4DA3FF 50%,
+    #0066ff 75%,
+    #091020 100%
+  );
+  --gradient-shiny-size: 200% auto;
+
+  /* ── v3: Watermark text ── */
+  --font-watermark: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --watermark-size-desktop: 9rem;
+  --watermark-size-mobile: 3.5rem;
+  --watermark-line-height: 0.9;
+  --watermark-tracking: -0.05em;
+
+  /* ── v3: macOS strip ── */
+  --macos-strip-height: 40px;
+  --macos-strip-bg: rgba(0, 0, 0, 0.4);
+  --macos-strip-blur: 12px;
+  --macos-strip-color: rgba(255, 255, 255, 0.85);
+  --macos-strip-color-muted: rgba(255, 255, 255, 0.5);
+  --macos-strip-font: 'Inter', system-ui, sans-serif;
+  --macos-strip-font-size: 11px;
+  --macos-dot-size: 12px;
+  --macos-dot-red: rgba(255, 95, 87, 0.6);
+  --macos-dot-yellow: rgba(254, 188, 46, 0.6);
+  --macos-dot-green: rgba(40, 200, 64, 0.6);
 }
 
 /* ── Base ── */
@@ -305,3 +343,249 @@
   object-fit: cover;
   z-index: 0;
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   v3: Liquid Glass — gradient border via mask-composite
+   ═══════════════════════════════════════════════════════════════ */
+.liquid-glass {
+  position: relative;
+  background: rgba(255, 255, 255, 0.01);
+  background-blend-mode: luminosity;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border: none;
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+}
+
+.liquid-glass::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.4px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.45) 0%,
+    rgba(255, 255, 255, 0.15) 20%,
+    rgba(255, 255, 255, 0) 40%,
+    rgba(255, 255, 255, 0) 60%,
+    rgba(255, 255, 255, 0.15) 80%,
+    rgba(255, 255, 255, 0.45) 100%
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  pointer-events: none;
+}
+
+.liquid-glass--soft {
+  background: var(--color-glass-soft-bg);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.06);
+}
+
+.liquid-glass--soft::before {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.25) 0%,
+    rgba(255, 255, 255, 0.08) 50%,
+    rgba(255, 255, 255, 0.25) 100%
+  );
+}
+
+.liquid-glass--strong {
+  background: var(--color-glass-strong-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.liquid-glass--accent {
+  background: var(--color-glass-accent-bg);
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.1),
+    0 8px 32px rgba(0, 102, 255, 0.12);
+}
+
+.liquid-glass--accent::before {
+  background: linear-gradient(
+    180deg,
+    rgba(0, 102, 255, 0.55) 0%,
+    rgba(0, 102, 255, 0.2) 50%,
+    rgba(0, 102, 255, 0.55) 100%
+  );
+}
+
+/* Safari fallback: when mask-composite is unsupported, use border-image */
+@supports not ((-webkit-mask-composite: xor) or (mask-composite: exclude)) {
+  .liquid-glass,
+  .liquid-glass--soft,
+  .liquid-glass--strong,
+  .liquid-glass--accent {
+    border: 1px solid rgba(255, 255, 255, 0.15);
+  }
+  .liquid-glass--accent {
+    border-color: rgba(0, 102, 255, 0.4);
+  }
+}
+
+.liquid-glass[hidden] { display: none; }
+
+/* ═══════════════════════════════════════════════════════════════
+   v3: Shimmery gradient text
+   ═══════════════════════════════════════════════════════════════ */
+.shiny-text {
+  background: var(--gradient-shiny);
+  background-size: var(--gradient-shiny-size);
+  -webkit-background-clip: text;
+          background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  filter: url(#shiny-noise);
+  display: inline-block;
+}
+
+.animate-shiny {
+  animation: shiny 6s linear infinite;
+}
+
+@keyframes shiny {
+  0%   { background-position: -200% center; }
+  100% { background-position:  200% center; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-shiny { animation: none; }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   v3: Watermark headline (giant filtered text behind cards)
+   ═══════════════════════════════════════════════════════════════ */
+.c3-watermark-container {
+  position: relative;
+  width: 100%;
+  max-width: 1100px;
+  text-align: center;
+  margin-top: 40px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.c3-watermark-main {
+  font-family: var(--font-watermark);
+  font-size: var(--watermark-size-desktop);
+  font-weight: 800;
+  line-height: var(--watermark-line-height);
+  letter-spacing: var(--watermark-tracking);
+  filter: url(#c3-noise);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.c3-watermark-line-1 { color: #fff; }
+.c3-watermark-line-2 {
+  background: linear-gradient(
+    to right,
+    #091020 0%,
+    #0066ff 25%,
+    #4DA3FF 65%,
+    #0066ff 100%
+  );
+  -webkit-background-clip: text;
+          background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+@media (max-width: 1024px) {
+  .c3-watermark-main {
+    font-size: var(--watermark-size-mobile);
+    filter: none;
+  }
+  .c3-watermark-line-2 {
+    background: none;
+    -webkit-text-fill-color: #4DA3FF;
+    color: #4DA3FF;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   v3: macOS-style thin dark strip at top of Hero
+   ═══════════════════════════════════════════════════════════════ */
+.macos-strip {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--macos-strip-height);
+  background: var(--macos-strip-bg);
+  backdrop-filter: blur(var(--macos-strip-blur));
+  -webkit-backdrop-filter: blur(var(--macos-strip-blur));
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  z-index: 30;
+  font-family: var(--macos-strip-font);
+  font-size: var(--macos-strip-font-size);
+  color: var(--macos-strip-color);
+  opacity: 0;
+  transform: translateY(-10px);
+  will-change: opacity, transform;
+}
+
+.macos-strip.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.5s var(--ease-cinematic), transform 0.5s var(--ease-cinematic);
+}
+
+.macos-strip__dots {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.macos-strip__dot {
+  width: var(--macos-dot-size);
+  height: var(--macos-dot-size);
+  border-radius: 50%;
+}
+.macos-strip__dot--red    { background: var(--macos-dot-red); }
+.macos-strip__dot--yellow { background: var(--macos-dot-yellow); }
+.macos-strip__dot--green  { background: var(--macos-dot-green); }
+
+.macos-strip__wordmark {
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.macos-strip__meta {
+  color: var(--macos-strip-color-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 768px) {
+  .macos-strip { display: none; }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   v3: Radial curtain (replaces curtain-wipe)
+   ═══════════════════════════════════════════════════════════════ */
+.curtain-radial {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(0, 102, 255, 0.4) 0%,
+    rgba(0, 102, 255, 0.1) 30%,
+    transparent 60%
+  );
+  z-index: 90;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--duration-curtain) var(--ease-cinematic);
+  mix-blend-mode: screen;
+}
+.curtain-radial.is-active { opacity: 1; }
