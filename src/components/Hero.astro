@@ -6,11 +6,6 @@
   class="relative min-h-screen flex flex-col items-center justify-center overflow-hidden px-[var(--margin-mobile)] md:px-[var(--margin-desktop)] pt-24 pb-16"
 >
   <!-- ─── Video Background Layer ─── -->
-  <!--
-    ENABLE_MMX_CURTAIN=true would load /assets/generated/curtain.mp4 here,
-    but mmx video quota is exhausted (resets 2026-06-08). Default: CSS clip-path wipe.
-    Curtain logic lives in src/scripts/animations/scroll.ts.
-  -->
   <div class="absolute inset-0 z-0 overflow-hidden">
     <!-- Poster fallback (always rendered, preloaded in Layout.astro) -->
     <img
@@ -40,10 +35,9 @@
     </video>
   </div>
 
-  <!-- ─── 3 Ambient Parallax Orbs ─── -->
+  <!-- ─── 2 Ambient Parallax Orbs (down from 3) ─── -->
   <div class="ambient-orb w-[500px] h-[500px] -top-[200px] -left-[150px] md:w-[700px] md:h-[700px] md:-top-[250px] md:-left-[200px]" data-orb="1" aria-hidden="true"></div>
   <div class="ambient-orb w-[400px] h-[400px] -bottom-[150px] -right-[100px] md:w-[600px] md:h-[600px] md:-bottom-[200px] md:-right-[150px]" data-orb="2" aria-hidden="true"></div>
-  <div class="ambient-orb w-[300px] h-[300px] top-1/2 -translate-y-1/2 -left-[100px] md:w-[450px] md:h-[450px] md:-left-[150px]" data-orb="3" aria-hidden="true"></div>
 
   <!-- ─── Particle Container (count driven by CSS var from matchMedia) ─── -->
   <div class="hero-particles absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true"></div>
@@ -51,56 +45,60 @@
   <!-- ─── Main Content (z-10 above video + orbs) ─── -->
   <div class="relative z-10 flex flex-col items-center text-center max-w-3xl mx-auto">
 
-    <!-- Logo -->
-    <div class="hero-logo mb-6 md:mb-8">
-      <img
-        src="/logo-dark.svg"
-        alt="GoDigital"
-        class="w-40 md:w-60 lg:w-72 h-auto"
-      />
-    </div>
+    <!-- Eyebrow -->
+    <p class="hero__eyebrow text-xs tracking-[0.2em] uppercase text-on-surface-variant mb-6">Consultora boutique</p>
 
-    <!-- Tagline — 2 lines for staggered clip-path reveal -->
-    <h1 class="hero-tagline text-4xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6">
-      <span class="hero-tagline-line block">Diseño y desarrollo</span>
-      <span class="hero-tagline-line block text-primary">premium</span>
+    <!-- Headline — three spans, the middle one shimmers -->
+    <h1
+      class="hero__headline text-5xl md:text-7xl lg:text-8xl font-extrabold leading-[1.05] tracking-[-0.03em] mb-6"
+      data-hero-headline
+    >
+      <span class="block">Convertimos ideas en</span>
+      <span class="block">
+        <span class="shiny-text animate-shiny" data-hero-shimmer>experiencias</span>
+      </span>
+      <span class="block">digitales</span>
     </h1>
 
-    <!-- Subtitle + Stat Badge row -->
-    <div class="flex flex-col md:flex-row items-center gap-4 md:gap-8 mb-10 md:mb-12">
-      <p class="hero-subtitle text-lg md:text-xl text-white max-w-xl mx-auto md:mx-0">
-        Tu visión, nuestro código. Creamos productos digitales que potencian tu negocio con diseño impecable y tecnología de vanguardia.
-      </p>
-      <!-- Scroll-scrubbed counter: desktop only -->
-      <div
-        class="hero-counter hidden md:flex flex-col items-center text-sm text-on-surface-variant/60"
-        data-counter="0"
-        data-counter-target="10"
-        data-counter-suffix="+"
-        aria-label="10+ proyectos completados"
+    <!-- Subtitle -->
+    <p
+      class="hero__sub text-lg md:text-xl text-on-surface-variant max-w-xl mx-auto mb-10"
+      data-hero-sub
+    >
+      Una consultora boutique que diseña, desarrolla y mantiene productos web con criterio.
+    </p>
+
+    <!-- CTAs — primary uses liquid-glass accent -->
+    <div class="hero__ctas flex flex-col sm:flex-row items-center gap-4 sm:gap-5 mb-12" data-hero-ctas>
+      <a
+        href="#projects"
+        class="cta cta--primary liquid-glass liquid-glass--accent inline-flex items-center gap-2 px-6 py-3 rounded-[var(--radius-pill)] text-white font-medium text-sm md:text-base"
       >
-        <span class="hero-counter-value font-bold text-electric-blue text-2xl">0+</span>
-        <span class="text-xs tracking-wide">proyectos</span>
-      </div>
+        Ver proyectos <span aria-hidden="true">→</span>
+      </a>
+      <a
+        href="mailto:hola@godigital.com.ar"
+        class="cta cta--ghost inline-flex items-center gap-2 px-6 py-3 rounded-[var(--radius-pill)] border border-white/15 text-on-surface font-medium text-sm md:text-base bg-transparent hover:bg-white/5 transition-colors"
+      >
+        Hablemos
+      </a>
     </div>
 
-    <!-- CTA Buttons — magnetic attraction via data-magnetic-strength -->
-    <div class="hero-cta flex flex-col sm:flex-row items-center gap-4 sm:gap-5">
-      <a
-        href="#cta"
-        class="magnetic-btn inline-flex items-center justify-center px-8 py-3.5 rounded-[var(--radius-pill)] bg-primary text-white font-semibold text-sm md:text-base glow-primary hover:glow-primary-hover transition-all duration-300 hover:-translate-y-0.5"
-        data-magnetic-strength="8"
-      >
-        Cotizar Proyecto
-      </a>
-      <a
-        href="#process"
-        class="magnetic-btn inline-flex items-center justify-center px-8 py-3.5 rounded-[var(--radius-pill)] border border-[var(--color-glass-border)] text-on-surface font-semibold text-sm md:text-base bg-transparent hover:bg-[var(--color-glass-bg-hover)] transition-all duration-300 hover:-translate-y-0.5"
-        data-magnetic-strength="5"
-      >
-        Ver Proceso
-      </a>
-    </div>
+    <!-- 3-Metric Stat row -->
+    <ul class="hero__stats flex flex-wrap items-center justify-center gap-x-8 gap-y-4" data-hero-stats>
+      <li class="flex flex-col items-center gap-1 px-2 md:border-r md:border-white/10 md:pr-8">
+        <strong class="font-extrabold text-2xl text-white">5+</strong>
+        <span class="text-xs text-on-surface-variant">años</span>
+      </li>
+      <li class="flex flex-col items-center gap-1 px-2 md:border-r md:border-white/10 md:pr-8">
+        <strong class="font-extrabold text-2xl text-white">30+</strong>
+        <span class="text-xs text-on-surface-variant">proyectos</span>
+      </li>
+      <li class="flex flex-col items-center gap-1 px-2">
+        <strong class="font-extrabold text-2xl text-white">98%</strong>
+        <span class="text-xs text-on-surface-variant">satisfacción</span>
+      </li>
+    </ul>
   </div>
 
   <!-- ─── Scroll Indicator (bouncing dot) ─── -->
@@ -111,3 +109,28 @@
     </div>
   </div>
 </section>
+
+<style>
+  /* ── Initial states for GSAP-driven entrance ── */
+  .hero__eyebrow,
+  .hero__headline,
+  .hero__sub,
+  .hero__ctas,
+  .hero__stats {
+    opacity: 0;
+    transform: translateY(24px);
+    will-change: opacity, transform;
+  }
+
+  /* ── Shiny text — gradient + noise filter, animated by CSS keyframe ── */
+  .shiny-text {
+    background: var(--gradient-shiny);
+    background-size: var(--gradient-shiny-size);
+    -webkit-background-clip: text;
+            background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    filter: url(#shiny-noise);
+    display: inline-block;
+  }
+</style>

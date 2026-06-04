@@ -3,16 +3,28 @@ const links = [
   { href: '#services', label: 'Servicios' },
   { href: '#edge', label: 'Diferencia' },
   { href: '#process', label: 'Proceso' },
+  { href: '#quality-assurance', label: 'Calidad' },
   { href: '#cta', label: 'Contacto' },
 ];
 ---
 
 <nav
   id="navbar"
-  class="navbar fixed top-0 left-0 right-0 z-50 px-[var(--margin-mobile)] md:px-[var(--margin-desktop)] transition-all duration-300"
+  class="navbar fixed top-0 left-0 right-0 z-50 px-[var(--margin-mobile)] md:px-[var(--margin-desktop)] pt-6 md:pt-[60px] transition-all duration-300"
 >
   <!-- Progress bar at very top of navbar -->
   <div class="navbar-progress absolute top-0 left-0 h-[2px] bg-electric-blue shadow-[0_0_8px_rgba(var(--color-electric-blue-rgb),0.8)] origin-left" style="width: 0%;"></div>
+
+  <!-- macOS strip (position: absolute, top: 0 — sticky bar above the navbar content) -->
+  <div class="macos-strip" data-macos-strip aria-hidden="true">
+    <div class="macos-strip__dots">
+      <span class="macos-strip__dot macos-strip__dot--red"></span>
+      <span class="macos-strip__dot macos-strip__dot--yellow"></span>
+      <span class="macos-strip__dot macos-strip__dot--green"></span>
+    </div>
+    <span class="macos-strip__wordmark">GoDigital</span>
+    <span class="macos-strip__meta" data-strip-time>—</span>
+  </div>
 
   <div
     class="mx-auto flex items-center justify-between py-3 md:py-4"
@@ -270,5 +282,22 @@ const links = [
       const detail = (e as CustomEvent).detail;
       progressBar.style.width = `${detail.percent}%`;
     });
+
+    // ── macOS strip live time (Argentine locale) ─────────────────────
+    (function initStripTime() {
+      const strip = document.querySelector('[data-strip-time]') as HTMLElement | null;
+      if (!strip) return;
+      const target = strip;
+      const formatter = new Intl.DateTimeFormat('es-AR', {
+        hour: '2-digit',
+        minute: '2-digit',
+        timeZone: 'America/Argentina/Buenos_Aires',
+      });
+      function tick() {
+        target.textContent = 'Buenos Aires · ' + formatter.format(new Date());
+      }
+      tick();
+      setInterval(tick, 60000);
+    })();
   })();
 </script>

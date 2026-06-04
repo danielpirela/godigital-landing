@@ -1,20 +1,20 @@
 /**
  * hero.ts — Hero animation timeline
  *
- * Page-load sequence:
- *   1. Logo: scale 0.7→1, back.out(1.7), 1.2s
- *   2. Tagline lines: clip-path inset(0 100% 0 0) → inset(0 0% 0 0), stagger 0.2s
- *   3. Subtitle: y:20→0 + opacity 0→1, 0.8s
- *   4. CTA buttons: stagger fade-in, 0.1s apart
- *   5. Scroll indicator: bounce loop (yoyo)
+ * Page-load sequence (v3):
+ *   1. macOS strip: opacity 0→1 + translateY -10→0, 0.5s, delay 0.3s
+ *   2. Eyebrow + headline: clip-path reveal + fade, delay 0.4s
+ *   3. Shimmer word "experiencias": opacity 0→1, 0.6s, delay 0.45s
+ *      (CSS keyframe `shiny` handles the moving gradient)
+ *   4. Subtitle: y:20→0 + opacity 0→1, 0.8s, delay 0.55s
+ *   5. CTAs: stagger fade-in, delay 0.65s
+ *   6. Stats: fade-up, delay 0.75s
+ *   7. Scroll indicator: bounce loop (yoyo)
  *
  * Per-orb parallax via ScrollTrigger (scrub:1):
- *   orb 1 → 0.3× Y, orb 2 → 0.5× Y, orb 3 → 0.7× Y
+ *   orb 1 → 0.3× Y, orb 2 → 0.5× Y
  *
- * Scroll-scrubbed counter:
- *   Ticks 0→10 as hero section leaves viewport. Desktop only.
- *
- * All gates: ENABLE_V2_ANIM, matchMedia (desktop only for parallax/counter),
+ * All gates: ENABLE_V2_ANIM, matchMedia (desktop only for parallax),
  * prefers-reduced-motion handled upstream in index.ts.
  */
 
@@ -34,59 +34,71 @@ export function initHero(): void {
     return;
   }
 
-  // ── Logo entrance ──────────────────────────────────────────────────────────
-  const logo = document.querySelector('.hero-logo') as HTMLElement | null;
-  if (logo) {
-    gsap.fromTo(logo,
-      { scale: 0.7, opacity: 0 },
-      { scale: 1, opacity: 1, duration: 1.2, ease: 'back.out(1.7)', delay: 0.4 }
+  // ── macOS strip entrance ─────────────────────────────────────────────
+  const strip = document.querySelector('.macos-strip') as HTMLElement | null;
+  if (strip) {
+    gsap.fromTo(strip,
+      { opacity: 0, y: -10 },
+      { opacity: 1, y: 0, duration: 0.5, ease: 'power3.out', delay: 0.3 }
     );
   }
 
-  // ── Tagline lines: clip-path reveal (staggered 0.2s per line) ─────────────
-  const taglineLines = document.querySelectorAll('.hero-tagline-line');
-  if (taglineLines.length) {
-    gsap.fromTo(taglineLines,
-      { clipPath: 'inset(0 100% 0 0)', opacity: 0 },
-      {
-        clipPath: 'inset(0 0% 0 0)',
-        opacity: 1,
-        duration: 1.1,
-        ease: 'expo.out',
-        stagger: 0.2,
-        delay: 1.0,
-      }
+  // ── Eyebrow fade-up ──────────────────────────────────────────────────
+  const eyebrow = document.querySelector('.hero__eyebrow') as HTMLElement | null;
+  if (eyebrow) {
+    gsap.fromTo(eyebrow,
+      { opacity: 0, y: 20 },
+      { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out', delay: 0.4 }
     );
   }
 
-  // ── Subtitle fade-up ───────────────────────────────────────────────────────
-  const subtitle = document.querySelector('.hero-subtitle') as HTMLElement | null;
-  if (subtitle) {
-    gsap.fromTo(subtitle,
-      { y: 24, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.9, ease: 'power3.out', delay: 1.4 }
+  // ── Headline fade-up (the parent h1, not the shiny span) ────────────
+  const headline = document.querySelector('[data-hero-headline]') as HTMLElement | null;
+  if (headline) {
+    gsap.fromTo(headline,
+      { opacity: 0, y: 30 },
+      { opacity: 1, y: 0, duration: 0.9, ease: 'power3.out', delay: 0.5 }
     );
   }
 
-  // ── Counter fade-in (appears next to subtitle) ─────────────────────────────
-  const counter = document.querySelector('.hero-counter') as HTMLElement | null;
-  if (counter) {
-    gsap.fromTo(counter,
-      { opacity: 0, y: 12 },
-      { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out', delay: 1.5 }
+  // ── Shimmer word "experiencias" — opacity reveal only ───────────────
+  // CSS keyframe `shiny` handles the gradient animation after this fade-in
+  const shimmer = document.querySelector('[data-hero-shimmer]') as HTMLElement | null;
+  if (shimmer) {
+    gsap.fromTo(shimmer,
+      { opacity: 0, scale: 0.96 },
+      { opacity: 1, scale: 1, duration: 0.6, ease: 'power3.out', delay: 0.7 }
     );
   }
 
-  // ── CTA buttons: stagger fade-in ───────────────────────────────────────────
-  const ctaButtons = document.querySelectorAll('.hero-cta .magnetic-btn');
-  if (ctaButtons.length) {
-    gsap.fromTo(ctaButtons,
+  // ── Subtitle fade-up ─────────────────────────────────────────────────
+  const sub = document.querySelector('[data-hero-sub]') as HTMLElement | null;
+  if (sub) {
+    gsap.fromTo(sub,
+      { y: 20, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out', delay: 0.6 }
+    );
+  }
+
+  // ── CTAs stagger fade-in ─────────────────────────────────────────────
+  const ctas = document.querySelectorAll('[data-hero-ctas] > a');
+  if (ctas.length) {
+    gsap.fromTo(ctas,
       { y: 16, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.7, ease: 'power3.out', stagger: 0.12, delay: 1.6 }
+      { y: 0, opacity: 1, duration: 0.7, ease: 'power3.out', stagger: 0.12, delay: 0.75 }
     );
   }
 
-  // ── Scroll indicator: bounce loop ──────────────────────────────────────────
+  // ── Stats fade-up ────────────────────────────────────────────────────
+  const stats = document.querySelector('[data-hero-stats]') as HTMLElement | null;
+  if (stats) {
+    gsap.fromTo(stats,
+      { y: 16, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.7, ease: 'power3.out', delay: 0.85 }
+    );
+  }
+
+  // ── Scroll indicator: bounce loop ────────────────────────────────────
   const scrollDot = document.querySelector('.scroll-dot') as HTMLElement | null;
   if (scrollDot) {
     gsap.to(scrollDot, {
@@ -100,9 +112,9 @@ export function initHero(): void {
   }
 
   // ── Parallax orbs (desktop only — matchMedia sets enableParallax via CSS) ─
-  // Orbs get different Y multipliers: 0.3 / 0.5 / 0.7
+  // 2 orbs in v3 (down from 3). Different Y multipliers for depth.
   const orbs = document.querySelectorAll('.ambient-orb');
-  const multipliers = [0.3, 0.5, 0.7];
+  const multipliers = [0.3, 0.5];
   orbs.forEach((orb, i) => {
     const el = orb as HTMLElement;
     gsap.to(el, {
@@ -115,33 +127,6 @@ export function initHero(): void {
         scrub: 1,
       },
     });
-    // Ensure will-change is set for GPU compositing
     el.style.willChange = 'transform';
   });
-
-  // ── Scroll-scrubbed counter (desktop only) ────────────────────────────────
-  // Ticks from 0 to target as hero section leaves viewport
-  const counterEl = document.querySelector('.hero-counter-value') as HTMLElement | null;
-  if (counterEl) {
-    const target = parseInt(counterEl.closest('[data-counter-target]')?.getAttribute('data-counter-target') ?? '10', 10);
-    const suffix = counterEl.closest('[data-counter-suffix]')?.getAttribute('data-counter-suffix') ?? '+';
-
-    const counterProxy = { val: 0 };
-    gsap.to(counterProxy, {
-      val: target,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: '#hero',
-        start: 'top center',
-        end: 'bottom center',
-        scrub: true,
-        onUpdate() {
-          counterEl.textContent = Math.round(counterProxy.val) + suffix;
-        },
-      },
-    });
-  }
-
-  // ── Scroll indicator progress bar (inside navbar) ─────────────────────────
-  // Progress tracked by SectionProgress component — no additional setup needed.
 }
