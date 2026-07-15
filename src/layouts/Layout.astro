@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import SectionProgress from '../components/SectionProgress.astro';
 import AudioToggle from '../components/AudioToggle.astro';
+import LoadingScreen from '../components/LoadingScreen.astro';
 
 export interface Props {
   title?: string;
@@ -29,11 +30,11 @@ const { title = 'GoDigital — Diseño y desarrollo premium', description = 'Tra
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
 
-    <!-- Google Fonts: Plus Jakarta Sans -->
+    <!-- Google Fonts: Plus Jakarta Sans + Geist -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap"
       rel="stylesheet"
     />
 
@@ -49,6 +50,7 @@ const { title = 'GoDigital — Diseño y desarrollo premium', description = 'Tra
     </script>
   </head>
   <body class="bg-surface-dim text-on-surface antialiased overflow-x-hidden">
+    <LoadingScreen />
     <!-- v3: SVG noise filters for shiny text and watermark -->
     <svg width="0" height="0" style="position: absolute" aria-hidden="true">
       <defs>

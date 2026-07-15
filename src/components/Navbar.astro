@@ -1,4 +1,6 @@
 ---
+import Logo from './Logo.astro';
+
 const links = [
   { href: '#services', label: 'Servicios' },
   { href: '#edge', label: 'Diferencia' },
@@ -8,114 +10,88 @@ const links = [
 ];
 ---
 
+<!-- Progress bar (separado, siempre arriba de todo) -->
+<div
+  class="navbar-progress fixed top-0 left-0 h-[2px] bg-electric-blue shadow-[0_0_8px_rgba(var(--color-electric-blue-rgb),0.8)] origin-left z-[60]"
+  style="width: 0%;"
+></div>
+
+<!-- Pill navbar: width 834 / height 48 / top 30 / left 233, xl+ (≥1280px) -->
 <nav
   id="navbar"
-  class="navbar fixed top-0 left-0 right-0 z-50 px-[var(--margin-mobile)] md:px-[var(--margin-desktop)] pt-6 md:pt-[60px] transition-all duration-300"
+  class="navbar-pill fixed z-50 flex items-center justify-between
+         xl:left-1/2 xl:-translate-x-1/2 xl:top-[30px] xl:w-[834px] xl:h-[48px] xl:px-[10px] xl:gap-7
+         left-4 right-4 top-4 h-12 px-3
+         py-8
+         rounded-lg border border-[#6a6a6a19]
+         backdrop-blur-[20px]
+         bg-[rgba(8,10,16,0.75)]
+         shadow-[1px_1px_16.5px_2px_rgba(0,0,0,0.02)]
+         transition-all duration-300"
 >
-  <!-- Progress bar at very top of navbar -->
-  <div class="navbar-progress absolute top-0 left-0 h-[2px] bg-electric-blue shadow-[0_0_8px_rgba(var(--color-electric-blue-rgb),0.8)] origin-left" style="width: 0%;"></div>
+  <!-- Logo -->
+  <a href="#hero" class="navbar-logo flex items-center shrink-0">
+    <Logo
+      class="h-9 xl:h-30 w-auto transition-all duration-300"
+      style="view-transition-name: logo;"
+    />
+  </a>
 
-  <!-- macOS strip (position: absolute, top: 0 — sticky bar above the navbar content) -->
-  <div class="macos-strip" data-macos-strip aria-hidden="true">
-    <div class="macos-strip__dots">
-      <span class="macos-strip__dot macos-strip__dot--red"></span>
-      <span class="macos-strip__dot macos-strip__dot--yellow"></span>
-      <span class="macos-strip__dot macos-strip__dot--green"></span>
-    </div>
-    <span class="macos-strip__wordmark">GoDigital</span>
-    <span class="macos-strip__meta" data-strip-time>—</span>
+  <!-- Desktop nav links -->
+  <div class="hidden xl:flex items-center xl:gap-7">
+    {links.map((link) => (
+      <a
+        href={link.href}
+        class="navbar-link text-sm font-medium text-on-surface-variant hover:text-on-surface transition-colors duration-200 relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2px] after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
+      >
+        {link.label}
+      </a>
+    ))}
   </div>
 
-  <div
-    class="mx-auto flex items-center justify-between py-3 md:py-4"
-    style="max-width: var(--container-max)"
+  <!-- CTA button (desktop only) -->
+  <a
+    href="#cta"
+    class="navbar-cta hidden xl:flex items-center justify-center h-9 px-8 bg-white text-surface-dim text-sm font-semibold hover:bg-white/90 transition-colors duration-200 shrink-0 font-['Geist'] rounded-sm "
   >
-    <!-- Logo -->
-    <a href="#hero" class="navbar-logo flex items-center shrink-0">
-      <img
-        src="/logo-dark.svg"
-        alt="GoDigital"
-        class="h-8 md:h-10 w-auto transition-all duration-300"
-        style="view-transition-name: logo;"
-      />
-    </a>
+    Contactanos
+  </a>
 
-    <!-- Desktop nav links -->
-    <div class="hidden md:flex items-center gap-8">
-      {links.map((link) => (
-        <a
-          href={link.href}
-          class="navbar-link text-sm font-medium text-on-surface-variant hover:text-on-surface transition-colors duration-200 relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2px] after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
-        >
-          {link.label}
-        </a>
-      ))}
-    </div>
-
-    <!-- Hamburger button (mobile) — CSS-animated to X -->
-    <button
-      id="nav-toggle"
-      type="button"
-      class="md:hidden relative flex flex-col gap-1.5 p-2 bg-transparent border-none cursor-pointer z-10"
-      aria-label="Abrir menú de navegación"
-      aria-expanded="false"
-      aria-controls="mobile-menu"
-    >
-      <span class="hamburger-line block w-6 h-[2px] bg-on-surface rounded-full origin-center"></span>
-      <span class="hamburger-line block w-6 h-[2px] bg-on-surface rounded-full origin-center"></span>
-      <span class="hamburger-line block w-6 h-[2px] bg-on-surface rounded-full origin-center"></span>
-    </button>
-  </div>
-
-  <!-- Mobile menu overlay — CSS-driven, no inline styles -->
-  <div
-    id="mobile-menu"
-    class="mobile-menu md:hidden"
-    aria-hidden="true"
+  <!-- Hamburger button (mobile) -->
+  <button
+    id="nav-toggle"
+    type="button"
+    class="xl:hidden relative flex flex-col gap-1.5 p-2 bg-transparent border-none cursor-pointer z-10"
+    aria-label="Abrir menú de navegación"
+    aria-expanded="false"
+    aria-controls="mobile-menu"
   >
-    <div class="mobile-menu-inner">
-      {links.map((link) => (
-        <a
-          href={link.href}
-          class="mobile-nav-link"
-        >
-          {link.label}
-        </a>
-      ))}
-    </div>
-  </div>
+    <span class="hamburger-line block w-6 h-[2px] bg-on-surface rounded-full origin-center"></span>
+    <span class="hamburger-line block w-6 h-[2px] bg-on-surface rounded-full origin-center"></span>
+    <span class="hamburger-line block w-6 h-[2px] bg-on-surface rounded-full origin-center"></span>
+  </button>
 </nav>
 
+<!-- Mobile menu overlay -->
+<div
+  id="mobile-menu"
+  class="mobile-menu xl:hidden"
+  aria-hidden="true"
+>
+  <div class="mobile-menu-inner">
+    {links.map((link) => (
+      <a href={link.href} class="mobile-nav-link">
+        {link.label}
+      </a>
+    ))}
+  </div>
+</div>
+
 <style>
-  /* ── Navbar state classes driven by scrollTrigger ────────────────── */
-  .navbar {
-    background: transparent;
-    border-bottom: 0px solid transparent;
-  }
-
-  .navbar.scrolled {
-    background: rgba(8, 10, 16, 0.75);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  }
-
-  .navbar.compact {
-    background: rgba(0, 102, 255, 0.15);
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
-    border-bottom: 1px solid rgba(0, 102, 255, 0.3);
-  }
-
-  .navbar.compact .navbar-logo img {
-    height: 32px !important;
-    filter: drop-shadow(0 0 8px rgba(0, 102, 255, 0.6));
-  }
-
-  /* ── Mobile menu — CSS-driven open/close (no inline styles) ──────── */
+  /* ── Mobile menu — CSS-driven open/close ───────────────────────── */
   .mobile-menu {
     position: absolute;
-    top: 100%;
+    top: calc(100% + 8px);
     left: var(--margin-mobile);
     right: var(--margin-mobile);
     z-index: 60;
@@ -125,7 +101,6 @@ const links = [
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: var(--radius-lg);
     overflow: hidden;
-    /* Closed state */
     max-height: 0;
     opacity: 0;
     visibility: hidden;
@@ -173,7 +148,7 @@ const links = [
     outline: none;
   }
 
-  /* ── Hamburger → X rotation (CSS, works everywhere) ──────────────── */
+  /* ── Hamburger → X rotation ──────────────────────────────────── */
   #nav-toggle .hamburger-line {
     transition:
       transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
@@ -197,35 +172,9 @@ const links = [
     const navbar = document.getElementById('navbar');
     const toggle = document.getElementById('nav-toggle');
     const menu = document.getElementById('mobile-menu');
-    const progressBar = navbar?.querySelector('.navbar-progress') as HTMLElement | null;
+    const progressBar = document.querySelector('.navbar-progress') as HTMLElement | null;
 
     if (!navbar) return;
-
-    // Capture non-null reference (TS narrowing only applies to the function scope)
-    const nav = navbar;
-
-    // ── 3-state morph via scroll (transparent → glass → compact) ──────
-    function updateNavbarState() {
-      const scrollY = window.scrollY;
-      const heroBottom = document.getElementById('hero')?.getBoundingClientRect().bottom ?? 0;
-      const heroProgress = heroBottom > 0 ? 0 : Math.min(1, -heroBottom / window.innerHeight);
-
-      nav.classList.remove('scrolled', 'compact');
-      if (heroProgress > 0.7) nav.classList.add('compact');
-      else if (heroProgress > 0.15 || scrollY > 100) nav.classList.add('scrolled');
-    }
-
-    let scrollTicking = false;
-    window.addEventListener('scroll', () => {
-      if (!scrollTicking) {
-        requestAnimationFrame(() => {
-          updateNavbarState();
-          scrollTicking = false;
-        });
-        scrollTicking = true;
-      }
-    }, { passive: true });
-    updateNavbarState();
 
     // ── Mobile menu toggle (CSS-driven) ────────────────────────────────
     function setMenuOpen(open: boolean) {
@@ -271,7 +220,7 @@ const links = [
     });
 
     // Close menu if viewport resizes to desktop
-    const mql = window.matchMedia('(min-width: 768px)');
+    const mql = window.matchMedia('(min-width: 1280px)');
     mql.addEventListener('change', (e) => {
       if (e.matches) setMenuOpen(false);
     });
@@ -282,22 +231,5 @@ const links = [
       const detail = (e as CustomEvent).detail;
       progressBar.style.width = `${detail.percent}%`;
     });
-
-    // ── macOS strip live time (Argentine locale) ─────────────────────
-    (function initStripTime() {
-      const strip = document.querySelector('[data-strip-time]') as HTMLElement | null;
-      if (!strip) return;
-      const target = strip;
-      const formatter = new Intl.DateTimeFormat('es-AR', {
-        hour: '2-digit',
-        minute: '2-digit',
-        timeZone: 'America/Argentina/Buenos_Aires',
-      });
-      function tick() {
-        target.textContent = 'Buenos Aires · ' + formatter.format(new Date());
-      }
-      tick();
-      setInterval(tick, 60000);
-    })();
   })();
 </script>
