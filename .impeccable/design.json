@@ -1,0 +1,192 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-07-28T01:15:00.000Z",
+  "title": "Design System: GoDigital Delivery Dossier",
+  "extensions": {
+    "colorMeta": {
+      "cobalt-field": {
+        "role": "primary",
+        "displayName": "Cobalt Field",
+        "canonical": "#1746d1",
+        "tonalRamp": ["#06133e", "#0b2571", "#1137a7", "#1746d1", "#466ce0", "#7894eb", "#b0c2f5", "#edf1ff"]
+      },
+      "cobalt-deep": {
+        "role": "primary",
+        "displayName": "Cobalt Deep",
+        "canonical": "#0b2d7a",
+        "tonalRamp": ["#04102c", "#071e51", "#0b2d7a", "#17459a", "#4266b6", "#7189ce", "#abb9e5", "#edf1fb"]
+      },
+      "blueprint-deep": {
+        "role": "primary",
+        "displayName": "Blueprint Deep",
+        "canonical": "#08245f",
+        "tonalRamp": ["#030c20", "#06183f", "#08245f", "#173c7e", "#425f9d", "#7284b9", "#acb7d8", "#eef1f8"]
+      },
+      "drafting-paper-bright": {
+        "role": "neutral",
+        "displayName": "Drafting Paper Bright",
+        "canonical": "#fffdf5",
+        "tonalRamp": ["#2a2923", "#4f4c42", "#777267", "#9e998b", "#c3beaf", "#ded9cc", "#f2eee4", "#fffdf5"]
+      },
+      "drafting-paper": {
+        "role": "neutral",
+        "displayName": "Drafting Paper",
+        "canonical": "#f2ecd8",
+        "tonalRamp": ["#29271e", "#514c3a", "#77715a", "#9e977b", "#c4bca0", "#ddd5ba", "#ebe4cf", "#f2ecd8"]
+      },
+      "drafting-paper-muted": {
+        "role": "neutral",
+        "displayName": "Drafting Paper Muted",
+        "canonical": "#ddd4b9",
+        "tonalRamp": ["#28251d", "#4d4838", "#716a54", "#978f74", "#b9b092", "#cec5a8", "#ddd4b9", "#f4efdf"]
+      },
+      "graphite": {
+        "role": "neutral",
+        "displayName": "Graphite",
+        "canonical": "#182027",
+        "tonalRamp": ["#0b0f12", "#182027", "#303a43", "#4b5660", "#6f7a83", "#9ba3a9", "#cbd0d3", "#f2f4f5"]
+      },
+      "graphite-soft": {
+        "role": "neutral",
+        "displayName": "Graphite Soft",
+        "canonical": "#4c5760",
+        "tonalRamp": ["#11161a", "#283139", "#4c5760", "#68747d", "#87929a", "#aab2b8", "#d0d5d8", "#f4f5f6"]
+      },
+      "redline": {
+        "role": "secondary",
+        "displayName": "Redline",
+        "canonical": "#a82f2a",
+        "tonalRamp": ["#320b0a", "#611815", "#8c2622", "#a82f2a", "#c8544e", "#df7e79", "#efb2af", "#fbeceb"]
+      },
+      "blueprint-copy": {
+        "role": "neutral",
+        "displayName": "Blueprint Copy",
+        "canonical": "#dbe4ff",
+        "tonalRamp": ["#20263a", "#3d496a", "#5d6e9c", "#8194c7", "#a7b7e2", "#c2cff1", "#dbe4ff", "#f4f7ff"]
+      },
+      "blueprint-note": {
+        "role": "neutral",
+        "displayName": "Blueprint Note",
+        "canonical": "#b9cafb",
+        "tonalRamp": ["#111a35", "#243464", "#3e5592", "#5f7abc", "#849ee0", "#a6baf3", "#b9cafb", "#eff3ff"]
+      },
+      "dark-field-copy": {
+        "role": "neutral",
+        "displayName": "Dark Field Copy",
+        "canonical": "#cdd2d6",
+        "tonalRamp": ["#171c20", "#333b41", "#536069", "#74818a", "#98a2a9", "#b6bdc2", "#cdd2d6", "#f3f5f6"]
+      },
+      "dark-field-copy-bright": {
+        "role": "neutral",
+        "displayName": "Dark Field Copy Bright",
+        "canonical": "#e6e9eb",
+        "tonalRamp": ["#1a1f22", "#384146", "#59646a", "#7c878d", "#a2abb0", "#c1c7cb", "#e6e9eb", "#f7f8f9"]
+      },
+      "brand-electric-blue": {
+        "role": "brand",
+        "displayName": "Brand Electric Blue",
+        "canonical": "#0066ff",
+        "tonalRamp": ["#001b45", "#003685", "#0051c7", "#0066ff", "#3d88ff", "#75aaff", "#b2d0ff", "#edf5ff"]
+      },
+      "brand-white": {
+        "role": "brand",
+        "displayName": "Brand White",
+        "canonical": "#ffffff",
+        "tonalRamp": ["#242424", "#494949", "#707070", "#999999", "#bfbfbf", "#dddddd", "#f2f2f2", "#ffffff"]
+      }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Archivo Display", "purpose": "First-view propositions and major founder statements." },
+      "headline": { "displayName": "Archivo Headline", "purpose": "Section theses and dossier conclusions." },
+      "body": { "displayName": "Archivo Body", "purpose": "Persuasive and explanatory reading." },
+      "evidence": { "displayName": "Azeret Evidence", "purpose": "Identifiers, statuses, outputs, and provenance only." }
+    },
+    "shadows": [
+      { "name": "document-lift", "value": "10px 12px 0 #ddd4b9, 16px 22px 34px rgba(24, 32, 39, 0.12)", "purpose": "Working paper placed above the canvas." },
+      { "name": "primary-dossier-lift", "value": "16px 18px 0 rgba(4, 18, 54, 0.34), 22px 30px 54px rgba(4, 18, 54, 0.24)", "purpose": "Hero case dossier only." },
+      { "name": "action-offset", "value": "5px 5px 0 #182027", "purpose": "Tactile primary action response." }
+    ],
+    "motion": [
+      { "name": "document-action", "value": "680ms cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "One-time sheet, rule, and checkpoint actions from a visible default." },
+      { "name": "stamp-action", "value": "520ms cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "Restrained approval and inspection stamps." },
+      { "name": "state-change", "value": "180ms cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "Hover, focus, and disclosure feedback." }
+    ],
+    "breakpoints": [
+      { "name": "wide-adjust", "value": "75rem" },
+      { "name": "single-reading-order", "value": "60rem" },
+      { "name": "mobile-document", "value": "46rem" },
+      { "name": "narrow-floor", "value": "22rem" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The direct project-opening action on paper fields.",
+      "html": "<a class=\"ds-button-primary\" href=\"#\">ABRIR CONVERSACIÓN <span aria-hidden=\"true\">↗</span></a>",
+      "css": ".ds-button-primary { display: inline-flex; min-height: 52px; align-items: center; justify-content: center; gap: 14px; padding: 13px 18px; background: var(--color-cobalt, #1746d1); color: var(--color-paper-bright, #fffdf5); border-radius: 8px; box-shadow: 5px 5px 0 var(--color-graphite, #182027); font-family: var(--font-body, Arial, sans-serif); font-weight: 800; text-decoration: none; transition: transform 180ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 180ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-button-primary:hover { transform: translate(-2px, -2px); box-shadow: 7px 7px 0 var(--color-graphite, #182027); } .ds-button-primary:focus-visible { outline: 3px solid var(--color-redline, #a82f2a); outline-offset: 4px; }"
+    },
+    {
+      "name": "Paper Button",
+      "kind": "button",
+      "refersTo": "button-paper",
+      "description": "The primary conversion action when placed on blueprint fields.",
+      "html": "<a class=\"ds-button-paper\" href=\"#\">CONTANOS QUÉ NECESITÁS <span aria-hidden=\"true\">↗</span></a>",
+      "css": ".ds-button-paper { display: inline-flex; min-height: 52px; align-items: center; justify-content: center; gap: 14px; padding: 13px 18px; background: var(--color-paper-bright, #fffdf5); color: var(--color-cobalt-deep, #0b2d7a); border-radius: 8px; box-shadow: 5px 5px 0 rgba(4, 18, 54, 0.48); font-family: var(--font-body, Arial, sans-serif); font-weight: 800; text-decoration: none; transition: transform 180ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 180ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-button-paper:hover { transform: translate(-2px, -2px); box-shadow: 7px 7px 0 rgba(4, 18, 54, 0.58); } .ds-button-paper:focus-visible { outline: 3px solid var(--color-redline, #a82f2a); outline-offset: 4px; }"
+    },
+    {
+      "name": "Status Label",
+      "kind": "chip",
+      "refersTo": "status-label",
+      "description": "Verified compact state within a dossier.",
+      "html": "<span class=\"ds-status\">ENTREGADO</span>",
+      "css": ".ds-status { display: inline-flex; padding: 6px 10px; background: var(--color-cobalt, #1746d1); color: var(--color-paper-bright, #fffdf5); border-radius: 999px; font-family: var(--font-evidence, monospace); font-size: 10px; font-weight: 600; letter-spacing: 0.06em; }"
+    },
+    {
+      "name": "Evidence Sheet",
+      "kind": "card",
+      "description": "A lifted working document for verified facts, not a generic content card.",
+      "html": "<article class=\"ds-evidence-sheet\"><span>EXPEDIENTE GD</span><h3>Entrega integral</h3><p>La necesidad, el alcance y el estado quedan visibles.</p></article>",
+      "css": ".ds-evidence-sheet { max-width: 360px; padding: 28px; background: var(--color-paper-bright, #fffdf5); color: var(--color-graphite, #182027); border-radius: 2px; box-shadow: 10px 12px 0 var(--color-paper-muted, #ddd4b9), 16px 22px 34px rgba(24, 32, 39, 0.12); font-family: var(--font-body, Arial, sans-serif); } .ds-evidence-sheet span { color: var(--color-cobalt-deep, #0b2d7a); font-family: var(--font-evidence, monospace); font-size: 11px; letter-spacing: 0.09em; } .ds-evidence-sheet h3 { margin: 14px 0 8px; font-size: 28px; line-height: 1; } .ds-evidence-sheet p { margin: 0; line-height: 1.6; }"
+    },
+    {
+      "name": "Navigation Link",
+      "kind": "nav",
+      "description": "A plain, inspectable masthead link with one rule response.",
+      "html": "<a class=\"ds-nav-link\" href=\"#\">CASO REAL</a>",
+      "css": ".ds-nav-link { display: inline-block; padding: 8px 0; color: var(--color-dark-copy-bright, #e6e9eb); font-family: var(--font-body, Arial, sans-serif); font-size: 14px; font-weight: 600; text-decoration: underline; text-decoration-color: transparent; text-underline-offset: 6px; transition: text-decoration-color 180ms ease; } .ds-nav-link:hover, .ds-nav-link:focus-visible { text-decoration-color: var(--color-paper-bright, #fffdf5); } .ds-nav-link:focus-visible { outline: 3px solid var(--color-redline, #a82f2a); outline-offset: 4px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Delivery Dossier",
+    "overview": "GoDigital's visual world is a senior project room where promises are visible, decisions are annotated, and delivery evidence is understandable. It draws from cobalt blueprints, warm drafting paper, graphite notes, redlines, tabs, checklists, and redacted case documents without becoming a literal stationery theme. The system replaces neon glassmorphism with editorial composition, working-document density, and human marks of care. It feels premium because it is precise and authored, not because it adds glow or chrome.",
+    "keyCharacteristics": [
+      "Evidence-led compositions rather than generic claims.",
+      "Warm paper fields interrupted by committed cobalt regions.",
+      "Varied editorial rhythm: dense dossiers, quiet statements, and direct actions.",
+      "Technical notation paired with approachable Spanish copy.",
+      "Motion that behaves like document work: drawing, checking, stamping, and changing state."
+    ],
+    "rules": [
+      { "name": "The Field Rule", "body": "Color owns meaningful regions of the page; it is never scattered as decorative glow.", "section": "colors" },
+      { "name": "The Redline Rule", "body": "Red is reserved for annotation, correction, and emphasis, never general decoration.", "section": "colors" },
+      { "name": "The Evidence-Type Rule", "body": "Monospace identifies evidence; it never carries persuasive paragraphs or decorative display text.", "section": "typography" },
+      { "name": "The Flat-Until-Lifted Rule", "body": "A surface earns a shadow only when it physically reads as a sheet placed above another sheet.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do make real deliverables and verified case facts the primary visual material.",
+      "Do vary section scale, alignment, and density while preserving a legible reading order.",
+      "Do use annotations, rules, tabs, and stamps to explain status or provenance.",
+      "Do keep core content visible before motion initializes.",
+      "Do use document motion only for sheets, rules, checkpoints, and stamps."
+    ],
+    "donts": [
+      "Don't use glassmorphism, glowing orbs, particles, magnetic interactions, or gratuitous parallax.",
+      "Don't repeat centered eyebrow, headline, divider, and card-grid compositions.",
+      "Don't fabricate screenshots, quantified outcomes, testimonials, or scale claims.",
+      "Don't turn every container into a decorative project document.",
+      "Don't use monospace or blueprint grids without evidence-bearing purpose."
+    ]
+  }
+}

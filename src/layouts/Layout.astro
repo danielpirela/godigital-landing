@@ -1,15 +1,34 @@
 ---
+import { CONTACT_CHANNELS } from '../lib/contact';
 import '../styles/global.css';
-import SectionProgress from '../components/SectionProgress.astro';
-import AudioToggle from '../components/AudioToggle.astro';
-import LoadingScreen from '../components/LoadingScreen.astro';
 
 export interface Props {
   title?: string;
   description?: string;
 }
 
-const { title = 'GoDigital — Diseño y desarrollo premium', description = 'Transformamos tu visión en productos digitales excepcionales. Diseño UX/UI, desarrollo web, apps móviles y SEO técnico.' } = Astro.props;
+const {
+  title = 'GoDigital | Sistemas y presencia digital para emprendedores',
+  description = 'Creamos sistemas prácticos, sitios web y soluciones digitales completas para emprendedores y pequeños negocios en Latinoamérica.',
+} = Astro.props;
+
+const organizationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'GoDigital',
+  description,
+  email: CONTACT_CHANNELS.email.address,
+  areaServed: 'Latin America',
+  availableLanguage: 'Spanish',
+  contactPoint: {
+    '@type': 'ContactPoint',
+    contactType: 'project inquiries',
+    url: CONTACT_CHANNELS.whatsapp.href,
+    areaServed: 'Latin America',
+    availableLanguage: 'es',
+  },
+  sameAs: CONTACT_CHANNELS.social.map((channel) => channel.href),
+};
 ---
 
 <!doctype html>
@@ -19,65 +38,29 @@ const { title = 'GoDigital — Diseño y desarrollo premium', description = 'Tra
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#1746d1" />
+    <meta name="color-scheme" content="light" />
+    <link rel="icon" type="image/svg+xml" href="/logo-base.svg" />
 
-    <!-- Dark theme -->
-    <meta name="theme-color" content="#06080d" />
-    <meta name="color-scheme" content="dark" />
-
-    <!-- Open Graph -->
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
-    <meta name="twitter:card" content="summary_large_image" />
+    <meta property="og:site_name" content="GoDigital" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
 
-    <!-- Google Fonts: Plus Jakarta Sans + Geist -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;800&family=Azeret+Mono:wght@400;600&display=swap"
       rel="stylesheet"
     />
-
-    <!-- v2: Hero poster preload for fast LCP -->
-    <link rel="preload" as="image" href="/assets/generated/bg/obsidian-mesh.png" />
-
-    <!-- v2: ENABLE_V2_ANIM type declaration + runtime bridge -->
-    <script is:inline>
-      // Vite define replacement — will be 'true' or 'false' string at build time
-      window.__ENABLE_V2_ANIM__ = typeof __ENABLE_V2_ANIM__ !== 'undefined'
-        ? __ENABLE_V2_ANIM__ === 'true'
-        : true;
-    </script>
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />
   </head>
-  <body class="bg-surface-dim text-on-surface antialiased overflow-x-hidden">
-    <LoadingScreen />
-    <!-- v3: SVG noise filters for shiny text and watermark -->
-    <svg width="0" height="0" style="position: absolute" aria-hidden="true">
-      <defs>
-        <!-- For Hero headline "experiencias" and similar shiny text -->
-        <filter id="shiny-noise" x="0%" y="0%" width="100%" height="100%">
-          <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch" />
-          <feColorMatrix type="matrix" values="0 0 0 0 0
-                                                0 0 0 0 0
-                                                0 0 0 0 0
-                                                0 0 0 0.35 0" />
-          <feComposite in2="SourceGraphic" operator="in" result="noise" />
-          <feBlend in="SourceGraphic" in2="noise" mode="multiply" />
-        </filter>
-
-        <!-- For watermark headline (c3-watermark-main) — overlay blend, subtle -->
-        <filter id="c3-noise" x="0%" y="0%" width="100%" height="100%">
-          <feTurbulence type="fractalNoise" baseFrequency="0.5" numOctaves="2" stitchTiles="stitch" />
-          <feComponentTransfer>
-            <feFuncA type="linear" slope="0.075" />
-          </feComponentTransfer>
-          <feComposite in2="SourceGraphic" operator="in" result="noise" />
-          <feBlend in="SourceGraphic" in2="noise" mode="overlay" />
-        </filter>
-      </defs>
-    </svg>
-    <SectionProgress />
-    <AudioToggle />
+  <body>
+    <a class="skip-link" href="#main-content">Saltar al contenido</a>
     <slot />
   </body>
 </html>

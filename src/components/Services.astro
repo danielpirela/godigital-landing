@@ -1,143 +1,66 @@
 ---
-/**
- * Services.astro — v3 liquid-glass service cards
- *
- * 4 service cards wrapped in GlassCard with depth variants,
- * subtitle rendering restored (v2 bug fix).
- */
-import GlassCard from './GlassCard.astro';
+interface Service {
+  label: string;
+  title: string;
+  description: string;
+  outputs: readonly string[];
+}
 
 const services = [
   {
-    title: 'UX/UI Design',
-    subtitle: 'Diseño centrado en el usuario',
-    desc: 'Diseñamos experiencias digitales intuitivas y atractivas. Investigación de usuarios, wireframes, prototipos interactivos y sistemas de diseño coherentes.',
-    iconId: 'icon-ux-ui',
-    iconFallback: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M12 2L2 7l10 5 10-5-10-5z"/>
-      <path d="M2 17l10 5 10-5"/>
-      <path d="M2 12l10 5 10-5"/>
-    </svg>`,
-    color: '#0066ff',
-    bgColor: 'rgba(0, 102, 255, 0.12)',
-    variant: 'default',
+    label: 'Operación',
+    title: 'Sistemas prácticos para el negocio',
+    description: 'Herramientas que ordenan tareas reales sin sumar complejidad innecesaria.',
+    outputs: ['Inventario y ventas', 'Flujos administrativos', 'Herramientas web a medida'],
   },
   {
-    title: 'Web Development',
-    subtitle: 'Stack moderno y escalable',
-    desc: 'Construimos aplicaciones web robustas con tecnologías modernas. Rendimiento, accesibilidad y SEO desde el primer commit.',
-    iconId: 'icon-web',
-    iconFallback: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-      <polyline points="16 18 22 12 16 6"/>
-      <polyline points="8 6 2 12 8 18"/>
-    </svg>`,
-    color: '#7c3aed',
-    bgColor: 'rgba(124, 58, 237, 0.12)',
-    variant: 'soft',
+    label: 'Presencia',
+    title: 'Sitios, identidad y posicionamiento',
+    description: 'Una presencia digital clara para explicar qué hacés, generar confianza y facilitar el próximo paso.',
+    outputs: ['Sitios web', 'Identidad visual', 'Contenido y posicionamiento'],
   },
   {
-    title: 'Mobile Apps',
-    subtitle: 'Apps nativas e híbridas',
-    desc: 'Desarrollamos apps nativas y cross-platform que tus usuarios amarán. Experiencias fluidas con el mejor rendimiento en cada dispositivo.',
-    iconId: 'icon-mobile',
-    iconFallback: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-      <rect x="5" y="2" width="14" height="20" rx="2" ry="2"/>
-      <line x1="12" y1="18" x2="12.01" y2="18"/>
-    </svg>`,
-    color: '#06b6d4',
-    bgColor: 'rgba(6, 182, 212, 0.12)',
-    variant: 'strong',
+    label: 'Puesta en marcha',
+    title: 'Equipos, configuración e instalación',
+    description: 'Cuando la solución necesita hardware, GoDigital también puede buscarlo, configurarlo e integrarlo.',
+    outputs: ['Búsqueda transparente', 'Configuración', 'Instalación completa'],
   },
   {
-    title: 'SEO Técnico',
-    subtitle: 'Visibilidad en buscadores',
-    desc: 'Optimizamos tu presencia digital con estrategias de SEO técnico. Velocidad, estructura, datos estructurados y visibilidad en buscadores.',
-    iconId: 'icon-seo',
-    iconFallback: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-      <circle cx="12" cy="12" r="10"/>
-      <line x1="2" y1="12" x2="22" y2="12"/>
-      <path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/>
-    </svg>`,
-    color: '#00e676',
-    bgColor: 'rgba(0, 230, 118, 0.12)',
-    variant: 'accent',
+    label: 'Entrega',
+    title: 'Un responsable de principio a fin',
+    description: 'Las decisiones de negocio, diseño, tecnología y puesta en marcha se coordinan como una sola entrega.',
+    outputs: ['Alcance entendible', 'Ejecución hands-on', 'Decisiones explicadas'],
   },
-];
-
-const iconPaths = {
-  'icon-ux-ui': '/assets/generated/icons/ux-ui.png',
-  'icon-web': '/assets/generated/icons/web.png',
-  'icon-mobile': '/assets/generated/icons/mobile.png',
-  'icon-seo': '/assets/generated/icons/seo.png',
-};
+] satisfies readonly Service[];
 ---
 
-<section
-  id="services"
-  class="relative px-[var(--margin-mobile)] md:px-[var(--margin-desktop)] pb-30"
->
-  <div class="mx-auto" style="max-width: var(--container-max);">
-    <!-- Section header -->
-    <div class="text-center mb-16 md:mb-20" data-reveal="section-title">
-      <span class="inline-block text-xs font-semibold uppercase tracking-[0.2em] text-primary mb-4">
-        Servicios
-      </span>
-      <h2 class="text-3xl md:text-5xl font-bold">
-        Lo que <span class="text-primary">hacemos</span>
-      </h2>
-      <div class="gradient-line w-16 mx-auto mt-6"></div>
-    </div>
+<section class="services section" id="services" aria-labelledby="services-title">
+  <div class="page-shell services__layout">
+    <header class="services__intro">
+      <p class="document-label">Capacidades de entrega</p>
+      <h2 id="services-title">Lo digital se diseña alrededor del negocio, no al revés.</h2>
+      <p>
+        GoDigital combina estrategia, diseño, desarrollo y puesta en marcha para resolver lo que el proyecto realmente necesita.
+      </p>
+      <aside class="scope-note">
+        <span class="scope-note__mark" aria-hidden="true">*</span>
+        El alcance se conversa y se documenta. No se infla para parecer más grande.
+      </aside>
+    </header>
 
-    <!-- Service cards grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
-      {services.map((service, i) => (
-        <GlassCard variant={service.variant as any} padding="lg" interactive as="article" class="service-card" data-reveal="service-card" data-index={i}>
-          <!-- Icon container -->
-          <div
-            class="service-icon-wrap w-16 h-16 rounded-[var(--radius-lg)] flex items-center justify-center mb-6 transition-all duration-300"
-            style={`background: ${service.bgColor};`}
-          >
-            <img
-              data-mmx-generated={service.iconId}
-              src={iconPaths[service.iconId as keyof typeof iconPaths]}
-              alt={service.title}
-              loading="lazy"
-              width="64"
-              height="64"
-              class="service-icon-img w-10 h-10 object-contain"
-              onerror="this.classList.add('failed');"
-            />
-            <span
-              class="service-icon-fallback"
-              style={`color: ${service.color};`}
-              set:html={service.iconFallback}
-            />
+    <ol class="service-ledger">
+      {services.map((service) => (
+        <li data-motion="line">
+          <div class="service-ledger__label document-label">{service.label}</div>
+          <div class="service-ledger__copy">
+            <h3>{service.title}</h3>
+            <p>{service.description}</p>
           </div>
-
-          <!-- Text -->
-          <h3 class="text-xl md:text-2xl font-bold mb-1">{service.title}</h3>
-          <p class="service-subtitle" style="font-size: 14px; opacity: 0.6; color: var(--color-on-surface-variant);">{service.subtitle}</p>
-          <p class="text-on-surface-variant text-sm md:text-base leading-relaxed mt-3">{service.desc}</p>
-        </GlassCard>
+          <ul class="service-ledger__outputs" aria-label={`Incluye ${service.title}`}>
+            {service.outputs.map((output) => <li>{output}</li>)}
+          </ul>
+        </li>
       ))}
-    </div>
+    </ol>
   </div>
 </section>
-
-<style>
-  /* Icon: img visible by default, fallback hidden until img fails */
-  .service-icon-img {
-    display: block;
-  }
-  .service-icon-fallback {
-    display: none;
-  }
-  .service-icon-img.failed {
-    display: none;
-  }
-  .service-icon-img.failed + .service-icon-fallback {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-</style>

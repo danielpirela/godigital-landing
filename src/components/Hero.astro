@@ -1,136 +1,95 @@
 ---
+import { CONTACT_CHANNELS } from '../lib/contact';
 ---
 
-<section
-  id="hero"
-  class="relative min-h-screen flex flex-col items-center justify-center overflow-hidden px-[var(--margin-mobile)] md:px-[var(--margin-desktop)] pt-24 pb-16"
->
-  <!-- ─── Video Background Layer ─── -->
-  <div class="absolute inset-0 z-0 overflow-hidden">
-    <!-- Poster fallback (always rendered, preloaded in Layout.astro) -->
-    <img
-      src="/assets/generated/bg/obsidian-mesh.png"
-      alt=""
-      aria-hidden="true"
-      class="absolute inset-0 w-full h-full object-cover opacity-60"
-      style="z-index: 0;"
-      data-mmx-generated="bg-obsidian-mesh"
-      loading="eager"
-      fetchpriority="high"
-    />
-    <!-- Video: desktop only (media query gates source) -->
-    <video
-      autoplay
-      muted
-      loop
-      playsinline
-      preload="metadata"
-      poster="/assets/generated/bg/obsidian-mesh.png"
-      data-mmx-generated="hero-loop"
-      class="absolute inset-0 w-full h-full object-cover hidden md:block"
-      style="z-index: 1;"
-      aria-hidden="true"
-    >
-      <source src="/assets/generated/hero-loop.mp4" type="video/mp4" media="(min-width: 769px)" />
-    </video>
-  </div>
+<section class="hero" id="hero" aria-labelledby="hero-title">
+  <div class="hero__frame page-shell">
+    <div class="hero__copy">
+      <p class="hero__kicker document-label">Caso anonimizado · Entrega real</p>
+      <h1 id="hero-title">
+        Un emprendedor necesitaba ordenar su negocio.
+        <span>Entregamos el sistema completo.</span>
+      </h1>
+      <p class="hero__summary">
+        Inventario, ventas y ganancias; el equipo adecuado; la instalación; y una herramienta web pensada para el contexto cambiario de Venezuela. GoDigital se ocupó de principio a fin.
+      </p>
 
-  <!-- ─── 2 Ambient Parallax Orbs (down from 3) ─── -->
-  <div class="ambient-orb w-[500px] h-[500px] -top-[200px] -left-[150px] md:w-[700px] md:h-[700px] md:-top-[250px] md:-left-[200px]" data-orb="1" aria-hidden="true"></div>
-  <div class="ambient-orb w-[400px] h-[400px] -bottom-[150px] -right-[100px] md:w-[600px] md:h-[600px] md:-bottom-[200px] md:-right-[150px]" data-orb="2" aria-hidden="true"></div>
+      <div class="hero__actions">
+        <a
+          class="button button--paper"
+          href={CONTACT_CHANNELS.whatsapp.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Hablar con GoDigital por WhatsApp, abre en una pestaña nueva"
+        >
+          Hablar por WhatsApp
+          <span aria-hidden="true">↗</span>
+        </a>
+        <a class="text-link text-link--light" href="#case-file">
+          Abrir el expediente
+          <span aria-hidden="true">↓</span>
+        </a>
+      </div>
 
-  <!-- ─── Particle Container (count driven by CSS var from matchMedia) ─── -->
-  <div class="hero-particles absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true"></div>
-
-  <!-- ─── Main Content (z-10 above video + orbs) ─── -->
-  <div class="relative z-10 flex flex-col items-center text-center max-w-3xl mx-auto">
-
-    <!-- Eyebrow -->
-    <p class="hero__eyebrow text-xs tracking-[0.2em] uppercase text-on-surface-variant mb-6">Consultora boutique</p>
-
-    <!-- Headline — three spans, the middle one shimmers -->
-    <h1
-      class="hero__headline text-5xl md:text-7xl lg:text-8xl font-extrabold leading-[1.05] tracking-[-0.03em] mb-6"
-      data-hero-headline
-    >
-      <span class="block">Convertimos ideas en</span>
-      <span class="block">
-        <span class="shiny-text animate-shiny" data-hero-shimmer>experiencias</span>
-      </span>
-      <span class="block">digitales</span>
-    </h1>
-
-    <!-- Subtitle -->
-    <p
-      class="hero__sub text-lg md:text-xl text-on-surface-variant max-w-xl mx-auto mb-10"
-      data-hero-sub
-    >
-      Una consultora boutique que diseña, desarrolla y mantiene productos web con criterio.
-    </p>
-
-    <!-- CTAs — primary uses liquid-glass accent -->
-    <div class="hero__ctas flex flex-col sm:flex-row items-center gap-4 sm:gap-5 mb-12" data-hero-ctas>
-      <a
-        href="#projects"
-        class="cta cta--primary liquid-glass liquid-glass--accent inline-flex items-center gap-2 px-6 py-3 rounded-[var(--radius-pill)] text-white font-medium text-sm md:text-base"
-      >
-        Ver proyectos <span aria-hidden="true">→</span>
-      </a>
-      <a
-        href="mailto:hola@godigital.com.ar"
-        class="cta cta--ghost inline-flex items-center gap-2 px-6 py-3 rounded-[var(--radius-pill)] border border-white/15 text-on-surface font-medium text-sm md:text-base bg-transparent hover:bg-white/5 transition-colors"
-      >
-        Hablemos
-      </a>
+      <p class="hero__principle">
+        Tecnología de calidad para que más personas puedan vivir de su propio negocio.
+      </p>
     </div>
 
-    <!-- 3-Metric Stat row -->
-    <ul class="hero__stats flex flex-wrap items-center justify-center gap-x-8 gap-y-4" data-hero-stats>
-      <li class="flex flex-col items-center gap-1 px-2 md:border-r md:border-white/10 md:pr-8">
-        <strong class="font-extrabold text-2xl text-white">5+</strong>
-        <span class="text-xs text-on-surface-variant">años</span>
-      </li>
-      <li class="flex flex-col items-center gap-1 px-2 md:border-r md:border-white/10 md:pr-8">
-        <strong class="font-extrabold text-2xl text-white">30+</strong>
-        <span class="text-xs text-on-surface-variant">proyectos</span>
-      </li>
-      <li class="flex flex-col items-center gap-1 px-2">
-        <strong class="font-extrabold text-2xl text-white">98%</strong>
-        <span class="text-xs text-on-surface-variant">satisfacción</span>
-      </li>
-    </ul>
+    <article class="case-cover" aria-label="Resumen del caso anonimizado" data-motion="sheet">
+      <header class="case-cover__header">
+        <div>
+          <p class="document-label">Expediente GD / Caso reservado</p>
+          <p class="case-cover__folio">Entrega integral</p>
+        </div>
+        <span class="status-tag">Entregado</span>
+      </header>
+
+      <div class="redacted-identity" aria-label="Identidad del cliente protegida">
+        <span>Cliente</span>
+        <span class="redaction" aria-hidden="true"></span>
+      </div>
+
+      <dl class="case-cover__facts">
+        <div>
+          <dt>Perfil</dt>
+          <dd>Emprendimiento en etapa inicial</dd>
+        </div>
+        <div>
+          <dt>Necesidad</dt>
+          <dd>Gestionar inventario, ventas y ganancia con una solución accesible</dd>
+        </div>
+        <div>
+          <dt>Alcance</dt>
+          <dd>Sistema, equipos, instalación y herramienta web</dd>
+        </div>
+      </dl>
+
+      <div class="case-cover__rule" data-motion="line" aria-hidden="true"></div>
+
+      <div class="delivery-checklist">
+        <p class="document-label">Entrega verificada</p>
+        <ul>
+          <li><span aria-hidden="true">✓</span> Tablet e impresora térmica conseguidas a precios competitivos</li>
+          <li><span aria-hidden="true">✓</span> Sistema completo instalado</li>
+          <li><span aria-hidden="true">✓</span> Herramienta web para gestionar la tasa diaria</li>
+          <li><span aria-hidden="true">✓</span> Implementación manejada de punta a punta</li>
+        </ul>
+      </div>
+
+      <p class="case-cover__note">
+        El cliente está conforme con la solución y con la transparencia de GoDigital.
+      </p>
+
+      <div class="approval-stamp" data-motion="stamp" aria-label="Entrega completa">
+        <span>Entrega</span>
+        <strong>Completa</strong>
+      </div>
+    </article>
   </div>
 
-  <!-- ─── Scroll Indicator (bouncing dot) ─── -->
-  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-40">
-    <span class="text-xs font-medium text-on-surface-variant tracking-widest uppercase">Scroll</span>
-    <div class="scroll-indicator w-5 h-8 rounded-full border border-on-surface-variant/40 flex justify-center pt-1.5">
-      <div class="scroll-dot w-1 h-1.5 rounded-full bg-on-surface-variant"></div>
-    </div>
-  </div>
+  <a class="hero__index-link" href="#case-file">
+    <span class="document-label">Siguiente hoja</span>
+    <span>01 / Expediente abierto</span>
+  </a>
 </section>
-
-<style>
-  /* ── Initial states for GSAP-driven entrance ── */
-  .hero__eyebrow,
-  .hero__headline,
-  .hero__sub,
-  .hero__ctas,
-  .hero__stats {
-    opacity: 0;
-    transform: translateY(24px);
-    will-change: opacity, transform;
-  }
-
-  /* ── Shiny text — gradient + noise filter, animated by CSS keyframe ── */
-  .shiny-text {
-    background: var(--gradient-shiny);
-    background-size: var(--gradient-shiny-size);
-    -webkit-background-clip: text;
-            background-clip: text;
-    -webkit-text-fill-color: transparent;
-    color: transparent;
-    filter: url(#shiny-noise);
-    display: inline-block;
-  }
-</style>

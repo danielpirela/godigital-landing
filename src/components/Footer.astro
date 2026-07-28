@@ -1,181 +1,73 @@
 ---
-import GlassCard from './GlassCard.astro';
+import { CONTACT_CHANNELS } from '../lib/contact';
 
 const currentYear = new Date().getFullYear();
 
-const navLinks = [
+const links = [
+  { href: '#case-file', label: 'Caso real' },
   { href: '#services', label: 'Servicios' },
-  { href: '#edge', label: 'Diferencia' },
-  { href: '#process', label: 'Proceso' },
-  { href: '#quality-assurance', label: 'Calidad' },
-  { href: '#cta', label: 'Contacto' },
-];
-
-const socials = [
-  {
-    label: 'GitHub',
-    href: 'https://github.com/godigital',
-    icon: `<path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.04-2.13-.82-4.19-2.36-5.7A4.85 4.85 0 0 0 17.5 1.5S16.05 1.18 15 2.5c-1.05-1.32-2.5-1-2.5-1a4.85 4.85 0 0 0-.14 3.8A5.86 5.86 0 0 0 10 12.5c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/>`,
-  },
-  {
-    label: 'LinkedIn',
-    href: 'https://linkedin.com/company/godigital',
-    icon: `<path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/>`,
-  },
-  {
-    label: 'Email',
-    href: 'mailto:hola@godigital.com.ar',
-    icon: `<rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>`,
-  },
-];
-
-const legalLinks = [
-  { href: '#', label: 'Privacidad' },
-  { href: '#', label: 'Términos' },
-  { href: '#', label: 'Cookies' },
+  { href: '#method', label: 'Cómo entregamos' },
+  { href: '#principles', label: 'Criterios' },
+  { href: '#contact', label: 'Contacto' },
 ];
 ---
 
-<footer class="relative overflow-hidden" style="background: var(--color-surface-dim);">
-  <!-- Top gradient line -->
-  <div class="gradient-line" aria-hidden="true"></div>
-
-  <div
-    class="mx-auto px-[var(--margin-mobile)] md:px-[var(--margin-desktop)] py-12 md:py-16"
-    style="max-width: var(--container-max);"
-  >
-    <!-- 4-column grid: lg:4col, md:2col, mobile:1col -->
-    <div class="footer-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 mb-12">
-
-      <!-- Column 1: Logo + tagline -->
-      <GlassCard variant="soft" padding="md" as="div" class="footer-col">
-        <div class="flex flex-col gap-4">
-          <!-- Logo -->
-          <a href="#hero" aria-label="GoDigital — ir al inicio">
-            <img
-              src="/logo-light.svg"
-              alt="GoDigital"
-              class="h-8 w-auto opacity-90 hover:opacity-100 transition-opacity duration-300"
-            />
-          </a>
-          <p class="text-sm text-on-surface-variant/60" style="opacity: 0.6; font-family: 'Inter', system-ui, sans-serif;">
-            Consultora boutique de diseño y desarrollo web.
-          </p>
-        </div>
-      </GlassCard>
-
-      <!-- Column 2: Navegación -->
-      <GlassCard variant="soft" padding="md" as="div" class="footer-col">
-        <h3 class="text-xs font-semibold uppercase tracking-widest text-on-surface-variant/50 mb-4" style="font-family: 'Inter', system-ui, sans-serif;">
-          Navegación
-        </h3>
-        <nav aria-label="Navegación del pie">
-          <ul class="flex flex-col gap-3">
-            {navLinks.map((link) => (
-              <li>
-                <a
-                  href={link.href}
-                  class="text-sm text-on-surface-variant/70 hover:text-on-surface transition-colors duration-200 footer-nav-link"
-                >
-                  {link.label}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </nav>
-      </GlassCard>
-
-      <!-- Column 3: Conectá -->
-      <GlassCard variant="soft" padding="md" as="div" class="footer-col">
-        <h3 class="text-xs font-semibold uppercase tracking-widest text-on-surface-variant/50 mb-4" style="font-family: 'Inter', system-ui, sans-serif;">
-          Conectá
-        </h3>
-        <div class="flex items-center gap-3">
-          {socials.map((social) => (
-            <a
-              href={social.href}
-              class="footer-social-btn w-10 h-10 rounded-full flex items-center justify-center transition-all duration-200"
-              aria-label={social.label}
-              rel="noopener noreferrer"
-              target={social.href.startsWith('mailto') ? undefined : '_blank'}
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="18"
-                height="18"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                aria-hidden="true"
-              >
-                <Fragment set:html={social.icon} />
-              </svg>
-            </a>
-          ))}
-        </div>
-      </GlassCard>
-
-      <!-- Column 4: Legal -->
-      <GlassCard variant="soft" padding="md" as="div" class="footer-col">
-        <h3 class="text-xs font-semibold uppercase tracking-widest text-on-surface-variant/50 mb-4" style="font-family: 'Inter', system-ui, sans-serif;">
-          Legal
-        </h3>
-        <ul class="flex flex-col gap-3">
-          {legalLinks.map((link) => (
-            <li>
-              <a
-                href={link.href}
-                class="text-sm text-on-surface-variant/70 hover:text-on-surface transition-colors duration-200 footer-nav-link"
-              >
-                {link.label}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </GlassCard>
-
+<footer class="site-footer">
+  <div class="page-shell site-footer__layout">
+    <div class="site-footer__brand">
+      <a href="#top" aria-label="GoDigital, ir al inicio">
+        <img src="/logo-dark.svg" alt="GoDigital" width="176" height="46" />
+      </a>
+      <p>Tecnología accesible, entrega responsable y trato directo.</p>
     </div>
 
-    <!-- Bottom row: copyright -->
-    <div class="text-center pt-6" style="border-top: 1px solid var(--color-glass-border);">
-      <p class="text-xs text-on-surface-variant/50" style="font-family: 'Inter', system-ui, sans-serif;">
-        © {currentYear} GoDigital · Buenos Aires, Argentina · Hecho con criterio
-      </p>
+    <nav aria-label="Navegación del pie">
+      <p class="document-label">Índice</p>
+      <ul>
+        {links.map((link) => <li><a href={link.href}>{link.label}</a></li>)}
+      </ul>
+    </nav>
+
+    <div class="site-footer__contact">
+      <p class="document-label">Contacto verificado</p>
+      <a
+        class="site-footer__primary-contact"
+        href={CONTACT_CHANNELS.whatsapp.href}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Hablar con GoDigital por WhatsApp, abre en una pestaña nueva"
+      >
+        Hablar por WhatsApp
+        <span aria-hidden="true">↗</span>
+      </a>
+      <a class="site-footer__email" href={CONTACT_CHANNELS.email.projectHref}>
+        {CONTACT_CHANNELS.email.address}
+      </a>
+      <span>Atención en español para Latinoamérica</span>
+    </div>
+
+    <div class="site-footer__social">
+      <p class="document-label">Presencia verificada</p>
+      <ul>
+        {CONTACT_CHANNELS.social.map((channel) => (
+          <li>
+            <a
+              href={channel.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`${channel.label} de GoDigital, abre en una pestaña nueva`}
+            >
+              {channel.label}
+              <span aria-hidden="true">↗</span>
+            </a>
+          </li>
+        ))}
+      </ul>
     </div>
   </div>
+
+  <div class="page-shell site-footer__base">
+    <p>© {currentYear} GoDigital</p>
+    <p>Hecho para emprendedores que están construyendo algo propio.</p>
+  </div>
 </footer>
-
-<style>
-  /* Social icon hover */
-  .footer-social-btn {
-    background: var(--color-glass-bg);
-    border: 1px solid var(--color-glass-border);
-    color: var(--color-on-surface-variant);
-    cursor: pointer;
-  }
-
-  .footer-social-btn:hover {
-    background: var(--color-glass-bg-hover);
-    border-color: var(--color-primary);
-    color: var(--color-primary);
-    transform: scale(1.05);
-  }
-
-  /* Nav link */
-  .footer-nav-link {
-    display: inline-block;
-    padding-bottom: 1px;
-  }
-
-  .footer-nav-link:hover {
-    color: var(--color-on-surface);
-  }
-
-  /* Footer col spacing */
-  .footer-col {
-    height: 100%;
-  }
-</style>

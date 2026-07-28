@@ -1,126 +1,59 @@
 ---
-/**
- * Process.astro — v3 scroll-scrubbed timeline, 5 steps, word-by-word reveal
- *
- * - 5-step data array (explicit, not template slice — v2 bug fix)
- * - Word-by-word opacity tied to global line progress
- * - Circle rotation + line scale scrubbed by ScrollTrigger
- */
+interface MethodStep {
+  number: string;
+  title: string;
+  description: string;
+  evidence: string;
+}
+
 const steps = [
   {
-    num: '01',
-    title: 'Descubrimiento',
-    desc: 'Entendemos tu negocio, audiencia y objetivos. Workshops, entrevistas, auditoría técnica.',
+    number: '01',
+    title: 'Entender la operación',
+    description: 'Empezamos por cómo trabajás hoy, qué te frena, con qué presupuesto contás y qué necesitás poner en marcha.',
+    evidence: 'Salida: necesidad documentada',
   },
   {
-    num: '02',
-    title: 'Estrategia',
-    desc: 'Definimos el alcance, el roadmap y los criterios de éxito. Todo por escrito.',
+    number: '02',
+    title: 'Definir una solución posible',
+    description: 'Ordenamos qué hace falta, qué no, y cómo se conectan el sistema, la presencia digital o el equipamiento.',
+    evidence: 'Salida: alcance entendible',
   },
   {
-    num: '03',
-    title: 'Diseño',
-    desc: 'Wireframes, prototipos visuales, design system. Iteramos con tu feedback.',
+    number: '03',
+    title: 'Construir y poner en marcha',
+    description: 'Diseñamos, desarrollamos, buscamos o configuramos lo necesario y coordinamos la implementación completa.',
+    evidence: 'Salida: solución operativa',
   },
   {
-    num: '04',
-    title: 'Desarrollo',
-    desc: 'Código limpio, tipado, testeado. Deploys semanales para que veas progreso.',
+    number: '04',
+    title: 'Entregar con claridad',
+    description: 'Cerramos la entrega con una solución usable y las decisiones importantes explicadas de forma directa.',
+    evidence: 'Salida: entrega inspeccionable',
   },
-  {
-    num: '05',
-    title: 'Iteramos',
-    desc: 'Lanzamos, medimos, mejoramos. El producto vive y crece con tu negocio.',
-  },
-];
+] satisfies readonly MethodStep[];
 ---
 
-<section
-  id="process"
-  class="relative px-[var(--margin-mobile)] md:px-[var(--margin-desktop)] pb-30"
->
-  <div class="mx-auto" style="max-width: var(--container-max);">
-    <!-- Section header -->
-    <div class="text-center mb-16 md:mb-20" data-reveal="section-title">
-      <span class="inline-block text-xs font-semibold uppercase tracking-[0.2em] text-primary mb-4">
-        Metodología
-      </span>
-      <h2 class="text-3xl md:text-5xl font-bold">
-        Nuestro <span class="text-primary">proceso</span>
-      </h2>
-      <div class="gradient-line w-16 mx-auto mt-6"></div>
-    </div>
+<section class="method section" id="method" aria-labelledby="method-title">
+  <div class="page-shell method__layout">
+    <header class="method__intro">
+      <p class="document-label">Registro de decisiones</p>
+      <h2 id="method-title">Cada etapa tiene una pregunta y una salida concreta.</h2>
+      <p>La claridad no se agrega al final. Es parte de cómo se define y se entrega el proyecto.</p>
+    </header>
 
-    <!-- Timeline -->
-    <div class="relative flex flex-col items-center max-w-3xl mx-auto">
-
-      <!-- SVG fluid bezier connecting curves (behind the line) -->
-      <svg
-        class="process-curves absolute pointer-events-none"
-        style="top:0;left:50%;transform:translateX(-50%);height:100%;width:100%;max-width:3rem;"
-        viewBox="0 0 48 100"
-        preserveAspectRatio="none"
-        aria-hidden="true"
-      >
-        <defs>
-          <linearGradient id="lineGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stop-color="#0066ff" stop-opacity="0.8"/>
-            <stop offset="100%" stop-color="#0066ff" stop-opacity="0.3"/>
-          </linearGradient>
-        </defs>
-        <path
-          d="M24 10 C 24 30, 20 45, 24 60 C 28 75, 24 80, 24 90"
-          fill="none"
-          stroke="url(#lineGrad)"
-          stroke-width="2"
-          stroke-linecap="round"
-        />
-      </svg>
-
-      <!-- Connecting line (scales 0→1 from top) -->
-      <div
-        class="process-line absolute left-1/2 top-0 w-0.5 -translate-x-1/2 origin-top"
-        style="height: calc(100% - 2rem); background: linear-gradient(180deg, rgba(0,102,255,0.8) 0%, rgba(0,102,255,0.3) 100%);"
-      ></div>
-
-      <!-- Steps -->
-      <div class="flex flex-col gap-12 md:gap-16 w-full relative z-10">
-        {steps.map((step, i) => (
-          <div
-            class="process-step relative flex items-start gap-5 md:gap-8"
-            data-reveal="process-step"
-            data-index={i}
-            style="--word-progress: 0;"
-          >
-            <!-- Numbered circle (rotates 0→360 as line grows) -->
-            <div class="relative z-10 shrink-0 flex items-center justify-center">
-              <div
-                class="process-circle w-12 h-12 md:w-16 md:h-16 rounded-full flex items-center justify-center border-2"
-                style="border-color: rgba(0, 102, 255, 0.4); background: var(--color-surface-dim); box-shadow: 0 0 24px rgba(0, 102, 255, 0.15), inset 0 0 12px rgba(0, 102, 255, 0.1);"
-              >
-                <span class="text-primary font-bold text-sm md:text-lg">{step.num}</span>
-              </div>
-            </div>
-
-            <!-- Content with word-by-word reveal -->
-            <div class="flex-1 pt-2 md:pt-3">
-              <h3 class="process-step-title text-xl md:text-2xl font-bold mb-2">{step.title}</h3>
-              <p class="process-step-text text-on-surface-variant text-sm md:text-base leading-relaxed">
-                {step.desc.split(' ').map((word, wi) => (
-                  <span class="process-word" data-step-word={wi} style="opacity: calc(0.2 + 0.8 * var(--word-progress, 0));">{word} </span>
-                ))}
-              </p>
-            </div>
+    <ol class="method-log">
+      {steps.map((step) => (
+        <li data-motion="sheet">
+          <span class="method-log__number">{step.number}</span>
+          <div class="method-log__copy">
+            <h3>{step.title}</h3>
+            <p>{step.description}</p>
           </div>
-        ))}
-      </div>
-    </div>
+          <p class="method-log__evidence document-label">{step.evidence}</p>
+          <span class="method-log__check" aria-hidden="true">✓</span>
+        </li>
+      ))}
+    </ol>
   </div>
 </section>
-
-<style>
-  .process-circle {
-    will-change: transform;
-    transform: rotate(0deg);
-  }
-</style>
