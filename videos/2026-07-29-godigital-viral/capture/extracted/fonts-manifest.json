@@ -1,0 +1,94 @@
+{
+  "files": [
+    {
+      "file": "3XF5ErsiyJsY9O_Gepph-FvtTQgMQUdNekSfQvJh0g.ttf",
+      "family": "Azeret Mono",
+      "rawFamily": "Azeret Mono SemiBold",
+      "subfamily": "Regular",
+      "postscript": "AzeretMono-SemiBold",
+      "weight": 600,
+      "style": "normal",
+      "variationAxes": [],
+      "identified": true
+    },
+    {
+      "file": "3XF5ErsiyJsY9O_Gepph-FvtTQgMQUdNekSfnPVh0g.ttf",
+      "family": "Azeret Mono",
+      "rawFamily": "Azeret Mono",
+      "subfamily": "Regular",
+      "postscript": "AzeretMono-Regular",
+      "weight": 400,
+      "style": "normal",
+      "variationAxes": [],
+      "identified": true
+    },
+    {
+      "file": "k3k6o8UDI-1M0wlSV9XAw6lQkqWY8Q82sJaRE-NWIDdgffTT6jRp8A.ttf",
+      "family": "Archivo",
+      "rawFamily": "Archivo SemiBold",
+      "subfamily": "Regular",
+      "postscript": "Archivo-SemiBold",
+      "weight": 600,
+      "style": "normal",
+      "variationAxes": [],
+      "identified": true
+    },
+    {
+      "file": "k3k6o8UDI-1M0wlSV9XAw6lQkqWY8Q82sJaRE-NWIDdgffTTNDNp8A.ttf",
+      "family": "Archivo",
+      "rawFamily": "Archivo",
+      "subfamily": "Regular",
+      "postscript": "Archivo-Regular",
+      "weight": 400,
+      "style": "normal",
+      "variationAxes": [],
+      "identified": true
+    },
+    {
+      "file": "k3k6o8UDI-1M0wlSV9XAw6lQkqWY8Q82sJaRE-NWIDdgffTTtDRp8A.ttf",
+      "family": "Archivo",
+      "rawFamily": "Archivo ExtraBold",
+      "subfamily": "Regular",
+      "postscript": "Archivo-ExtraBold",
+      "weight": 800,
+      "style": "normal",
+      "variationAxes": [],
+      "identified": true
+    }
+  ],
+  "families": [
+    {
+      "family": "Archivo",
+      "weights": [
+        400,
+        600,
+        800
+      ],
+      "variable": false,
+      "fileCount": 3,
+      "files": [
+        "k3k6o8UDI-1M0wlSV9XAw6lQkqWY8Q82sJaRE-NWIDdgffTT6jRp8A.ttf",
+        "k3k6o8UDI-1M0wlSV9XAw6lQkqWY8Q82sJaRE-NWIDdgffTTNDNp8A.ttf",
+        "k3k6o8UDI-1M0wlSV9XAw6lQkqWY8Q82sJaRE-NWIDdgffTTtDRp8A.ttf"
+      ]
+    },
+    {
+      "family": "Azeret Mono",
+      "weights": [
+        400,
+        600
+      ],
+      "variable": false,
+      "fileCount": 2,
+      "files": [
+        "3XF5ErsiyJsY9O_Gepph-FvtTQgMQUdNekSfQvJh0g.ttf",
+        "3XF5ErsiyJsY9O_Gepph-FvtTQgMQUdNekSfnPVh0g.ttf"
+      ]
+    }
+  ],
+  "unidentified": [],
+  "meta": {
+    "generatedAt": "2026-07-29T04:33:56.076Z",
+    "tool": "fontkit"
+  }
+}

@@ -1,0 +1,1410 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>GoDigital | No es decoración. Es entrega.</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      @font-face {
+        font-family: "Archivo";
+        src: url("capture/assets/fonts/k3k6o8UDI-1M0wlSV9XAw6lQkqWY8Q82sJaRE-NWIDdgffTTNDNp8A.ttf") format("truetype");
+        font-weight: 400;
+        font-style: normal;
+        font-display: block;
+      }
+      @font-face {
+        font-family: "Archivo";
+        src: url("capture/assets/fonts/k3k6o8UDI-1M0wlSV9XAw6lQkqWY8Q82sJaRE-NWIDdgffTT6jRp8A.ttf") format("truetype");
+        font-weight: 600;
+        font-style: normal;
+        font-display: block;
+      }
+      @font-face {
+        font-family: "Archivo";
+        src: url("capture/assets/fonts/k3k6o8UDI-1M0wlSV9XAw6lQkqWY8Q82sJaRE-NWIDdgffTTtDRp8A.ttf") format("truetype");
+        font-weight: 800;
+        font-style: normal;
+        font-display: block;
+      }
+      @font-face {
+        font-family: "Azeret Mono";
+        src: url("capture/assets/fonts/3XF5ErsiyJsY9O_Gepph-FvtTQgMQUdNekSfnPVh0g.ttf") format("truetype");
+        font-weight: 400;
+        font-style: normal;
+        font-display: block;
+      }
+      @font-face {
+        font-family: "Azeret Mono";
+        src: url("capture/assets/fonts/3XF5ErsiyJsY9O_Gepph-FvtTQgMQUdNekSfQvJh0g.ttf") format("truetype");
+        font-weight: 600;
+        font-style: normal;
+        font-display: block;
+      }
+
+      :root {
+        --cobalt: #1746d1;
+        --cobalt-deep: #0b2d7a;
+        --blueprint: #08245f;
+        --paper-bright: #fffdf5;
+        --paper: #f2ecd8;
+        --paper-muted: #ddd4b9;
+        --graphite: #182027;
+        --graphite-soft: #4c5760;
+        --redline: #a82f2a;
+        --blue-copy: #dbe4ff;
+        --blue-note: #b9cafb;
+        --dark-copy: #cdd2d6;
+        --dark-copy-bright: #e6e9eb;
+        --brand-white: #ffffff;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        width: 1080px;
+        height: 1920px;
+        margin: 0;
+        overflow: hidden;
+        background: #182027;
+        color: #182027;
+        font-family: "Archivo", Arial, sans-serif;
+      }
+
+      body {
+        position: relative;
+      }
+
+      #root,
+      .scene {
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+      }
+
+      #root {
+        position: relative;
+        isolation: isolate;
+      }
+
+      .scene {
+        position: absolute;
+        inset: 0;
+      }
+
+      #scene-1 {
+        z-index: 1;
+        background: #1746d1;
+      }
+
+      #scene-2 {
+        z-index: 2;
+        background: #fffdf5;
+        opacity: 0;
+        visibility: hidden;
+      }
+
+      #scene-3 {
+        z-index: 3;
+        background: #182027;
+        opacity: 0;
+        visibility: hidden;
+      }
+
+      #scene-4 {
+        z-index: 4;
+        background: #08245f;
+        opacity: 0;
+        visibility: hidden;
+      }
+
+      .scene-content {
+        position: relative;
+        z-index: 2;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: 100%;
+        padding: 112px 72px 210px;
+        gap: 36px;
+        box-sizing: border-box;
+      }
+
+      .blueprint-grid {
+        position: absolute;
+        inset: -32px;
+        background-color: #1746d1;
+        background-image:
+          linear-gradient(rgba(219, 228, 255, 0.18) 2px, rgba(219, 228, 255, 0) 2px),
+          linear-gradient(90deg, rgba(219, 228, 255, 0.18) 2px, rgba(219, 228, 255, 0) 2px);
+        background-size: 64px 64px;
+      }
+
+      .blueprint-grid--deep {
+        background-color: #08245f;
+        background-image:
+          linear-gradient(rgba(185, 202, 251, 0.17) 2px, rgba(185, 202, 251, 0) 2px),
+          linear-gradient(90deg, rgba(185, 202, 251, 0.17) 2px, rgba(185, 202, 251, 0) 2px);
+      }
+
+      .document-label {
+        margin: 0;
+        color: #0b2d7a;
+        font-family: "Azeret Mono", monospace;
+        font-size: 22px;
+        font-weight: 600;
+        line-height: 1.35;
+        letter-spacing: 0.09em;
+        text-transform: uppercase;
+      }
+
+      .document-label--paper {
+        color: #dbe4ff;
+      }
+
+      .document-label--dark {
+        color: #b9cafb;
+      }
+
+      .paper-sheet {
+        background: #fffdf5;
+        border-radius: 2px;
+        box-shadow: 15px 17px 0 #182027, 24px 31px 42px rgba(24, 32, 39, 0.24);
+      }
+
+      .paper-sheet--muted {
+        background: #f2ecd8;
+        box-shadow: 12px 14px 0 #ddd4b9, 20px 28px 36px rgba(24, 32, 39, 0.18);
+      }
+
+      .logo-crop {
+        position: relative;
+        width: 268px;
+        height: 76px;
+        overflow: hidden;
+      }
+
+      .logo-crop img {
+        position: absolute;
+        width: 268px;
+        height: 268px;
+        top: -96px;
+        left: 0;
+        object-fit: contain;
+      }
+
+      .logo-crop--mark {
+        background-image: url("assets/logo-dark.svg");
+        background-size: 268px 268px;
+        background-position: center -96px;
+        background-repeat: no-repeat;
+      }
+
+      .scene-index {
+        color: #b9cafb;
+        font-family: "Azeret Mono", monospace;
+        font-size: 19px;
+        letter-spacing: 0.08em;
+      }
+
+      .registration-mark {
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        opacity: 0.78;
+      }
+
+      .registration-mark::before,
+      .registration-mark::after {
+        position: absolute;
+        content: "";
+        background: currentColor;
+      }
+
+      .registration-mark::before {
+        width: 30px;
+        height: 2px;
+        top: 14px;
+        left: 0;
+      }
+
+      .registration-mark::after {
+        width: 2px;
+        height: 30px;
+        top: 0;
+        left: 14px;
+      }
+
+      .caption-layer {
+        position: absolute;
+        inset: 0;
+        z-index: 30;
+        pointer-events: none;
+      }
+
+      .caption-group {
+        position: absolute;
+        left: 72px;
+        right: 72px;
+        bottom: 246px;
+        display: flex;
+        justify-content: center;
+        visibility: hidden;
+        opacity: 0;
+      }
+
+      .caption-group span {
+        max-width: 900px;
+        padding: 18px 25px 20px;
+        background: #fffdf5;
+        color: #182027;
+        border-radius: 2px;
+        box-shadow: 7px 8px 0 #182027;
+        font-size: 64px;
+        font-weight: 800;
+        line-height: 1.02;
+        letter-spacing: -0.03em;
+        text-align: center;
+      }
+
+      .caption-group span b {
+        color: inherit;
+        font: inherit;
+      }
+
+      .caption-group--blue span {
+        background: #1746d1;
+        color: #fffdf5;
+      }
+
+      .caption-group--red span {
+        background: #fffdf5;
+        color: #a82f2a;
+        outline: 4px solid #a82f2a;
+        outline-offset: -4px;
+      }
+
+      /* Beat 1 */
+      .s1-content {
+        color: #fffdf5;
+      }
+
+      .s1-ghost {
+        position: absolute;
+        top: 122px;
+        right: -78px;
+        color: #dbe4ff;
+        font-family: "Azeret Mono", monospace;
+        font-size: 180px;
+        font-weight: 600;
+        letter-spacing: -0.08em;
+        opacity: 0.16;
+      }
+
+      .s1-ghost::before,
+      .s3-ghost::before,
+      .s4-ghost::before {
+        content: attr(data-text);
+      }
+
+      .s1-masthead {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        min-height: 82px;
+      }
+
+      .s1-stage {
+        display: grid;
+        grid-template-rows: 360px 1fr;
+        flex: 1;
+        gap: 42px;
+        min-height: 0;
+      }
+
+      .capture-window {
+        position: relative;
+        overflow: hidden;
+        border: 3px solid #dbe4ff;
+        background: #08245f;
+        box-shadow: 12px 14px 0 #0b2d7a;
+      }
+
+      .capture-window::after {
+        position: absolute;
+        inset: 0;
+        content: "";
+        border: 22px solid #1746d1;
+        pointer-events: none;
+      }
+
+      .capture-window img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: 50% 8%;
+      }
+
+      .capture-window__tag {
+        position: absolute;
+        top: 26px;
+        left: 26px;
+        z-index: 2;
+        padding: 10px 14px;
+        background: #182027;
+        color: #e6e9eb;
+        font-family: "Azeret Mono", monospace;
+        font-size: 18px;
+        font-weight: 600;
+        letter-spacing: 0.07em;
+      }
+
+      .review-sheet {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        min-height: 0;
+        padding: 55px 52px 68px;
+        color: #182027;
+      }
+
+      .review-sheet__topline,
+      .review-sheet__footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+      }
+
+      .review-sheet__status {
+        padding: 9px 13px;
+        border-radius: 999px;
+        background: #1746d1;
+        color: #fffdf5;
+        font-family: "Azeret Mono", monospace;
+        font-size: 18px;
+        font-weight: 600;
+        letter-spacing: 0.07em;
+      }
+
+      .wrong-brief {
+        position: relative;
+        margin: 36px 0 28px;
+      }
+
+      .wrong-brief strong {
+        display: block;
+        font-size: 148px;
+        font-weight: 800;
+        line-height: 0.88;
+        letter-spacing: -0.04em;
+      }
+
+      .redline-svg {
+        position: absolute;
+        left: -18px;
+        top: 30%;
+        width: calc(100% + 36px);
+        height: 150px;
+        overflow: visible;
+      }
+
+      .redline-path {
+        fill: none;
+        stroke: #a82f2a;
+        stroke-width: 16;
+        stroke-linecap: square;
+        stroke-dasharray: 960;
+        stroke-dashoffset: 0;
+      }
+
+      .corrective-copy {
+        max-width: 770px;
+        margin: 0;
+        color: #0b2d7a;
+        font-size: 86px;
+        font-weight: 800;
+        line-height: 0.98;
+        letter-spacing: -0.035em;
+      }
+
+      .review-sheet__footer {
+        padding-top: 26px;
+        border-top: 3px solid rgba(24, 32, 39, 0.28);
+      }
+
+      .redaction {
+        width: 320px;
+        height: 24px;
+        background: #182027;
+      }
+
+      .s1-dossier-edge {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 5;
+        height: 100px;
+        background: #f2ecd8;
+        box-shadow: 0 -14px 0 #ddd4b9;
+      }
+
+      /* Beat 2 */
+      .s2-content {
+        padding-top: 96px;
+        padding-bottom: 180px;
+        gap: 30px;
+      }
+
+      .s2-header {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 32px;
+      }
+
+      .s2-header h2 {
+        max-width: 730px;
+        margin: 0;
+        font-size: 86px;
+        font-weight: 800;
+        line-height: 0.95;
+        letter-spacing: -0.035em;
+      }
+
+      .s2-layout {
+        display: grid;
+        grid-template-rows: 890px 1fr;
+        flex: 1;
+        gap: 32px;
+        min-height: 0;
+      }
+
+      .dossier-stage {
+        position: relative;
+        perspective: 1200px;
+      }
+
+      .dossier {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        width: 94%;
+        height: 830px;
+        padding: 54px 48px 44px;
+        gap: 25px;
+      }
+
+      .dossier__top {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 24px;
+      }
+
+      .dossier__top h3 {
+        margin: 10px 0 0;
+        font-size: 62px;
+        font-weight: 800;
+        line-height: 0.96;
+        letter-spacing: -0.03em;
+      }
+
+      .status-chip {
+        flex: 0 0 auto;
+        padding: 10px 14px;
+        border-radius: 999px;
+        background: #1746d1;
+        color: #fffdf5;
+        font-family: "Azeret Mono", monospace;
+        font-size: 18px;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+      }
+
+      .case-redaction {
+        display: grid;
+        grid-template-columns: 132px 1fr;
+        align-items: center;
+        gap: 20px;
+        padding: 20px 0;
+        border-top: 3px solid rgba(24, 32, 39, 0.24);
+        border-bottom: 3px solid rgba(24, 32, 39, 0.24);
+      }
+
+      .case-redaction__bar {
+        width: 100%;
+        height: 26px;
+        background: #182027;
+      }
+
+      .scope-row {
+        display: grid;
+        grid-template-columns: 132px 1fr;
+        gap: 20px;
+        align-items: start;
+        padding-bottom: 17px;
+        border-bottom: 2px solid rgba(24, 32, 39, 0.18);
+      }
+
+      .scope-row span:first-child {
+        color: #4c5760;
+        font-family: "Azeret Mono", monospace;
+        font-size: 18px;
+        font-weight: 600;
+        letter-spacing: 0.07em;
+        text-transform: uppercase;
+      }
+
+      .scope-row strong {
+        font-size: 27px;
+        line-height: 1.25;
+      }
+
+      .dossier-checks {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 14px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .dossier-checks li {
+        min-height: 128px;
+        padding: 18px 16px;
+        border-top: 4px solid #1746d1;
+        background: #f2ecd8;
+        font-size: 23px;
+        font-weight: 600;
+        line-height: 1.2;
+      }
+
+      .dossier-checks b {
+        display: block;
+        margin-bottom: 8px;
+        color: #1746d1;
+        font-size: 32px;
+      }
+
+      .map-evidence {
+        display: grid;
+        grid-template-columns: 440px 1fr;
+        gap: 26px;
+        min-height: 0;
+      }
+
+      .map-crop {
+        position: relative;
+        overflow: hidden;
+        border: 4px solid #08245f;
+        background: #08245f;
+      }
+
+      .map-crop img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: 50% 38%;
+      }
+
+      .route-list {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 19px;
+        margin: 0;
+        padding: 24px 0 24px 56px;
+        list-style: none;
+      }
+
+      .route-list::before {
+        position: absolute;
+        left: 21px;
+        top: 88px;
+        bottom: 88px;
+        width: 4px;
+        content: "";
+        background: #1746d1;
+      }
+
+      .route-list li {
+        position: relative;
+        padding: 17px 16px 17px 24px;
+        background: #f2ecd8;
+        font-size: 28px;
+        font-weight: 800;
+        line-height: 1.05;
+      }
+
+      .route-list li::before {
+        position: absolute;
+        left: -46px;
+        top: 50%;
+        width: 20px;
+        height: 20px;
+        content: "";
+        border: 4px solid #1746d1;
+        background: #fffdf5;
+      }
+
+      /* Beat 3 */
+      .s3-content {
+        padding-top: 98px;
+        padding-bottom: 190px;
+        color: #e6e9eb;
+        gap: 28px;
+      }
+
+      .s3-ghost {
+        position: absolute;
+        top: 300px;
+        left: -45px;
+        color: #b9cafb;
+        font-family: "Azeret Mono", monospace;
+        font-size: 152px;
+        font-weight: 600;
+        letter-spacing: -0.07em;
+        opacity: 0.1;
+      }
+
+      .s3-header {
+        display: grid;
+        grid-template-columns: 1fr 310px;
+        align-items: end;
+        gap: 30px;
+      }
+
+      .s3-header h2 {
+        margin: 0;
+        color: #fffdf5;
+        font-size: 88px;
+        font-weight: 800;
+        line-height: 0.95;
+        letter-spacing: -0.035em;
+      }
+
+      .s3-header p:last-child {
+        margin: 0;
+        color: #cdd2d6;
+        font-size: 27px;
+        line-height: 1.35;
+      }
+
+      .decision-capture {
+        height: 274px;
+        overflow: hidden;
+        border-top: 3px solid #b9cafb;
+        border-bottom: 3px solid #b9cafb;
+      }
+
+      .decision-capture img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: 52% 68%;
+        opacity: 0.66;
+      }
+
+      .decision-log {
+        display: flex;
+        flex-direction: column;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        border-top: 2px solid rgba(185, 202, 251, 0.45);
+      }
+
+      .decision-log li {
+        display: grid;
+        grid-template-columns: 64px 1fr 300px 42px;
+        align-items: center;
+        min-height: 134px;
+        gap: 22px;
+        border-bottom: 2px solid rgba(185, 202, 251, 0.35);
+      }
+
+      .decision-log__number {
+        color: #b9cafb;
+        font-family: "Azeret Mono", monospace;
+        font-size: 22px;
+      }
+
+      .decision-log strong {
+        color: #fffdf5;
+        font-size: 34px;
+        line-height: 1.08;
+      }
+
+      .decision-log__output {
+        color: #b9cafb;
+        font-family: "Azeret Mono", monospace;
+        font-size: 19px;
+        font-weight: 600;
+        line-height: 1.35;
+        letter-spacing: 0.07em;
+        text-transform: uppercase;
+      }
+
+      .decision-log__check {
+        color: #fffdf5;
+        font-size: 29px;
+      }
+
+      .s3-conclusion {
+        display: grid;
+        grid-template-columns: 1fr 224px;
+        align-items: center;
+        gap: 22px;
+        padding: 30px 34px;
+        background: #f2ecd8;
+        color: #182027;
+        box-shadow: 10px 12px 0 #0b2d7a;
+      }
+
+      .s3-conclusion strong {
+        font-size: 55px;
+        line-height: 0.97;
+        letter-spacing: -0.03em;
+      }
+
+      .criteria-crop {
+        height: 112px;
+        overflow: hidden;
+        border: 3px solid #a82f2a;
+      }
+
+      .criteria-crop img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: 80% 55%;
+      }
+
+      .red-bracket {
+        position: absolute;
+        right: 42px;
+        top: 735px;
+        width: 70px;
+        height: 520px;
+        border-top: 7px solid #a82f2a;
+        border-right: 7px solid #a82f2a;
+        border-bottom: 7px solid #a82f2a;
+      }
+
+      /* Beat 4 */
+      .s4-content {
+        padding-top: 102px;
+        padding-bottom: 164px;
+        color: #fffdf5;
+        gap: 28px;
+      }
+
+      .s4-ghost {
+        position: absolute;
+        right: -74px;
+        bottom: 160px;
+        color: #b9cafb;
+        font-family: "Azeret Mono", monospace;
+        font-size: 170px;
+        font-weight: 600;
+        letter-spacing: -0.08em;
+        opacity: 0.13;
+      }
+
+      .s4-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 26px;
+      }
+
+      .s4-layout {
+        display: grid;
+        grid-template-rows: 1fr 294px;
+        flex: 1;
+        gap: 34px;
+        min-height: 0;
+      }
+
+      .cta-paper {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        min-height: 0;
+        padding: 62px 56px 58px;
+        color: #182027;
+      }
+
+      .cta-paper__tab {
+        position: absolute;
+        top: -34px;
+        right: 44px;
+        padding: 14px 20px;
+        background: #f2ecd8;
+        color: #0b2d7a;
+        font-family: "Azeret Mono", monospace;
+        font-size: 18px;
+        font-weight: 600;
+        letter-spacing: 0.09em;
+      }
+
+      .cta-paper h2 {
+        max-width: 840px;
+        margin: 22px 0 18px;
+        font-size: 106px;
+        font-weight: 800;
+        line-height: 0.9;
+        letter-spacing: -0.04em;
+      }
+
+      .cta-paper__lead {
+        max-width: 760px;
+        margin: 0;
+        color: #4c5760;
+        font-size: 29px;
+        line-height: 1.35;
+      }
+
+      .intake-list {
+        display: grid;
+        gap: 0;
+        margin: 24px 0;
+        padding: 0;
+        list-style: none;
+        border-top: 3px solid rgba(24, 32, 39, 0.22);
+      }
+
+      .intake-list li {
+        display: grid;
+        grid-template-columns: 38px 1fr;
+        align-items: center;
+        min-height: 76px;
+        border-bottom: 3px solid rgba(24, 32, 39, 0.22);
+        font-size: 27px;
+        font-weight: 600;
+      }
+
+      .intake-list b {
+        color: #1746d1;
+        font-size: 30px;
+      }
+
+      .whatsapp-button {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        min-height: 112px;
+        padding: 24px 30px;
+        border-radius: 8px;
+        background: #1746d1;
+        color: #fffdf5;
+        box-shadow: 9px 10px 0 #182027;
+        font-size: 35px;
+        font-weight: 800;
+      }
+
+      .whatsapp-button__arrow {
+        font-size: 52px;
+      }
+
+      .verified-url {
+        margin-top: 24px;
+        color: #0b2d7a;
+        font-family: "Azeret Mono", monospace;
+        font-size: 18px;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+      }
+
+      .proof-strip {
+        display: grid;
+        grid-template-columns: 1fr 270px;
+        gap: 26px;
+      }
+
+      .proof-strip__capture {
+        overflow: hidden;
+        border: 3px solid #b9cafb;
+        background: #1746d1;
+      }
+
+      .proof-strip__capture img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: 50% 74%;
+      }
+
+      .proof-strip__note {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 24px;
+        background: #f2ecd8;
+        color: #182027;
+        box-shadow: 8px 9px 0 #1746d1;
+      }
+
+      .proof-strip__note strong {
+        font-size: 32px;
+        line-height: 1.05;
+      }
+
+      .approval-stamp {
+        position: absolute;
+        right: 102px;
+        bottom: 194px;
+        z-index: 8;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 310px;
+        min-height: 116px;
+        padding: 16px;
+        border: 7px solid #a82f2a;
+        color: #a82f2a;
+        font-family: "Azeret Mono", monospace;
+        font-size: 28px;
+        font-weight: 600;
+        line-height: 1.05;
+        letter-spacing: 0.07em;
+        text-align: center;
+        text-transform: uppercase;
+        background: #fffdf5;
+      }
+
+      .shutter {
+        position: absolute;
+        left: 0;
+        z-index: 25;
+        width: 1080px;
+        height: 960px;
+        background-color: #08245f;
+        background-image:
+          linear-gradient(rgba(185, 202, 251, 0.18) 2px, rgba(185, 202, 251, 0) 2px),
+          linear-gradient(90deg, rgba(185, 202, 251, 0.18) 2px, rgba(185, 202, 251, 0) 2px);
+        background-size: 64px 64px;
+      }
+
+      #shutter-top {
+        top: 0;
+      }
+
+      #shutter-bottom {
+        bottom: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <!--
+      THESIS: Practical delivery replaces decorative website theater; the ad refuses generic agency montage and unsupported claims.
+      OWN-WORLD: Cobalt blueprints, warm drafting paper, graphite registers, red corrections, tabs, checks, redactions, and hard paper offsets.
+      STORY: Reject the wrong brief, open a real delivery file, inspect the decisions, then open a direct WhatsApp conversation.
+      FIRST VIEWPORT: A live GoDigital capture sits beneath a paper review sheet while “WEB BONITA” is redlined in the first second.
+      FORM: A four-beat vertical delivery dossier with fast-fast-SLOW-fast rhythm and document-work transitions.
+    -->
+    <div
+      id="root"
+      data-composition-id="godigital-viral"
+      data-start="0"
+      data-duration="15"
+      data-width="1080"
+      data-height="1920"
+    >
+      <audio id="narration" src="narration.wav" data-start="0" data-duration="14.7" data-track-index="0" data-volume="1"></audio>
+      <audio id="paper-hit-a" src="sfx-paper.wav" data-start="0.12" data-duration="0.24" data-track-index="1" data-volume="0.72"></audio>
+      <audio id="paper-scratch" src="sfx-paper.wav" data-start="0.73" data-duration="0.24" data-track-index="1" data-volume="0.48"></audio>
+      <audio id="paper-transition-a" src="sfx-paper.wav" data-start="2.35" data-duration="0.24" data-track-index="1" data-volume="0.66"></audio>
+      <audio id="check-system" src="sfx-stamp.wav" data-start="5.44" data-duration="0.34" data-track-index="2" data-volume="0.34"></audio>
+      <audio id="check-equipment" src="sfx-stamp.wav" data-start="5.98" data-duration="0.34" data-track-index="2" data-volume="0.43"></audio>
+      <audio id="check-install" src="sfx-stamp.wav" data-start="6.46" data-duration="0.34" data-track-index="2" data-volume="0.54"></audio>
+      <audio id="shutter-hit" src="sfx-shutter.wav" data-start="7.05" data-duration="0.42" data-track-index="3" data-volume="0.62"></audio>
+      <audio id="button-hit" src="sfx-paper.wav" data-start="13.75" data-duration="0.24" data-track-index="1" data-volume="0.56"></audio>
+      <audio id="final-stamp" src="sfx-stamp.wav" data-start="14.09" data-duration="0.34" data-track-index="2" data-volume="0.82"></audio>
+
+      <section id="scene-1" class="scene">
+        <div class="blueprint-grid s1-enter" data-layout-ignore aria-hidden="true"></div>
+        <div class="s1-ghost s1-enter" aria-hidden="true" data-text="REV / 001"></div>
+        <div class="scene-content s1-content">
+          <header class="s1-masthead s1-enter">
+            <div>
+              <p class="document-label document-label--paper">Revisión de alcance</p>
+              <span class="scene-index">00:00 / expediente abierto</span>
+            </div>
+            <div class="logo-crop logo-crop--mark" aria-label="GoDigital"></div>
+          </header>
+
+          <div class="s1-stage">
+            <div class="capture-window s1-enter" data-layout-allow-overflow>
+              <img id="site-capture-hero" src="capture/screenshots/scroll-000.png" alt="Sitio actual de GoDigital con su expediente de entrega" />
+              <span class="capture-window__tag">SITIO ACTUAL / ENTREGA REAL</span>
+            </div>
+
+            <article class="review-sheet paper-sheet s1-enter" data-layout-allow-overflow>
+              <div class="review-sheet__topline s1-enter">
+                <p class="document-label">Brief recibido</p>
+                <span class="review-sheet__status"><span>EN REVISIÓN</span></span>
+              </div>
+              <div class="wrong-brief s1-enter">
+                <strong>WEB BONITA</strong>
+                <svg class="redline-svg" viewBox="0 0 960 150" aria-hidden="true">
+                  <path class="redline-path" d="M18 112 C190 36, 420 126, 936 54" />
+                </svg>
+              </div>
+              <p class="corrective-copy s1-enter">NO PONE TU NEGOCIO EN MARCHA.</p>
+              <div class="review-sheet__footer s1-enter">
+                <p class="document-label">Cliente</p>
+                <div class="redaction" aria-label="Identidad reservada"></div>
+              </div>
+            </article>
+          </div>
+        </div>
+        <span class="registration-mark s1-enter" style="left: 28px; top: 92px; color: #dbe4ff" aria-hidden="true"></span>
+        <span class="registration-mark s1-enter" style="right: 28px; bottom: 126px; color: #dbe4ff" aria-hidden="true"></span>
+        <div class="s1-dossier-edge s1-enter" data-layout-allow-overflow aria-hidden="true"></div>
+      </section>
+
+      <section id="scene-2" class="scene">
+        <div class="scene-content s2-content">
+          <header class="s2-header s2-enter">
+            <div>
+              <p class="document-label">Expediente de entrega / Caso 001</p>
+              <h2>LA SOLUCIÓN SE DISEÑA ALREDEDOR DEL NEGOCIO.</h2>
+            </div>
+            <span class="scene-index" style="color: #0b2d7a">02 / prueba</span>
+          </header>
+
+          <div class="s2-layout">
+            <div class="dossier-stage s2-enter" data-layout-allow-overflow>
+              <article class="dossier paper-sheet">
+                <div class="dossier__top s2-enter">
+                  <div>
+                    <p class="document-label">Expediente GD / Caso reservado</p>
+                    <h3>ENTREGA INTEGRAL</h3>
+                  </div>
+                  <span class="status-chip s2-enter"><span>ENTREGADO</span></span>
+                </div>
+                <div class="case-redaction s2-enter">
+                  <span class="document-label">Cliente</span>
+                  <div class="case-redaction__bar"></div>
+                </div>
+                <div class="scope-row s2-enter">
+                  <span>Perfil</span>
+                  <strong>Emprendimiento en etapa inicial</strong>
+                </div>
+                <div class="scope-row s2-enter">
+                  <span>Necesidad</span>
+                  <strong>Ordenar inventario, ventas y ganancia</strong>
+                </div>
+                <div class="scope-row s2-enter">
+                  <span>Alcance</span>
+                  <strong>Sistema, equipos, instalación y herramienta web</strong>
+                </div>
+                <ul class="dossier-checks">
+                  <li class="s2-enter"><b>✓</b>Sistema práctico</li>
+                  <li class="s2-enter"><b>✓</b>Equipos integrados</li>
+                  <li class="s2-enter"><b>✓</b>Instalación completa</li>
+                </ul>
+              </article>
+            </div>
+
+            <div class="map-evidence">
+              <div class="map-crop s2-enter" data-layout-allow-overflow>
+                <img id="site-capture-map" src="capture/screenshots/scroll-026.png" alt="Mapa de resolución real del sitio de GoDigital" />
+              </div>
+              <ol class="route-list" data-layout-allow-overflow>
+                <li class="s2-enter">SISTEMA</li>
+                <li class="s2-enter">EQUIPOS</li>
+                <li class="s2-enter">INSTALACIÓN</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+        <span class="registration-mark s2-enter" style="left: 28px; top: 74px; color: #1746d1" aria-hidden="true"></span>
+        <span class="registration-mark s2-enter" style="right: 30px; bottom: 128px; color: #1746d1" aria-hidden="true"></span>
+      </section>
+
+      <section id="scene-3" class="scene">
+        <div class="s3-ghost s3-enter" aria-hidden="true" data-text="DECISIÓN / SALIDA"></div>
+        <div class="scene-content s3-content">
+          <header class="s3-header s3-enter">
+            <div>
+              <p class="document-label document-label--dark">Registro de decisiones</p>
+              <h2>CADA DECISIÓN QUEDA CLARA.</h2>
+            </div>
+            <p>La claridad es parte de cómo se define y se entrega el proyecto.</p>
+          </header>
+
+          <div class="decision-capture s3-enter" data-layout-allow-overflow>
+            <img id="decision-capture-image" src="capture/screenshots/scroll-052.png" alt="Registro real de decisiones del sitio GoDigital" />
+          </div>
+
+          <ol class="decision-log" data-layout-allow-overflow>
+            <li class="s3-enter">
+              <span class="decision-log__number">01</span>
+              <strong>Entender la operación</strong>
+              <span class="decision-log__output">Necesidad documentada</span>
+              <span class="decision-log__check">✓</span>
+            </li>
+            <li class="s3-enter">
+              <span class="decision-log__number">02</span>
+              <strong>Definir una solución posible</strong>
+              <span class="decision-log__output">Alcance entendible</span>
+              <span class="decision-log__check">✓</span>
+            </li>
+            <li class="s3-enter">
+              <span class="decision-log__number">03</span>
+              <strong>Construir y poner en marcha</strong>
+              <span class="decision-log__output">Solución operativa</span>
+              <span class="decision-log__check">✓</span>
+            </li>
+            <li class="s3-enter">
+              <span class="decision-log__number">04</span>
+              <strong>Entregar con claridad</strong>
+              <span class="decision-log__output">Entrega inspeccionable</span>
+              <span class="decision-log__check">✓</span>
+            </li>
+          </ol>
+
+          <div class="s3-conclusion s3-enter">
+            <strong>NO ES DECORACIÓN. ES UNA SOLUCIÓN COMPLETA.</strong>
+            <div class="criteria-crop">
+              <img src="capture/screenshots/scroll-087.png" alt="Criterios de entrega inspeccionable de GoDigital" />
+            </div>
+          </div>
+        </div>
+        <div class="red-bracket s3-enter" aria-hidden="true"></div>
+        <span class="registration-mark s3-enter" style="left: 28px; bottom: 114px; color: #b9cafb" aria-hidden="true"></span>
+      </section>
+
+      <section id="scene-4" class="scene">
+        <div class="blueprint-grid blueprint-grid--deep s4-enter" data-layout-ignore aria-hidden="true"></div>
+        <div class="s4-ghost s4-enter" aria-hidden="true" data-text="APERTURA / 001"></div>
+        <div class="scene-content s4-content">
+          <header class="s4-header s4-enter">
+            <div class="logo-crop" data-layout-allow-overflow aria-label="GoDigital">
+              <img src="assets/logo-dark.svg" alt="GoDigital" />
+            </div>
+            <div style="text-align: right">
+              <p class="document-label document-label--paper">Apertura de proyecto</p>
+              <span class="scene-index">15:00 / conversación directa</span>
+            </div>
+          </header>
+
+          <div class="s4-layout">
+            <article class="cta-paper paper-sheet s4-enter">
+              <span class="cta-paper__tab s4-enter"><span>PARA EMPEZAR</span></span>
+              <div>
+                <p class="document-label">No necesitás llegar con la solución definida</p>
+                <h2>CONTANOS QUÉ NECESITÁS ORDENAR.</h2>
+                <p class="cta-paper__lead">La primera conversación sirve para entender el problema y definir una solución posible.</p>
+              </div>
+              <ul class="intake-list" data-layout-allow-overflow>
+                <li class="s4-enter"><b>✓</b>Qué hace tu negocio</li>
+                <li class="s4-enter"><b>✓</b>Qué parte del trabajo querés ordenar</li>
+                <li class="s4-enter"><b>✓</b>Qué necesitás que quede funcionando</li>
+              </ul>
+              <div>
+                <div class="whatsapp-button s4-enter">
+                  <span>HABLAR POR WHATSAPP</span>
+                  <span class="whatsapp-button__arrow">↗</span>
+                </div>
+                <p class="verified-url">CONTACTO VERIFICADO / wa.me/message/UFU3OSZAUAYKK1</p>
+              </div>
+            </article>
+
+            <div class="proof-strip" data-layout-allow-overflow>
+              <div class="proof-strip__capture s4-enter" data-layout-allow-overflow>
+                <img id="contact-capture-image" src="capture/screenshots/scroll-096.png" alt="Sección real de contacto de GoDigital" />
+              </div>
+              <div class="proof-strip__note s4-enter">
+                <p class="document-label">Trato directo</p>
+                <strong>De persona a persona.</strong>
+                <span class="scene-index" style="color: #0b2d7a">Fuente / sitio actual</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="approval-stamp s4-enter">Listo para conversar</div>
+        <span class="registration-mark s4-enter" style="left: 28px; top: 76px; color: #b9cafb" aria-hidden="true"></span>
+        <span class="registration-mark s4-enter" style="right: 30px; bottom: 108px; color: #b9cafb" aria-hidden="true"></span>
+      </section>
+
+      <div id="shutter-top" class="shutter" data-layout-ignore aria-hidden="true"></div>
+      <div id="shutter-bottom" class="shutter" data-layout-ignore aria-hidden="true"></div>
+
+      <div class="caption-layer" aria-hidden="true">
+        <div id="caption-0" class="caption-group"><span><b>UNA WEB BONITA</b></span></div>
+        <div id="caption-1" class="caption-group caption-group--red"><span><b>NO PONE TU NEGOCIO</b></span></div>
+        <div id="caption-2" class="caption-group"><span><b>EN MARCHA</b></span></div>
+        <div id="caption-3" class="caption-group caption-group--blue"><span><b>EN GODIGITAL</b></span></div>
+        <div id="caption-4" class="caption-group"><span><b>LA SOLUCIÓN SE DISEÑA</b></span></div>
+        <div id="caption-5" class="caption-group"><span><b>ALREDEDOR DEL NEGOCIO</b></span></div>
+        <div id="caption-6" class="caption-group caption-group--blue"><span><b>SISTEMA, EQUIPOS E INSTALACIÓN</b></span></div>
+        <div id="caption-7" class="caption-group"><span><b>CADA DECISIÓN QUEDA CLARA</b></span></div>
+        <div id="caption-8" class="caption-group caption-group--red"><span><b>NO ES DECORACIÓN</b></span></div>
+        <div id="caption-9" class="caption-group"><span><b>ES UNA SOLUCIÓN COMPLETA</b></span></div>
+        <div id="caption-10" class="caption-group caption-group--blue"><span><b>PARA UNA OPERACIÓN REAL</b></span></div>
+        <div id="caption-11" class="caption-group"><span><b>CONTANOS QUÉ NECESITÁS ORDENAR</b></span></div>
+        <div id="caption-12" class="caption-group caption-group--blue"><span><b>POR WHATSAPP</b></span></div>
+      </div>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+
+      tl.set("#scene-1", { opacity: 1, visibility: "visible", y: 0 }, 0);
+      tl.set("#scene-2", { opacity: 0, visibility: "hidden", y: 0 }, 0);
+      tl.set("#scene-3", { opacity: 0, visibility: "hidden", y: 0 }, 0);
+      tl.set("#scene-4", { opacity: 0, visibility: "hidden", y: 0 }, 0);
+      tl.set("#shutter-top", { y: -960 }, 0);
+      tl.set("#shutter-bottom", { y: 960 }, 0);
+
+      // Beat 1: the review sheet rejects surface-only delivery.
+      tl.fromTo("#scene-1 .blueprint-grid", { opacity: 0 }, { opacity: 1, duration: 0.42, ease: "sine.out" }, 0.1);
+      tl.to("#scene-1 .blueprint-grid", { y: -24, duration: 2.24, ease: "none" }, 0.12);
+      tl.fromTo(".s1-ghost", { x: 130, opacity: 0 }, { x: 0, opacity: 0.16, duration: 0.72, ease: "expo.out" }, 0.14);
+      tl.fromTo(".s1-masthead", { y: -46, opacity: 0 }, { y: 0, opacity: 1, duration: 0.48, ease: "power3.out" }, 0.12);
+      tl.fromTo(".capture-window", { y: 74, opacity: 0, scale: 0.97 }, { y: 0, opacity: 1, scale: 1, duration: 0.52, ease: "power4.out" }, 0.18);
+      tl.to("#site-capture-hero", { scale: 1.065, duration: 2.12, ease: "none" }, 0.18);
+      tl.fromTo(".review-sheet", { y: 210, opacity: 0, rotation: -1.2 }, { y: 0, opacity: 1, rotation: -0.4, duration: 0.62, ease: "expo.out" }, 0.28);
+      tl.fromTo(".review-sheet__topline", { x: -54, opacity: 0 }, { x: 0, opacity: 1, duration: 0.34, ease: "power2.out" }, 0.4);
+      tl.fromTo(".wrong-brief", { scale: 1.13, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.28, ease: "power4.out" }, 0.46);
+      tl.fromTo(".redline-path", { strokeDashoffset: 960 }, { strokeDashoffset: 0, duration: 0.42, ease: "power3.out" }, 0.68);
+      tl.fromTo(".corrective-copy", { x: -86, opacity: 0 }, { x: 0, opacity: 1, duration: 0.43, ease: "expo.out" }, 0.78);
+      tl.fromTo(".review-sheet__footer", { y: 42, opacity: 0 }, { y: 0, opacity: 1, duration: 0.32, ease: "circ.out" }, 1.12);
+      tl.fromTo("#scene-1 .registration-mark", { scale: 0, opacity: 0 }, { scale: 1, opacity: 0.78, duration: 0.26, stagger: 0.08, ease: "back.out" }, 0.32);
+      tl.fromTo(".s1-dossier-edge", { y: 118 }, { y: 0, duration: 0.3, ease: "power4.out" }, 2.08);
+
+      // Transition 1: the new dossier page pushes the rejected brief upward.
+      tl.set("#scene-2", { opacity: 1, visibility: "visible", y: 1920 }, 2.35);
+      tl.to("#scene-1", { y: -1920, duration: 0.45, ease: "power3.inOut" }, 2.35);
+      tl.to("#scene-2", { y: 0, duration: 0.45, ease: "power3.inOut" }, 2.35);
+      tl.set("#scene-1", { opacity: 0, visibility: "hidden", y: 0 }, 2.81);
+
+      // Beat 2: the real case scope becomes readable evidence.
+      tl.fromTo(".s2-header", { y: 58, opacity: 0 }, { y: 0, opacity: 1, duration: 0.52, ease: "expo.out" }, 2.5);
+      tl.fromTo(".dossier-stage", { y: 96, opacity: 0, scale: 0.94, rotationX: 7, rotationY: -5 }, { y: 0, opacity: 1, scale: 1, rotationX: 0, rotationY: 0, duration: 0.72, ease: "power4.out" }, 2.56);
+      tl.fromTo(".dossier__top", { x: -58, opacity: 0 }, { x: 0, opacity: 1, duration: 0.38, ease: "power3.out" }, 2.74);
+      tl.fromTo(".status-chip", { scale: 0.68, opacity: 0, rotation: -7 }, { scale: 1, opacity: 1, rotation: 0, duration: 0.31, ease: "back.out" }, 2.86);
+      tl.fromTo(".case-redaction", { scaleX: 0, opacity: 0, transformOrigin: "left center" }, { scaleX: 1, opacity: 1, duration: 0.39, ease: "circ.out" }, 3.02);
+      tl.fromTo(".scope-row", { x: 64, opacity: 0 }, { x: 0, opacity: 1, duration: 0.36, stagger: 0.09, ease: "power2.out" }, 3.28);
+      tl.fromTo(".dossier-checks li", { y: 52, opacity: 0, rotation: 1.6 }, { y: 0, opacity: 1, rotation: 0, duration: 0.34, stagger: 0.1, ease: "expo.out" }, 4.12);
+      tl.fromTo(".map-crop", { x: -92, opacity: 0 }, { x: 0, opacity: 1, duration: 0.47, ease: "power4.out" }, 4.56);
+      tl.to("#site-capture-map", { y: -34, scale: 1.035, duration: 2.32, ease: "none" }, 4.62);
+      tl.fromTo(".route-list li", { x: 88, opacity: 0 }, { x: 0, opacity: 1, duration: 0.34, stagger: 0.14, ease: "power3.out" }, 4.86);
+      tl.fromTo("#scene-2 .registration-mark", { scale: 0, opacity: 0 }, { scale: 1, opacity: 0.78, duration: 0.24, stagger: 0.1, ease: "back.out" }, 3.06);
+
+      // Transition 2: a blueprint scanner shutter pivots from proof to decisions.
+      tl.to("#shutter-top", { y: 0, duration: 0.25, ease: "power3.in" }, 7.05);
+      tl.to("#shutter-bottom", { y: 0, duration: 0.25, ease: "power3.in" }, 7.05);
+      tl.set("#scene-2", { opacity: 0, visibility: "hidden" }, 7.3);
+      tl.set("#scene-3", { opacity: 1, visibility: "visible" }, 7.3);
+      tl.to("#shutter-top", { y: -960, duration: 0.25, ease: "power3.out" }, 7.35);
+      tl.to("#shutter-bottom", { y: 960, duration: 0.25, ease: "power3.out" }, 7.35);
+
+      // Beat 3: slower, inspectable value crystallization.
+      tl.fromTo(".s3-ghost", { x: -120, opacity: 0 }, { x: 0, opacity: 0.1, duration: 0.92, ease: "sine.out" }, 7.32);
+      tl.fromTo(".s3-header", { y: 68, opacity: 0 }, { y: 0, opacity: 1, duration: 0.62, ease: "expo.out" }, 7.4);
+      tl.fromTo(".decision-capture", { scaleX: 0, opacity: 0, transformOrigin: "left center" }, { scaleX: 1, opacity: 1, duration: 0.74, ease: "power3.out" }, 7.58);
+      tl.to("#decision-capture-image", { x: -24, scale: 1.025, duration: 4.18, ease: "none" }, 7.62);
+      tl.fromTo(".decision-log li", { x: 72, opacity: 0 }, { x: 0, opacity: 1, duration: 0.46, stagger: 0.16, ease: "power2.out" }, 7.84);
+      tl.fromTo(".s3-conclusion", { y: 92, opacity: 0 }, { y: 0, opacity: 1, duration: 0.58, ease: "circ.out" }, 8.82);
+      tl.fromTo(".red-bracket", { scaleY: 0, opacity: 0, transformOrigin: "top center" }, { scaleY: 1, opacity: 1, duration: 0.68, ease: "power3.out" }, 9.18);
+      tl.fromTo("#scene-3 .registration-mark", { scale: 0, opacity: 0 }, { scale: 1, opacity: 0.78, duration: 0.32, ease: "back.out" }, 7.72);
+
+      // Transition 3: a project-opening sheet pushes the decision log away.
+      tl.set("#scene-4", { opacity: 1, visibility: "visible", y: 1920 }, 12.1);
+      tl.to("#scene-3", { y: -1920, duration: 0.45, ease: "power3.inOut" }, 12.1);
+      tl.to("#scene-4", { y: 0, duration: 0.45, ease: "power3.inOut" }, 12.1);
+      tl.set("#scene-3", { opacity: 0, visibility: "hidden", y: 0 }, 12.56);
+
+      // Beat 4: the dossier resolves into one concrete action.
+      tl.fromTo("#scene-4 .blueprint-grid", { opacity: 0 }, { opacity: 1, duration: 0.38, ease: "sine.out" }, 12.18);
+      tl.to("#scene-4 .blueprint-grid", { y: -18, duration: 2.7, ease: "none" }, 12.2);
+      tl.fromTo(".s4-ghost", { x: 130, opacity: 0 }, { x: 0, opacity: 0.13, duration: 0.64, ease: "expo.out" }, 12.2);
+      tl.fromTo(".s4-header", { y: -52, opacity: 0 }, { y: 0, opacity: 1, duration: 0.46, ease: "power3.out" }, 12.24);
+      tl.fromTo(".s4-header .logo-crop", { scaleX: 0, transformOrigin: "left center" }, { scaleX: 1, duration: 0.52, ease: "power4.out" }, 12.3);
+      tl.fromTo(".cta-paper", { y: 148, opacity: 0, rotation: 0.9 }, { y: 0, opacity: 1, rotation: 0, duration: 0.58, ease: "expo.out" }, 12.28);
+      tl.fromTo(".cta-paper__tab", { x: 84, opacity: 0 }, { x: 0, opacity: 1, duration: 0.34, ease: "circ.out" }, 12.5);
+      tl.fromTo(".cta-paper h2", { x: -72, opacity: 0 }, { x: 0, opacity: 1, duration: 0.44, ease: "power4.out" }, 12.46);
+      tl.fromTo(".cta-paper__lead", { y: 36, opacity: 0 }, { y: 0, opacity: 1, duration: 0.38, ease: "power2.out" }, 12.68);
+      tl.fromTo(".intake-list li", { x: 58, opacity: 0 }, { x: 0, opacity: 1, duration: 0.3, stagger: 0.1, ease: "power3.out" }, 12.82);
+      tl.fromTo(".whatsapp-button", { scale: 0.94, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.34, ease: "back.out" }, 13.32);
+      tl.fromTo(".verified-url", { y: 28, opacity: 0 }, { y: 0, opacity: 1, duration: 0.28, ease: "sine.out" }, 13.5);
+      tl.fromTo(".proof-strip__capture", { x: -76, opacity: 0 }, { x: 0, opacity: 1, duration: 0.38, ease: "power4.out" }, 13.02);
+      tl.to("#contact-capture-image", { scale: 1.04, y: -18, duration: 1.76, ease: "none" }, 13.06);
+      tl.fromTo(".proof-strip__note", { x: 76, opacity: 0 }, { x: 0, opacity: 1, duration: 0.42, ease: "expo.out" }, 13.14);
+      tl.fromTo(".approval-stamp", { scale: 1.48, opacity: 0, rotation: -8 }, { scale: 1, opacity: 1, rotation: -2, duration: 0.3, ease: "power4.out" }, 14.08);
+      tl.fromTo("#scene-4 .registration-mark", { scale: 0, opacity: 0 }, { scale: 1, opacity: 0.78, duration: 0.24, stagger: 0.08, ease: "back.out" }, 12.38);
+
+      // Transcript-timed caption groups. The CTA scene itself carries the final spoken line.
+      tl.set("#caption-0", { visibility: "visible" }, 0.03);
+      tl.fromTo("#caption-0", { y: 32, opacity: 0 }, { y: 0, opacity: 1, duration: 0.14, ease: "power3.out" }, 0.03);
+      tl.to("#caption-0", { y: -12, opacity: 0, duration: 0.1, ease: "power2.in" }, 0.63);
+      tl.set("#caption-0", { opacity: 0, visibility: "hidden" }, 0.73);
+
+      tl.set("#caption-1", { visibility: "visible" }, 0.73);
+      tl.fromTo("#caption-1", { x: -42, opacity: 0 }, { x: 0, opacity: 1, duration: 0.15, ease: "expo.out" }, 0.73);
+      tl.to("#caption-1", { x: 20, opacity: 0, duration: 0.11, ease: "power3.in" }, 1.59);
+      tl.set("#caption-1", { opacity: 0, visibility: "hidden" }, 1.7);
+
+      tl.set("#caption-2", { visibility: "visible" }, 1.71);
+      tl.fromTo("#caption-2", { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.14, ease: "circ.out" }, 1.71);
+      tl.to("#caption-2", { y: -12, opacity: 0, duration: 0.1, ease: "power2.in" }, 2.42);
+      tl.set("#caption-2", { opacity: 0, visibility: "hidden" }, 2.52);
+
+      tl.set("#caption-3", { visibility: "visible" }, 2.54);
+      tl.fromTo("#caption-3", { scale: 0.92, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.14, ease: "power4.out" }, 2.54);
+      tl.to("#caption-3", { scale: 0.97, opacity: 0, duration: 0.1, ease: "power2.in" }, 3.03);
+      tl.set("#caption-3", { opacity: 0, visibility: "hidden" }, 3.13);
+
+      tl.set("#caption-4", { visibility: "visible" }, 3.13);
+      tl.fromTo("#caption-4", { x: 38, opacity: 0 }, { x: 0, opacity: 1, duration: 0.15, ease: "power3.out" }, 3.13);
+      tl.to("#caption-4", { x: -16, opacity: 0, duration: 0.1, ease: "power3.in" }, 4.2);
+      tl.set("#caption-4", { opacity: 0, visibility: "hidden" }, 4.3);
+
+      tl.set("#caption-5", { visibility: "visible" }, 4.3);
+      tl.fromTo("#caption-5", { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.15, ease: "expo.out" }, 4.3);
+      tl.to("#caption-5", { y: -12, opacity: 0, duration: 0.1, ease: "power2.in" }, 5.34);
+      tl.set("#caption-5", { opacity: 0, visibility: "hidden" }, 5.44);
+
+      tl.set("#caption-6", { visibility: "visible" }, 5.44);
+      tl.fromTo("#caption-6", { scale: 0.9, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.16, ease: "power4.out" }, 5.44);
+      tl.to("#caption-6", { scale: 0.97, opacity: 0, duration: 0.11, ease: "power3.in" }, 7.19);
+      tl.set("#caption-6", { opacity: 0, visibility: "hidden" }, 7.3);
+
+      tl.set("#caption-7", { visibility: "visible" }, 7.3);
+      tl.fromTo("#caption-7", { x: -38, opacity: 0 }, { x: 0, opacity: 1, duration: 0.16, ease: "circ.out" }, 7.3);
+      tl.to("#caption-7", { x: 18, opacity: 0, duration: 0.11, ease: "power2.in" }, 8.69);
+      tl.set("#caption-7", { opacity: 0, visibility: "hidden" }, 8.8);
+
+      tl.set("#caption-8", { visibility: "visible" }, 8.8);
+      tl.fromTo("#caption-8", { scale: 1.12, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.14, ease: "power4.out" }, 8.8);
+      tl.to("#caption-8", { scale: 0.96, opacity: 0, duration: 0.11, ease: "power3.in" }, 9.69);
+      tl.set("#caption-8", { opacity: 0, visibility: "hidden" }, 9.8);
+
+      tl.set("#caption-9", { visibility: "visible" }, 9.83);
+      tl.fromTo("#caption-9", { y: 34, opacity: 0 }, { y: 0, opacity: 1, duration: 0.15, ease: "expo.out" }, 9.83);
+      tl.to("#caption-9", { y: -12, opacity: 0, duration: 0.1, ease: "power2.in" }, 10.85);
+      tl.set("#caption-9", { opacity: 0, visibility: "hidden" }, 10.95);
+
+      tl.set("#caption-10", { visibility: "visible" }, 11.04);
+      tl.fromTo("#caption-10", { x: 40, opacity: 0 }, { x: 0, opacity: 1, duration: 0.15, ease: "power3.out" }, 11.04);
+      tl.to("#caption-10", { x: -18, opacity: 0, duration: 0.11, ease: "power3.in" }, 12.2);
+      tl.set("#caption-10", { opacity: 0, visibility: "hidden" }, 12.31);
+
+      window.__timelines["godigital-viral"] = tl;
+    </script>
+  </body>
+</html>

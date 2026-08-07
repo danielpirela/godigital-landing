@@ -1,0 +1,161 @@
+[a] Saltar al contenido
+[a] Caso real
+[a] Servicios
+[a] Cómo entregamos
+[a] Criterios
+[a] Hablar por WhatsApp
+[span] Menú
+[p] Índice del proyecto
+[a] Caso real
+[a] Servicios
+[a] Cómo entregamos
+[a] Criterios
+[a] Contacto
+[a] Hablar por WhatsApp
+[a] godigitalveweb@gmail.com
+[p] Caso anonimizado · Entrega real
+[h1] Un emprendedor necesitaba ordenar su negocio.
+[span] Entregamos el sistema completo.
+[p] Inventario, ventas y ganancias; el equipo adecuado; la instalación; y una herramienta web pensada para el contexto cambiario de Venezuela. GoDigital se ocupó de principio a fin.
+[a] Hablar por WhatsApp
+[a] Abrir el expediente
+[p] Tecnología de calidad para que más personas puedan vivir de su propio negocio.
+[p] Expediente GD / Caso reservado
+[p] Entrega integral
+[span] Entregado
+[span] Cliente
+[dt] Perfil
+[dd] Emprendimiento en etapa inicial
+[dt] Necesidad
+[dd] Gestionar inventario, ventas y ganancia con una solución accesible
+[dt] Alcance
+[dd] Sistema, equipos, instalación y herramienta web
+[p] Entrega verificada
+[li] Tablet e impresora térmica conseguidas a precios competitivos
+[li] Sistema completo instalado
+[li] Herramienta web para gestionar la tasa diaria
+[li] Implementación manejada de punta a punta
+[p] El cliente está conforme con la solución y con la transparencia de GoDigital.
+[span] Entrega
+[strong] Completa
+[span] Siguiente hoja
+[span] 01 / Expediente abierto
+[p] Expediente de entrega · Caso 001
+[h2] La solución empezó por entender cómo funcionaba el negocio.
+[p] No había que imponer una plataforma enorme. Había que resolver una operación concreta con una inversión razonable y dejarla lista para usar.
+[div] Necesidad
+[p] Registro inicial
+[h3] Control diario, sin una solución fuera de escala.
+[li] Conocer el inventario disponible
+[li] Registrar las ventas
+[li] Entender la ganancia del negocio
+[p] El presupuesto también era parte del problema a resolver.
+[p] Mapa de resolución
+[span] Una sola entrega, varias decisiones coordinadas
+[p] Sistema
+[h3] Elegir una solución práctica
+[p] El alcance se ajustó a inventario, ventas y ganancia.
+[p] Equipamiento
+[h3] Conseguir lo necesario
+[p] GoDigital buscó la tablet y la impresora térmica a precios competitivos.
+[p] Puesta en marcha
+[h3] Instalar el conjunto completo
+[p] La entrega incluyó la instalación para que el sistema pudiera entrar en operación.
+[aside] No fue solo software: fue una solución completa para una operación real.
+[p] Decisión adicional · Contexto local
+[h3] Una tarea diaria merecía una herramienta propia.
+[p] En Venezuela, muchos precios se expresan en dólares pero se cobran legalmente en bolívares. GoDigital creó una herramienta web intuitiva que reduce el trabajo manual al administrar la tasa de cambio del día.
+[span] Referencia
+[strong] Precio en USD
+[span] Dato diario
+[strong] Tasa de cambio
+[span] Operación
+[strong] Cobro en bolívares
+[p] Resultado confirmado: menos trabajo manual al gestionar la tasa diaria.
+[p] Capacidades de entrega
+[h2] Lo digital se diseña alrededor del negocio, no al revés.
+[p] GoDigital combina estrategia, diseño, desarrollo y puesta en marcha para resolver lo que el proyecto realmente necesita.
+[aside] El alcance se conversa y se documenta. No se infla para parecer más grande.
+[div] Operación
+[h3] Sistemas prácticos para el negocio
+[p] Herramientas que ordenan tareas reales sin sumar complejidad innecesaria.
+[li] Inventario y ventas
+[li] Flujos administrativos
+[li] Herramientas web a medida
+[div] Presencia
+[h3] Sitios, identidad y posicionamiento
+[p] Una presencia digital clara para explicar qué hacés, generar confianza y facilitar el próximo paso.
+[li] Sitios web
+[li] Identidad visual
+[li] Contenido y posicionamiento
+[div] Puesta en marcha
+[h3] Equipos, configuración e instalación
+[p] Cuando la solución necesita hardware, GoDigital también puede buscarlo, configurarlo e integrarlo.
+[li] Búsqueda transparente
+[li] Configuración
+[li] Instalación completa
+[div] Entrega
+[h3] Un responsable de principio a fin
+[p] Las decisiones de negocio, diseño, tecnología y puesta en marcha se coordinan como una sola entrega.
+[li] Alcance entendible
+[li] Ejecución hands-on
+[li] Decisiones explicadas
+[p] Registro de decisiones
+[h2] Cada etapa tiene una pregunta y una salida concreta.
+[p] La claridad no se agrega al final. Es parte de cómo se define y se entrega el proyecto.
+[h3] Entender la operación
+[p] Empezamos por cómo trabajás hoy, qué te frena, con qué presupuesto contás y qué necesitás poner en marcha.
+[p] Salida: necesidad documentada
+[h3] Definir una solución posible
+[p] Ordenamos qué hace falta, qué no, y cómo se conectan el sistema, la presencia digital o el equipamiento.
+[p] Salida: alcance entendible
+[h3] Construir y poner en marcha
+[p] Diseñamos, desarrollamos, buscamos o configuramos lo necesario y coordinamos la implementación completa.
+[p] Salida: solución operativa
+[h3] Entregar con claridad
+[p] Cerramos la entrega con una solución usable y las decisiones importantes explicadas de forma directa.
+[p] Salida: entrega inspeccionable
+[p] Por qué existe GoDigital
+[h2] Construir independencia también es ayudar a otros a construir la suya.
+[p] El fundador de GoDigital también quiere vivir de un proyecto propio. Esa experiencia crea una empatía concreta con quien está empezando, cuidando su inversión y tratando de convertir trabajo en sustento.
+[p] Principio fundador
+[strong] Calidad accesible
+[p] Tecnología bien resuelta, explicada con honestidad y pensada para una realidad económica concreta.
+[p] Criterios de entrega
+[h2] Lo importante tiene que poder revisarse.
+[p] Una entrega premium no necesita esconderse detrás de palabras técnicas. Tiene que dejar claro qué se resolvió y cómo se llegó hasta ahí.
+[div] Inspeccionable
+[h3] ¿Qué problema estamos resolviendo?
+[p] La necesidad del negocio se escribe antes de elegir herramientas o equipos.
+[h3] ¿Qué incluye la entrega?
+[p] Sistema, presencia digital, equipamiento o instalación quedan separados y entendibles.
+[h3] ¿Qué hace falta para usarla?
+[p] La puesta en marcha forma parte de la conversación, no se deja como sorpresa para el cliente.
+[h3] ¿Por qué se tomó cada decisión?
+[p] Las decisiones importantes se explican con relación al negocio, al presupuesto y al contexto.
+[p] Apertura de proyecto
+[h2] No necesitás llegar con la solución definida.
+[p] Contanos cómo funciona tu negocio hoy, qué tarea se volvió difícil y qué necesitás poner en marcha. La primera conversación sirve para ordenar el problema.
+[a] Hablar por WhatsApp
+[p] Email:
+[a] godigitalveweb@gmail.com
+[div] Para empezar
+[h3] Alcanza con que nos cuentes:
+[li] Qué hace tu negocio
+[li] Qué parte del trabajo querés ordenar
+[li] Qué necesitás que quede funcionando
+[p] La conversación es directa, de persona a persona.
+[p] Tecnología accesible, entrega responsable y trato directo.
+[a] Caso real
+[a] Servicios
+[a] Cómo entregamos
+[a] Criterios
+[a] Contacto
+[p] Contacto verificado
+[a] Hablar por WhatsApp
+[a] godigitalveweb@gmail.com
+[span] Atención en español para Latinoamérica
+[p] Presencia verificada
+[a] Instagram
+[p] © 2026 GoDigital
+[p] Hecho para emprendedores que están construyendo algo propio.
