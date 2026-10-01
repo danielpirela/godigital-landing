@@ -43,3 +43,6 @@ coverage/
 # ─── Misc ─────────────────────────────────────────────
 *.tgz
 .cache/
+
+# gentle-ai skill registry (machine-specific, auto-generated)
+.atl/
