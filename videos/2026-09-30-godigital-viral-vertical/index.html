@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GoDigital — Viral Vertical Video</title>
+
+  <style>
+    @font-face {
+      font-family: "Space Grotesk";
+      src: url("fonts/SpaceGrotesk-Regular.ttf") format("truetype");
+      font-weight: 400;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "Space Grotesk";
+      src: url("fonts/SpaceGrotesk-Bold.ttf") format("truetype");
+      font-weight: 700;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "DM Sans";
+      src: url("fonts/DMSans-Light.ttf") format("truetype");
+      font-weight: 300;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "DM Sans";
+      src: url("fonts/DMSans-Medium.ttf") format("truetype");
+      font-weight: 500;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "JetBrains Mono";
+      src: url("fonts/JetBrainsMono-Regular.ttf") format("truetype");
+      font-weight: 400;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "JetBrains Mono";
+      src: url("fonts/JetBrainsMono-Medium.ttf") format("truetype");
+      font-weight: 500;
+      font-display: swap;
+    }
+
+    :root {
+      --bg: #0D1B2A;
+      --bg-elevated: #1B2A4A;
+      --fg: #F0F4F8;
+      --fg-muted: #94A3B8;
+      --accent: #E9C46A;
+      --accent-strong: #F4A261;
+      --accent-soft: #F4D35E;
+      --success: #2A9D8F;
+      --error: #E76F51;
+      --radius-sm: 8px;
+      --radius-md: 16px;
+      --radius-lg: 24px;
+      --radius-xl: 32px;
+      --radius-full: 9999px;
+      --shadow-sm: 0 2px 8px rgba(0,0,0,0.15);
+      --shadow-md: 0 8px 24px rgba(0,0,0,0.2);
+      --shadow-lg: 0 16px 48px rgba(0,0,0,0.25);
+      --shadow-glow: 0 0 60px rgba(233, 196, 106, 0.15);
+      --shadow-glow-strong: 0 0 100px rgba(233, 196, 106, 0.25);
+      --gradient-brand: linear-gradient(135deg, #E9C46A 0%, #F4A261 100%);
+      --gradient-hero: radial-gradient(ellipse at center, #1B2A4A 0%, #0D1B2A 70%);
+      --gradient-card: linear-gradient(145deg, #1B2A4A 0%, #0D1B2A 100%);
+      --ease-brand: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+      --ease-sharp: cubic-bezier(0.4, 0, 0.2, 1);
+      --ease-glide: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    [data-composition-id="godigital-viral"] {
+      width: 1080px;
+      height: 1920px;
+      background: var(--bg);
+      color: var(--fg);
+      font-family: "DM Sans", system-ui, sans-serif;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* ============ SCENE CONTAINER ============ */
+    .scene {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .scene-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+      padding: 80px 60px;
+      gap: 24px;
+      box-sizing: border-box;
+      text-align: center;
+    }
+
+    /* ============ TYPOGRAPHY ============ */
+    .hero-headline {
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 110px;
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      color: var(--fg);
+      max-width: 960px;
+    }
+
+    .section-headline {
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 72px;
+      font-weight: 600;
+      line-height: 1.1;
+      letter-spacing: -0.01em;
+      color: var(--fg);
+      max-width: 900px;
+    }
+
+    .body-large {
+      font-family: "DM Sans", sans-serif;
+      font-size: 32px;
+      font-weight: 400;
+      line-height: 1.4;
+      color: var(--fg);
+      max-width: 800px;
+    }
+
+    .body {
+      font-family: "DM Sans", sans-serif;
+      font-size: 24px;
+      font-weight: 400;
+      line-height: 1.5;
+      color: var(--fg-muted);
+      max-width: 760px;
+    }
+
+    .caption {
+      font-family: "DM Sans", sans-serif;
+      font-size: 20px;
+      font-weight: 400;
+      line-height: 1.4;
+      color: var(--accent);
+      max-width: 700px;
+    }
+
+    .micro {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 1.3;
+      letter-spacing: 0.05em;
+      color: var(--fg-muted);
+      text-transform: uppercase;
+    }
+
+    .accent-text { color: var(--accent); }
+    .accent-strong { color: var(--accent-strong); }
+    .success-text { color: var(--success); }
+    .fg-text { color: var(--fg); }
+    .muted-text { color: var(--fg-muted); }
+
+    mark {
+      background: transparent;
+      color: var(--accent);
+      font-weight: 600;
+      padding: 0 4px;
+    }
+
+    /* ============ BUTTON / CTA ============ */
+    .cta-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 20px 48px;
+      background: var(--gradient-brand);
+      color: var(--bg);
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      border-radius: var(--radius-full);
+      border: none;
+      cursor: pointer;
+      box-shadow: var(--shadow-glow);
+      white-space: nowrap;
+    }
+
+    .cta-button svg { width: 24px; height: 24px; }
+
+    /* ============ CARDS ============ */
+    .card {
+      background: var(--gradient-card);
+      border: 1px solid rgba(233, 196, 106, 0.15);
+      border-radius: var(--radius-lg);
+      padding: 32px 40px;
+      box-shadow: var(--shadow-md);
+      max-width: 720px;
+      width: 100%;
+      text-align: left;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      max-width: 900px;
+      width: 100%;
+    }
+
+    .card-item {
+      background: var(--bg-elevated);
+      border: 1px solid rgba(233, 196, 106, 0.1);
+      border-radius: var(--radius-md);
+      padding: 24px 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .card-icon {
+      width: 48px;
+      height: 48px;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+
+    .card-title {
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--fg);
+    }
+
+    .card-desc {
+      font-size: 18px;
+      color: var(--fg-muted);
+      line-height: 1.4;
+    }
+
+    /* ============ BADGES ============ */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 20px;
+      background: rgba(233, 196, 106, 0.15);
+      border: 1px solid rgba(233, 196, 106, 0.3);
+      border-radius: var(--radius-full);
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--accent);
+    }
+
+    .badge-success {
+      background: rgba(42, 157, 143, 0.15);
+      border-color: rgba(42, 157, 143, 0.3);
+      color: var(--success);
+    }
+
+    /* ============ SOCIAL HANDLES ============ */
+    .social-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+
+    .social-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 24px;
+      background: var(--bg-elevated);
+      border: 1px solid rgba(233, 196, 106, 0.1);
+      border-radius: var(--radius-md);
+      text-decoration: none;
+      color: var(--fg);
+      font-family: "DM Sans", sans-serif;
+      font-size: 20px;
+      font-weight: 500;
+      transition: all 0.2s var(--ease-brand);
+    }
+
+    .social-item svg { width: 28px; height: 28px; flex-shrink: 0; }
+    .social-item.whatsapp { border-color: #25D366; color: #25D366; }
+    .social-item.instagram { border: 1px solid transparent; background: linear-gradient(135deg, #E1306C, #F77737, #FCAF45); background-clip: padding-box; }
+    .social-item.instagram::before {
+      content: ''; position: absolute; inset: -1px;
+      background: linear-gradient(135deg, #E1306C, #F77737, #FCAF45);
+      border-radius: var(--radius-md);
+      z-index: -1;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    .social-item.instagram:hover::before { opacity: 1; }
+    .social-item.tiktok { border-color: #00F2EA; color: #00F2EA; }
+
+    /* ============ DECORATIVES ============ */
+    .decorative-glow {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.12;
+      pointer-events: none;
+    }
+
+    .decorative-glow-1 { width: 600px; height: 600px; background: var(--accent); top: -200px; right: -200px; }
+    .decorative-glow-2 { width: 400px; height: 400px; background: var(--accent-strong); bottom: 100px; left: -100px; }
+
+    .ghost-text {
+      position: absolute;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 200px;
+      font-weight: 700;
+      color: var(--accent);
+      opacity: 0.03;
+      white-space: nowrap;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .grid-pattern {
+      position: absolute;
+      inset: 0;
+      opacity: 0.02;
+      background-image:
+        linear-gradient(rgba(233,196,106,0.5) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(233,196,106,0.5) 1px, transparent 1px);
+      background-size: 80px 80px;
+      pointer-events: none;
+    }
+
+    .accent-line {
+      position: absolute;
+      height: 1px;
+      background: var(--gradient-brand);
+      opacity: 0.3;
+      pointer-events: none;
+    }
+
+    /* ============ PHONE MOCKUP ============ */
+    .phone-frame {
+      position: relative;
+      width: 280px;
+      height: 560px;
+      background: #1a1a2e;
+      border-radius: 36px;
+      border: 8px solid #2a2a4a;
+      box-shadow: var(--shadow-lg), var(--shadow-glow);
+      overflow: hidden;
+    }
+
+    .phone-screen {
+      position: absolute;
+      inset: 12px;
+      background: #0d1b2a;
+      border-radius: 28px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .phone-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+      background: rgba(27, 42, 74, 0.8);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(233,196,106,0.1);
+      min-width: 0;
+    }
+
+    .phone-title { font-size: 12px; font-weight: 600; color: var(--fg); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 160px; }
+    .phone-dots { display: flex; gap: 4px; flex-shrink: 0; }
+    .phone-dots span { width: 8px; height: 8px; border-radius: 50%; background: var(--fg-muted); opacity: 0.4; }
+
+    .phone-content { flex: 1; padding: 16px; display: flex; flex-direction: column; gap: 12px; overflow-y: auto; min-width: 0; }
+
+    .rate-card {
+      background: var(--gradient-card);
+      border: 1px solid rgba(233,196,106,0.2);
+      border-radius: var(--radius-md);
+      padding: 14px;
+      text-align: center;
+      min-width: 0;
+    }
+
+    .rate-label { font-size: 10px; color: var(--fg-muted); text-transform: uppercase; letter-spacing: 0.08em; white-space: nowrap; }
+    .rate-value { font-family: "JetBrains Mono", monospace; font-size: 24px; font-weight: 700; color: var(--accent); white-space: nowrap; }
+
+    .calc-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      min-width: 0;
+    }
+
+    .calc-input, .calc-output {
+      background: var(--bg);
+      border: 1px solid rgba(233,196,106,0.15);
+      border-radius: var(--radius-sm);
+      padding: 10px 8px;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 12px;
+      color: var(--fg);
+      text-align: center;
+      min-width: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .calc-output { color: var(--accent); font-weight: 700; background: rgba(233,196,106,0.1); }
+
+    /* ============ CHECKLIST ============ */
+    .checklist { display: flex; flex-direction: column; gap: 12px; margin-top: 16px; }
+    .check-item {
+      display: flex; align-items: flex-start; gap: 12px;
+      font-size: 18px; color: var(--fg); line-height: 1.4;
+    }
+    .check-icon {
+      width: 24px; height: 24px; color: var(--success); flex-shrink: 0; margin-top: 2px;
+    }
+
+    /* ============ TRANSITION OVERLAYS ============ */
+    .transition-wipe {
+      position: absolute;
+      inset: 0;
+      background: var(--bg);
+      transform-origin: left center;
+      pointer-events: none;
+      z-index: 100;
+    }
+
+    .transition-shader {
+      position: absolute;
+      inset: 0;
+      background: var(--gradient-brand);
+      opacity: 0;
+      pointer-events: none;
+      z-index: 100;
+      mix-blend-mode: screen;
+    }
+
+    /* ============ FINAL FADE ============ */
+    .final-fade {
+      position: absolute;
+      inset: 0;
+      background: var(--bg);
+      opacity: 0;
+      pointer-events: none;
+      z-index: 200;
+    }
+
+    /* ============ ACCESSIBILITY ============ */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div data-composition-id="godigital-viral" data-width="1080" data-height="1920" data-start="0" data-duration="30">
+
+    <!-- ============ BACKGROUND DECORATIVES (persistent across scenes) ============ -->
+    <div class="grid-pattern" id="grid-bg"></div>
+    <div class="decorative-glow decorative-glow-1" id="glow-1"></div>
+    <div class="decorative-glow decorative-glow-2" id="glow-2"></div>
+    <div class="ghost-text" id="ghost-1" style="top: 15%; left: -20%;">GODIGITAL</div>
+    <div class="ghost-text" id="ghost-2" style="bottom: 20%; right: -30%; transform: rotate(-15deg);">SISTEMAS</div>
+    <div class="accent-line" id="line-1" style="top: 40%; left: 10%; width: 30%;"></div>
+    <div class="accent-line" id="line-2" style="bottom: 35%; right: 10%; width: 40%;"></div>
+
+    <!-- ============ SCENE 1: HOOK (0-4.5s) ============ -->
+    <div id="s1" class="scene clip" data-start="0" data-duration="4.5" data-track-index="1">
+      <div class="scene-content">
+        <div class="badge" id="s1-badge">🇻🇪 REALIDAD VENEZOLANA</div>
+        <h1 class="hero-headline" id="s1-title">
+          Cada día<br><mark>PIERDES DINERO</mark><br>con el dólar manual
+        </h1>
+        <p class="body-large" id="s1-sub">Calculas a mano. Te equivocas. El cliente se va.</p>
+        <div class="badge badge-success" id="s1-badge2">⚡ Hay solución</div>
+      </div>
+    </div>
+
+    <!-- ============ SCENE 2: AGITATION (4.5-9.5s) ============ -->
+    <div id="s2" class="scene clip" data-start="4.5" data-duration="5" data-track-index="1">
+      <div class="scene-content">
+        <div class="badge" id="s2-badge">EL PROBLEMA DIARIO</div>
+        <h2 class="section-headline" id="s2-title">Tu día a día <mark>NO DEBERÍA SER ASÍ</mark></h2>
+
+        <div class="card-grid" id="s2-grid">
+          <div class="card-item" id="s2-card1">
+            <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            <div class="card-title">Pierdes 30 min/día</div>
+            <div class="card-desc">Solo en calcular el cambio</div>
+          </div>
+          <div class="card-item" id="s2-card2">
+            <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+            <div class="card-title">Errores = pérdidas</div>
+            <div class="card-desc">Un decimal mal puesto cuesta caro</div>
+          </div>
+          <div class="card-item" id="s2-card3">
+            <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+            <div class="card-title">Cliente impaciente</div>
+            <div class="card-desc">Espera mientras haces cuentas</div>
+          </div>
+          <div class="card-item" id="s2-card4">
+            <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <div class="card-title">Sin registro histórico</div>
+            <div class="card-desc">No sabes si ganas o pierdes</div>
+          </div>
+        </div>
+
+        <p class="caption" id="s2-caption">¿Te suena familiar? <mark>No eres el único.</mark></p>
+      </div>
+    </div>
+
+    <!-- ============ SCENE 3: SOLUTION REVEAL (9.5-16s) ============ -->
+    <div id="s3" class="scene clip" data-start="9.5" data-duration="6.5" data-track-index="1">
+      <div class="scene-content">
+        <div class="badge badge-success" id="s3-badge">✨ LA SOLUCIÓN COMPLETA</div>
+        <h2 class="section-headline" id="s3-title">GoDigital te da <mark>TODO EN UNO</mark></h2>
+
+        <!-- Phone mockup showing the web tool -->
+        <div class="phone-frame" id="s3-phone">
+          <div class="phone-screen">
+            <div class="phone-header">
+              <span class="phone-title">Calculadora Dólar BCV</span>
+              <div class="phone-dots"><span></span><span></span><span></span></div>
+            </div>
+            <div class="phone-content">
+              <div class="rate-card" id="s3-rate">
+                <div class="rate-label">Tasa BCV Hoy</div>
+                <div class="rate-value" id="rate-value">36.45</div>
+              </div>
+              <div class="calc-row">
+                <input type="text" class="calc-input" placeholder="Bs. / $" value="100" readonly>
+                <input type="text" class="calc-output" placeholder="Resultado" value="3.645" readonly>
+              </div>
+              <div class="calc-row">
+                <input type="text" class="calc-input" placeholder="Bs. / $" value="500" readonly>
+                <input type="text" class="calc-output" placeholder="Resultado" value="18.225" readonly>
+              </div>
+              <div class="calc-row">
+                <input type="text" class="calc-input" placeholder="Bs. / $" value="1.000" readonly>
+                <input type="text" class="calc-output" placeholder="Resultado" value="36.450" readonly>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="checklist" id="s3-checklist">
+          <div class="check-item" id="check1">
+            <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>Tablet + Impresora térmica <mark>incluidas</mark></span>
+          </div>
+          <div class="check-item" id="check2">
+            <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>App web: tasa automática <mark>cada día</mark></span>
+          </div>
+          <div class="check-item" id="check3">
+            <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>Inventario, ventas, ganancias <mark>en un clic</mark></span>
+          </div>
+          <div class="check-item" id="check4">
+            <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>Instalación y entrega <mark>puerta a puerta</mark></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ SCENE 4: PROOF / CASE STUDY (16-22s) ============ -->
+    <div id="s4" class="scene clip" data-start="16" data-duration="6" data-track-index="1">
+      <div class="scene-content">
+        <div class="badge" id="s4-badge">CASO REAL (ANÓNIMO)</div>
+        <h2 class="section-headline" id="s4-title">Emprendedor <mark>primerizo</mark> → Sistema completo en <mark>48 horas</mark></h2>
+
+        <div class="card" id="s4-card">
+          <div style="display: flex; flex-direction: column; gap: 16px;">
+            <div style="display: flex; align-items: center; gap: 12px; padding-bottom: 16px; border-bottom: 1px solid rgba(233,196,106,0.15);">
+              <div style="width: 56px; height: 56px; border-radius: var(--radius-full); background: var(--gradient-brand); display: flex; align-items: center; justify-content: center; color: var(--bg); font-family: 'Space Grotesk'; font-size: 22px; font-weight: 700;">E</div>
+              <div>
+                <div style="font-family: 'Space Grotesk'; font-size: 20px; font-weight: 600; color: var(--fg);">Emprendedor retail — Caracas</div>
+                <div style="font-size: 16px; color: var(--fg-muted);">Necesitaba: inventario + ventas + dólar diario</div>
+              </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; text-align: center;">
+              <div id="stat1">
+                <div style="font-family: 'JetBrains Mono'; font-size: 42px; font-weight: 700; color: var(--accent); line-height: 1;">48h</div>
+                <div style="font-size: 16px; color: var(--fg-muted); margin-top: 4px;">Entrega completa</div>
+              </div>
+              <div id="stat2">
+                <div style="font-family: 'JetBrains Mono'; font-size: 42px; font-weight: 700; color: var(--success); line-height: 1;">0</div>
+                <div style="font-size: 16px; color: var(--fg-muted); margin-top: 4px;">Errores en caja</div>
+              </div>
+              <div id="stat3">
+                <div style="font-family: 'JetBrains Mono'; font-size: 42px; font-weight: 700; color: var(--accent-strong); line-height: 1;">-90%</div>
+                <div style="font-size: 16px; color: var(--fg-muted); margin-top: 4px;">Tiempo en cálculos</div>
+              </div>
+            </div>
+
+            <div style="padding-top: 16px; border-top: 1px solid rgba(233,196,106,0.15);">
+              <p class="body" style="font-style: italic; color: var(--accent);">"Antes tardaba 30 min en el cambio. Ahora escaneo y listo. GoDigital me dio tranquilidad."</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="badge badge-success" id="s4-badge2">✅ Cliente satisfecho · Sistema funcionando</div>
+      </div>
+    </div>
+
+    <!-- ============ SCENE 5: CTA (22-30s) ============ -->
+    <div id="s5" class="scene clip" data-start="22" data-duration="8" data-track-index="1">
+      <div class="scene-content">
+        <div class="badge" id="s5-badge">¿LISTO PARA DEJAR DE PERDER TIEMPO?</div>
+        <h2 class="section-headline" id="s5-title">Tu sistema <mark>llave en mano</mark> te espera</h2>
+        <p class="body-large" id="s5-sub">Tablet + Impresora + App web + Instalación + Soporte</p>
+
+        <div class="cta-button" id="s5-cta">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+          Escríbenos por WhatsApp
+        </div>
+
+        <p class="micro" id="s5-micro">Respuesta en <mark>&lt; 5 min</mark> horario comercial</p>
+
+        <div class="social-row" id="s5-social">
+          <a href="https://wa.me/message/UFU3OSZAUAYKK1" class="social-item whatsapp" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72"/></svg>
+            <span>WhatsApp</span>
+          </a>
+          <a href="https://instagram.com/godigitalve" class="social-item instagram" target="_blank" rel="noopener" style="position: relative;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            <span>@godigitalve</span>
+          </a>
+          <a href="https://tiktok.com/@godigital45" class="social-item tiktok" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 3a2 2 0 012 2v6a7 7 0 01-7 7"/><path d="M16 3a2 2 0 012 2v6a7 7 0 01-7 7"/></svg>
+            <span>@godigital45</span>
+          </a>
+        </div>
+
+        <p class="caption" id="s5-final">GoDigital — Sistemas digitales prácticos para emprendedores reales</p>
+      </div>
+    </div>
+
+    <!-- ============ TRANSITION OVERLAYS ============ -->
+    <div class="transition-wipe" id="t12"></div>
+    <div class="transition-wipe" id="t23"></div>
+    <div class="transition-wipe" id="t34"></div>
+    <div class="transition-wipe" id="t45"></div>
+
+    <!-- ============ FINAL FADE ============ -->
+    <div class="final-fade" id="final-fade"></div>
+
+    <!-- ============ AUDIO ============ -->
+    <!-- Audio will be added separately via hyperframes media commands -->
+
+    <style>
+      [data-composition-id="godigital-viral"] {
+        /* Scoped styles already defined above */
+      }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+
+      // ============ HELPER FUNCTIONS ============
+      const brandEase = "cubic-bezier(0.16, 1, 0.3, 1)";
+      const springEase = "cubic-bezier(0.34, 1.56, 0.64, 1)";
+      const sharpEase = "cubic-bezier(0.4, 0, 0.2, 1)";
+      const glideEase = "cubic-bezier(0.25, 0.46, 0.45, 0.94)";
+
+      // ============ PERSISTENT DECORATIVE ANIMATIONS (loop throughout) ============
+      // Glow breathing
+      tl.to("#glow-1", { scale: 1.15, duration: 3.5, ease: "sine.inOut", repeat: 8, yoyo: true }, 0);
+      tl.to("#glow-2", { scale: 1.2, duration: 4, ease: "sine.inOut", repeat: 7, yoyo: true }, 0.5);
+
+      // Ghost text slow drift
+      tl.to("#ghost-1", { x: 40, y: -30, rotation: 2, duration: 20, ease: "none", repeat: 1, yoyo: true }, 0);
+      tl.to("#ghost-2", { x: -50, y: 40, rotation: -3, duration: 22, ease: "none", repeat: 1, yoyo: true }, 1);
+
+      // Accent lines pulse
+      tl.to("#line-1", { scaleX: 1.5, opacity: 0.6, duration: 2.5, ease: "sine.inOut", repeat: 11, yoyo: true }, 0);
+      tl.to("#line-2", { scaleX: 1.4, opacity: 0.5, duration: 3, ease: "sine.inOut", repeat: 9, yoyo: true }, 0.8);
+
+      // Grid subtle pulse
+      tl.to("#grid-bg", { opacity: 0.04, duration: 4, ease: "sine.inOut", repeat: 7, yoyo: true }, 0);
+
+      // ============ SCENE 1: HOOK (0-4.5s) ============
+      // Entrance animations
+      tl.from("#s1-badge", { y: 40, opacity: 0, duration: 0.5, ease: springEase }, 0.15);
+      tl.from("#s1-title", { y: 60, opacity: 0, duration: 0.8, ease: brandEase }, 0.25);
+      tl.from("#s1-sub", { y: 40, opacity: 0, duration: 0.6, ease: glideEase }, 0.5);
+      tl.from("#s1-badge2", { scale: 0.8, opacity: 0, duration: 0.4, ease: springEase }, 1.2);
+
+      // Transition 1→2: Wipe from left
+      tl.to("#t12", { scaleX: 1, duration: 0.6, ease: glideEase }, 4.5);
+      tl.set("#t12", { transformOrigin: "right center" }, 5.1);
+      tl.to("#t12", { scaleX: 0, duration: 0.5, ease: glideEase }, 5.1);
+
+      // ============ SCENE 2: AGITATION (4.5-9.5s) ============
+      tl.from("#s2-badge", { y: -40, opacity: 0, duration: 0.5, ease: springEase }, 5.1);
+      tl.from("#s2-title", { y: 50, opacity: 0, duration: 0.7, ease: brandEase }, 5.25);
+      tl.from("#s2-card1", { x: -60, opacity: 0, duration: 0.5, ease: glideEase }, 5.5);
+      tl.from("#s2-card2", { y: 40, opacity: 0, duration: 0.5, ease: glideEase }, 5.65);
+      tl.from("#s2-card3", { x: 60, opacity: 0, duration: 0.5, ease: glideEase }, 5.8);
+      tl.from("#s2-card4", { y: 40, opacity: 0, duration: 0.5, ease: glideEase }, 5.95);
+      tl.from("#s2-caption", { y: 30, opacity: 0, duration: 0.5, ease: glideEase }, 6.5);
+
+      // Transition 2→3: Wipe with brand color
+      tl.to("#t23", { scaleX: 1, duration: 0.6, ease: glideEase }, 9.5);
+      tl.set("#t23", { transformOrigin: "right center" }, 10.1);
+      tl.to("#t23", { scaleX: 0, duration: 0.5, ease: glideEase }, 10.1);
+
+      // ============ SCENE 3: SOLUTION (9.5-16s) ============
+      tl.from("#s3-badge", { y: -40, opacity: 0, duration: 0.5, ease: springEase }, 10.1);
+      tl.from("#s3-title", { y: 50, opacity: 0, duration: 0.7, ease: brandEase }, 10.25);
+      tl.from("#s3-phone", { scale: 0.85, y: 40, opacity: 0, duration: 0.8, ease: springEase }, 10.4);
+      tl.from("#s3-rate", { y: 30, opacity: 0, duration: 0.4, ease: glideEase }, 11.0);
+      tl.from("#check1", { x: -40, opacity: 0, duration: 0.4, ease: glideEase }, 11.2);
+      tl.from("#check2", { x: -40, opacity: 0, duration: 0.4, ease: glideEase }, 11.35);
+      tl.from("#check3", { x: -40, opacity: 0, duration: 0.4, ease: glideEase }, 11.5);
+      tl.from("#check4", { x: -40, opacity: 0, duration: 0.4, ease: glideEase }, 11.65);
+
+      // Transition 3→4
+      tl.to("#t34", { scaleX: 1, duration: 0.6, ease: glideEase }, 16);
+      tl.set("#t34", { transformOrigin: "right center" }, 16.6);
+      tl.to("#t34", { scaleX: 0, duration: 0.5, ease: glideEase }, 16.6);
+
+      // ============ SCENE 4: PROOF (16-22s) ============
+      tl.from("#s4-badge", { y: -40, opacity: 0, duration: 0.5, ease: springEase }, 16.6);
+      tl.from("#s4-title", { y: 50, opacity: 0, duration: 0.7, ease: brandEase }, 16.75);
+      tl.from("#s4-card", { y: 40, opacity: 0, duration: 0.6, ease: brandEase }, 17.0);
+      tl.from("#stat1", { scale: 0.5, opacity: 0, duration: 0.5, ease: springEase }, 17.5);
+      tl.from("#stat2", { scale: 0.5, opacity: 0, duration: 0.5, ease: springEase }, 17.65);
+      tl.from("#stat3", { scale: 0.5, opacity: 0, duration: 0.5, ease: springEase }, 17.8);
+      tl.from("#s4-badge2", { scale: 0.8, opacity: 0, duration: 0.4, ease: springEase }, 18.5);
+
+      // Transition 4→5
+      tl.to("#t45", { scaleX: 1, duration: 0.6, ease: glideEase }, 22);
+      tl.set("#t45", { transformOrigin: "right center" }, 22.6);
+      tl.to("#t45", { scaleX: 0, duration: 0.5, ease: glideEase }, 22.6);
+
+      // ============ SCENE 5: CTA (22-30s) ============
+      tl.from("#s5-badge", { y: -40, opacity: 0, duration: 0.5, ease: springEase }, 22.6);
+      tl.from("#s5-title", { y: 50, opacity: 0, duration: 0.7, ease: brandEase }, 22.75);
+      tl.from("#s5-sub", { y: 30, opacity: 0, duration: 0.5, ease: glideEase }, 23.0);
+      tl.from("#s5-cta", { scale: 0.85, y: 40, opacity: 0, duration: 0.6, ease: springEase }, 23.3);
+      tl.from("#s5-micro", { y: 20, opacity: 0, duration: 0.4, ease: glideEase }, 23.8);
+      tl.from("#s5-social > *", { y: 30, opacity: 0, duration: 0.4, ease: glideEase, stagger: 0.1 }, 24.0);
+      tl.from("#s5-final", { y: 20, opacity: 0, duration: 0.5, ease: glideEase }, 24.5);
+
+      // ============ FINAL FADE (last scene only - allowed exit) ============
+      tl.to("#final-fade", { opacity: 1, duration: 1, ease: "power2.inOut" }, 29);
+
+      // ============ REGISTER TIMELINE ============
+      window.__timelines["godigital-viral"] = tl;
+    </script>
+  </div>
+</body>
+</html>
